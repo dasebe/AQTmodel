@@ -1,0 +1,24 @@
+//
+// This file is part of an OMNeT++/OMNEST simulation example.
+//
+// Copyright (C) 1992-2008 Andras Varga
+//
+// This file is distributed WITHOUT ANY WARRANTY. See the file
+// `license' for details on this and other legal matters.
+//
+
+package node;
+
+//
+// Application model to generate traffic for the network.
+//
+simple Adversary like IAdversary
+{
+    parameters:
+		volatile double sendIaTime @unit(s) = default(10ms); // time between generating packets
+        int frameCapacity = default(1000); // L2Queue frame capacity (default value is not meaningful, but means infinite queue for L2Queue)
+    gates:
+        output adversaryControl @loose;
+}
+
+

@@ -21,10 +21,12 @@ class Adversary : public cSimpleModule
   private:
     // configuration
     cPar *timeSlots;
+    long bufferSize;
+    SimTime timeSync;
 
     struct Inj
     {
-        int packetCount;   // [start,stop] time range for injection
+        long packetCount;   // [start,stop] time range for injection
         const char* atNode;         // where to initially deploy the packets upon injection
         double interInjectionTime;  // 1/injectionRate - will directly go into the offset for scheduleAt events
         AdversarialInjectionMessage *message; //adversarial injection command to be send to nodes
@@ -66,7 +68,9 @@ Adversary::~Adversary()
 void Adversary::initialize()
 {
     timeSlots = &par("sendIaTime");
+    bufferSize = par("frameCapacity");
     injectionCount = 0;
+    timeSync = simTime(); // == 0 (as we init!)
     WATCH(injectionCount);
 
     //define adversarial injections
@@ -75,7 +79,7 @@ void Adversary::initialize()
 
     //class 0 (initial packets)
     injections[0].interInjectionTime = 0;
-    injections[0].packetCount=10;
+    injections[0].packetCount=bufferSize;
     injections[0].message =  new AdversarialInjectionMessage("initial set");
     injections[0].atNode = "v0";
     injections[0].message->setPathArraySize(1);
@@ -90,7 +94,7 @@ void Adversary::initialize()
 
     //class 1 (round 1)
     injections[1].interInjectionTime = timeSlots->doubleValue();
-    injections[1].packetCount=10;
+    injections[1].packetCount=bufferSize;
     injections[1].message =  new AdversarialInjectionMessage("set 1");
     injections[1].atNode = "v0";
     injections[1].message->setPathArraySize(4);
@@ -108,7 +112,7 @@ void Adversary::initialize()
 
     //class 2 (round 2) confinement packets
     injections[2].interInjectionTime = timeSlots->doubleValue();
-    injections[2].packetCount=5;
+    injections[2].packetCount=bufferSize/2;
     injections[2].message =  new AdversarialInjectionMessage("confinement 1");
     injections[2].atNode = "w0";
     injections[2].message->setPathArraySize(1);
@@ -119,11 +123,12 @@ void Adversary::initialize()
     selfNote->setKind(2); //this means that the first entry of the injection struct shall be started by this message
     selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 2 (default value is 0)
     //when to start this phase
-    scheduleAt(simTime() + 10*(timeSlots->doubleValue()), selfNote);
+    timeSync = simTime() + injections[1].packetCount*(timeSlots->doubleValue());
+    scheduleAt(timeSync, selfNote);
 
     //class 3 (round 2)
     injections[3].interInjectionTime = timeSlots->doubleValue();
-    injections[3].packetCount=10;
+    injections[3].packetCount=bufferSize;
     injections[3].message =  new AdversarialInjectionMessage("set 2");
     injections[3].atNode = "v0";
     injections[3].message->setPathArraySize(4);
@@ -137,11 +142,11 @@ void Adversary::initialize()
     selfNote->setKind(3); //this means that the first entry of the injection struct shall be started by this message
     selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 2 (default value is 0)
     //when to start this phase
-    scheduleAt(simTime() + 10*(timeSlots->doubleValue()), selfNote);
+    scheduleAt(timeSync, selfNote);
 
     //class 4 (round 3)
     injections[4].interInjectionTime = timeSlots->doubleValue();
-    injections[4].packetCount=10;
+    injections[4].packetCount=bufferSize;
     injections[4].message =  new AdversarialInjectionMessage("set 3");
     injections[4].atNode = "v1";
     injections[4].message->setPathArraySize(1);
@@ -152,7 +157,8 @@ void Adversary::initialize()
     selfNote->setKind(4); //this means that the first entry of the injection struct shall be started by this message
     selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 2 (default value is 0)
     //when to start this phase
-    scheduleAt(simTime() + 20*(timeSlots->doubleValue()), selfNote);
+    timeSync += injections[3].packetCount*(timeSlots->doubleValue());
+    scheduleAt(timeSync, selfNote);
 }
 
 
@@ -184,7 +190,7 @@ void Adversary::handleMessage(cMessage *msg)
             EV << "INJECT:     at " << injections[cl].atNode << "  set " << cl << "  remain " << injections[cl].packetCount << endl;
 
             char pkname[40];
-            sprintf(pkname,"next  in %d remain %d", cl, injections[cl].packetCount);
+            sprintf(pkname,"next  in %d remain %ld", cl, injections[cl].packetCount);
             selfNote = new cMessage(pkname);
             selfNote->setKind(cl); //this means that the first entry of the injection struct shall be started by this message
             selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 2 (default value is 0)
