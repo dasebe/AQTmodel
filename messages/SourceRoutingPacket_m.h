@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgc 4.2 from node/SourceRoutingPacket.msg.
+// Generated file, do not edit! Created by opp_msgc 4.2 from messages/SourceRoutingPacket.msg.
 //
 
 #ifndef _SOURCEROUTINGPACKET_M_H_
@@ -16,7 +16,7 @@
 
 
 /**
- * Class generated from <tt>node/SourceRoutingPacket.msg</tt> by opp_msgc.
+ * Class generated from <tt>messages/SourceRoutingPacket.msg</tt> by opp_msgc.
  * <pre>
  * packet SourceRoutingPacket {
  *     int srcAddr;
