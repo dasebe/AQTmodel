@@ -9,7 +9,7 @@
 
 package networks;
 
-import node.Adversary;
+import node.BBAdversary;
 import node.SourceRouting;
 import node.SourceRoutingNode;
 import ned.DatarateChannel;
@@ -60,7 +60,7 @@ network Baseball
             @display("p=481,96");
             address = 231;
         }
-        adversary: Adversary {
+        adversary: BBAdversary {
             @display("p=620,63");
         }
     connections:

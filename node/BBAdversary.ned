@@ -12,7 +12,7 @@ package node;
 //
 // Application model to generate traffic for the network.
 //
-simple Adversary like IAdversary
+simple BBAdversary like IAdversary
 {
     parameters:
 		volatile double sendIaTime @unit(s) = default(10ms); // time between generating packets

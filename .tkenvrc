@@ -1,5 +1,5 @@
 # Partial Tkenv config file -- see $HOME/.tkenvrc as well
-inspector "Baseball" "Baseball" "2" "607x336+36+43:normal"
 inspector "DanielBB" "DanielBB" "2" "607x336+125+366:normal"
 inspector "Daniel1" "Daniel1" "2" "607x336+312+603:normal"
+inspector "Baseball" "Baseball" "2" "607x336+36+43:normal"
 

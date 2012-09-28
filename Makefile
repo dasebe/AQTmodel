@@ -30,9 +30,9 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 # Object files for local .cc and .msg files
 OBJS = \
     $O/builder/netbuilder.o \
+    $O/node/BBAdversary.o \
     $O/node/SourceRouting.o \
     $O/node/L2Queue.o \
-    $O/node/Adversary.o \
     $O/node/SourceRoutingApp.o \
     $O/node/AdversarialInjectionMessage_m.o \
     $O/node/SourceRoutingPacket_m.o
@@ -125,7 +125,7 @@ depend:
 $O/builder/netbuilder.o: builder/netbuilder.cc
 $O/node/AdversarialInjectionMessage_m.o: node/AdversarialInjectionMessage_m.cc \
 	node/AdversarialInjectionMessage_m.h
-$O/node/Adversary.o: node/Adversary.cc \
+$O/node/BBAdversary.o: node/BBAdversary.cc \
 	node/AdversarialInjectionMessage_m.h
 $O/node/L2Queue.o: node/L2Queue.cc
 $O/node/SourceRouting.o: node/SourceRouting.cc \

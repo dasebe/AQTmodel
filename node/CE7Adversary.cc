@@ -16,7 +16,7 @@
 /**
  * Generates traffic for the network.
  */
-class Adversary : public cSimpleModule
+class CE7Adversary : public cSimpleModule
 {
   private:
     // configuration
@@ -45,23 +45,23 @@ class Adversary : public cSimpleModule
     simsignal_t injectedPackets;
 
   public:
-    Adversary();
-    virtual ~Adversary();
+    CE7Adversary();
+    virtual ~CE7Adversary();
 
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
 };
 
-Define_Module(Adversary);
+Define_Module(CE7Adversary);
 
 
-Adversary::Adversary()
+CE7Adversary::CE7Adversary()
 {
     selfNote = NULL;
 }
 
-Adversary::~Adversary()
+CE7Adversary::~CE7Adversary()
 {
     for (int i=0; i < noInjs;i++)
     {
@@ -71,7 +71,7 @@ Adversary::~Adversary()
     //delete(injections);
 }
 
-void Adversary::initialize()
+void CE7Adversary::initialize()
 {
     timeSlots = &par("sendIaTime");
     bufferSize = par("frameCapacity");
@@ -100,8 +100,9 @@ void Adversary::initialize()
     scheduleAt(simTime() + 0*(timeSlots->doubleValue()), selfNote);
 
     //class 1 (round 1)
+    int overallRoundTime=bufferSize; //in time steps (not simulationTime!!)
     injections[1].interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-    injections[1].packetCount= floor(bufferSize*injectionRate);
+    injections[1].packetCount= floor(overallRoundTime*injectionRate);
     injections[1].message =  new AdversarialInjectionMessage("set 1");
     injections[1].atNode = "v0";
     injections[1].message->setPathArraySize(4);
@@ -130,7 +131,7 @@ void Adversary::initialize()
     selfNote->setKind(2); //this means that the first entry of the injection struct shall be started by this message
     selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 2 (default value is 0)
     //when to start this phase
-    timeSync = simTime() + injections[1].packetCount*(timeSlots->doubleValue());
+    timeSync = simTime() + overallRoundTime*(timeSlots->doubleValue());
     scheduleAt(timeSync, selfNote);
 
     //class 3 (round 2)
@@ -164,7 +165,7 @@ void Adversary::initialize()
     selfNote->setKind(4); //this means that the first entry of the injection struct shall be started by this message
     selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 2 (default value is 0)
     //when to start this phase
-    timeSync += injections[3].packetCount*(timeSlots->doubleValue());
+    timeSync += overallRoundTime*(timeSlots->doubleValue());
     scheduleAt(timeSync, selfNote);
 
 
@@ -173,7 +174,7 @@ void Adversary::initialize()
 
 
 
-void Adversary::handleMessage(cMessage *msg)
+void CE7Adversary::handleMessage(cMessage *msg)
 {
 
     if(msg->isSelfMessage()) //only for events schedule by myself
