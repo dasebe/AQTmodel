@@ -157,7 +157,7 @@ void CE7Adversary::initialize()
     injections[1].message =  new AdversarialInjectionMessage("initial set B0");
     injections[1].atNode = "b0";
     injections[1].message->setPathArraySize(3);
-    injections[1].message->setPath(0,93);
+    injections[1].message->setPath(0,92);
     injections[1].message->setPath(1,91);
     injections[1].message->setPath(2,22);
     injections[1].message->setKind(101);

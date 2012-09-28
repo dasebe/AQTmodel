@@ -37,9 +37,9 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 # Object files for local .cc and .msg files
 OBJS = \
     $O/adversaries/BBAdversary.o \
+    $O/adversaries/CE7Advanced.o \
     $O/adversaries/CE7Adversary.o \
     $O/adversaries/CE3Adversary.o \
-    $O/adversaries/CE7AdversaryNonForwardConstraint.o \
     $O/builder/netbuilder.o \
     $O/node/SourceRouting.o \
     $O/node/L2Queue.o \
@@ -138,9 +138,9 @@ $O/adversaries/BBAdversary.o: adversaries/BBAdversary.cc \
 	node/AdversarialInjectionMessage_m.h
 $O/adversaries/CE3Adversary.o: adversaries/CE3Adversary.cc \
 	node/AdversarialInjectionMessage_m.h
-$O/adversaries/CE7Adversary.o: adversaries/CE7Adversary.cc \
+$O/adversaries/CE7Advanced.o: adversaries/CE7Advanced.cc \
 	node/AdversarialInjectionMessage_m.h
-$O/adversaries/CE7AdversaryNonForwardConstraint.o: adversaries/CE7AdversaryNonForwardConstraint.cc \
+$O/adversaries/CE7Adversary.o: adversaries/CE7Adversary.cc \
 	node/AdversarialInjectionMessage_m.h
 $O/builder/netbuilder.o: builder/netbuilder.cc
 $O/node/AdversarialInjectionMessage_m.o: node/AdversarialInjectionMessage_m.cc \
