@@ -74,7 +74,7 @@ network CE7Advanced
         }
         m11: SourceRoutingNode {
             @display("p=365,703;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 111;
+            address = 211;
         }
         n23: SourceRoutingNode {
             @display("p=156,546;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");

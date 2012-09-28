@@ -2,8 +2,12 @@
 #pragma warning(disable:4786)
 #endif
 
+#ifndef OMNETPP_H
+#define OMNETPP_H
+ #include <omnetpp.h>
+#endif
+
 #include <vector>
-#include <omnetpp.h>
 #include "AdversarialInjectionMessage_m.h"
 
 

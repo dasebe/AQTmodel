@@ -2,8 +2,11 @@
 #ifndef ADVANCEDADVERSARY_H_
 #define ADVANCEDADVERSARY_H_
 
-#include <vector>
-#include <omnetpp.h>
+#ifndef OMNETPP_H
+#define OMNETPP_H
+ #include <omnetpp.h>
+#endif
+
 #include "AdversarialInjectionMessage_m.h"
 
 
@@ -56,7 +59,7 @@ protected:
     struct Inj
     {
         long packetCount;   // [start,stop] time range for injection
-        const char* atNode;         // where to initially deploy the packets upon injection
+        char* atNode;         // where to initially deploy the packets upon injection
         double interInjectionTime;  // 1/injectionRate - will directly go into the offset for scheduleAt events
         AdversarialInjectionMessage *message; //adversarial injection command to be send to nodes
         int packetNHops;
@@ -69,6 +72,8 @@ protected:
     long injectionCount;
     char curPhaseName;
     short int  curPhaseCounter;
+    char nextPhaseName;
+    short int  nextPhaseCounter;
 
 
     /**
@@ -77,15 +82,26 @@ protected:
      * and we need to "redefine one or more of the overloaded receiveSignal() methods"
      */
 
-    //TODO unclean -> should be somewhere else
+    //TODO unclean -> should be separate file
     class QueueListener : public cListener {
         public:
-            long queuelength;
-            QueueListener(){queuelength=0;}
+            int queueCount;
+            long queuelength[2];
+            cComponent * subscribedComponents[2]; //TODO use case only 2 subscriptions - works for now (else #include <vector>)
+            QueueListener()//(int queueCount)
+            {
+                //queuelength=new long[queueCount];
+                this->queueCount=2;
+                queuelength[0]=0;
+                queuelength[1]=0;
+            }
             void receiveSignal (cComponent *source, simsignal_t signalID, long l){
                 ev << "QueueListener Queue Length Signal received: " << l << endl;
-                queuelength=l;
-                source->getFullPath();
+                for (int i=0;i<queueCount;i++)
+                {
+                    if(subscribedComponents[i]==source)
+                        queuelength[i]=l;
+                }
             }
     };
 

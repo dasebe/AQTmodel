@@ -72,10 +72,19 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
 
     if (msg->hasPar("qlenGate"))
     {
-        //subscribe queue length listener -> stupid solution: FIXME TODO
-        getParentModule()->
+        //subscribe queue length listener -> stupid solution: FIXME
+
+        //limitation: only two subscriptions!
+        if (listener->getSubscribeCount()>1) {
+            return; //hitting limitation
+        }
+        //store component
+        listener->subscribedComponents[listener->getSubscribeCount()]=
+                getParentModule()->
                 getSubmodule(msg->getName())->
-                getSubmodule("queue",msg->par("qlenGate").longValue())->
+                getSubmodule("queue",msg->par("qlenGate").longValue());
+        //subscribe listener to component
+        listener->subscribedComponents[listener->getSubscribeCount()]->
                 subscribe("qlen", listener);
         cancelAndDelete(msg);
         return;

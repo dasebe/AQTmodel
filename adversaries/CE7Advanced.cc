@@ -2,8 +2,12 @@
 #pragma warning(disable:4786)
 #endif
 
+#ifndef OMNETPP_H
+#define OMNETPP_H
+ #include <omnetpp.h>
+#endif
+
 #include <vector>
-#include <omnetpp.h>
 #include "AdversarialInjectionMessage_m.h"
 #include "AdvancedAdversary.h"
 
@@ -15,12 +19,6 @@ class CE7Advanced : public AdvancedAdversary
   protected:
     void injectInitialPackets();
     void injectPhasePackets();
-
-    void concat3(char& first,const char * second, char * buffer);
-    void concat3(const char * second, char * buffer){};
-    void concat3(char& first,const char * second){};
-    void concat3(char& first, char * buffer){};
-
 };
 
 Define_Module(CE7Advanced);
@@ -46,19 +44,23 @@ void CE7Advanced::injectInitialPackets()
 //learn queue length
     //before the queue length later on can be queried -> need to create the listener objects
 
-    //init listener (even at first time want to check whether subscribed)
-    listener = new QueueListener();
-
     cModule *targetModule = getParentModule()->getSubmodule("n11")->getSubmodule("routing");
-    cMessage *queueLenMsg = new cMessage("queue length n11-n12?");
+    cMessage *queueLenMsg = new cMessage("queue length subscribe");
     (*queueLenMsg).addPar("queueLenQ");
     (*queueLenMsg).par("queueLenQ").setLongValue(112);
     sendDirect(queueLenMsg, targetModule, "adversaryControl");
 
+    targetModule = getParentModule()->getSubmodule("m11")->getSubmodule("routing");
+    queueLenMsg = new cMessage("queue length subscribe");
+    (*queueLenMsg).addPar("queueLenQ");
+    (*queueLenMsg).par("queueLenQ").setLongValue(212);
+    sendDirect(queueLenMsg, targetModule, "adversaryControl");
 
-
-
-
+//  set where to start (left site of gadget)
+    curPhaseName='n';
+    curPhaseCounter=100;
+    nextPhaseName='m';
+    nextPhaseCounter=200;
 
 //round 0
     // (initial packets A)
@@ -67,7 +69,9 @@ void CE7Advanced::injectInitialPackets()
     tmp->interInjectionTime = 0;
     tmp->packetCount=initialSetSize;
     tmp->message =  new AdversarialInjectionMessage("initial set A0");
-    tmp->atNode = "n11";
+    tmp->atNode=new char[3];
+    strcpy (tmp->atNode,"x11");
+    tmp->atNode[0]=curPhaseName;
     tmp->message->setPathArraySize(1);
     tmp->message->setPath(0,112);
     tmp->message->setKind(101);
@@ -91,7 +95,9 @@ void CE7Advanced::injectInitialPackets()
     tmp->interInjectionTime = 0;
     tmp->packetCount= initialSetSize;
     tmp->message =  new AdversarialInjectionMessage("initial set B0");
-    tmp->atNode = "n21";
+    tmp->atNode=new char[3];
+    strcpy (tmp->atNode,"x21");
+    tmp->atNode[0]=curPhaseName;
     tmp->message->setPathArraySize(3);
     tmp->message->setPath(0,192);
     tmp->message->setPath(1,191);
@@ -113,7 +119,9 @@ void CE7Advanced::injectInitialPackets()
     tmp->interInjectionTime = 0;
     tmp->packetCount=initialSetSize;
     tmp->message =  new AdversarialInjectionMessage("initial set C0");
-    tmp->atNode = "n31";
+    tmp->atNode=new char[3];
+    strcpy (tmp->atNode,"x31");
+    tmp->atNode[0]=curPhaseName;
     tmp->message->setPathArraySize(5);
     tmp->message->setPath(0,193);
     tmp->message->setPath(1,192);
@@ -127,9 +135,6 @@ void CE7Advanced::injectInitialPackets()
     selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
     //when to start this phase
     scheduleAt(timeSync, selfNote);
-
-    curPhaseName='n';
-    curPhaseCounter=100;
 }
 
 
@@ -143,9 +148,8 @@ void CE7Advanced::injectInitialPackets()
         Inj * tmp;
         int tmpi=3;
         //we assume we are not subscribed to the right queue! - no further consistency check!
-        long roundTime=listener->queuelength + 1; //because one transmitted right away
+        long roundTime=listener->queuelength[curPhaseCounter/100-1] + 1; //because one transmitted right away
         ev << "got queue length: "<< roundTime << endl;
-        char * atNodeName = new char[3];
 
 //round 1
         timeSync = simTime(); //offset for first round = 0
@@ -156,17 +160,20 @@ void CE7Advanced::injectInitialPackets()
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set A1");
-        atNodeName=new char[3];
-        atNodeName[0]=curPhaseName;
-        strcat(atNodeName,"11");
-        tmp->atNode = atNodeName;
-        tmp->message->setPathArraySize(6);
-        tmp->message->setPath(0,curPhaseCounter+14);
-        tmp->message->setPath(1,curPhaseCounter+13);
-        tmp->message->setPath(2,curPhaseCounter+93);
-        tmp->message->setPath(3,curPhaseCounter+92);
-        tmp->message->setPath(4,curPhaseCounter+91);
-        tmp->message->setPath(5,curPhaseCounter+12);//first hop
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x11");
+        tmp->atNode[0]=curPhaseName;
+        tmp->message->setPathArraySize(10);
+        tmp->message->setPath(0,nextPhaseCounter+93);
+        tmp->message->setPath(1,nextPhaseCounter+92);
+        tmp->message->setPath(2,nextPhaseCounter+91);
+        tmp->message->setPath(3,nextPhaseCounter+12);
+        tmp->message->setPath(4,nextPhaseCounter+11);
+        tmp->message->setPath(5,curPhaseCounter+13);
+        tmp->message->setPath(6,curPhaseCounter+93);
+        tmp->message->setPath(7,curPhaseCounter+92);
+        tmp->message->setPath(8,curPhaseCounter+91);
+        tmp->message->setPath(9,curPhaseCounter+12);//first hop
         tmp->message->setKind(101);
         //schedule event message for this injection class
         selfNote = new cMessage("S: A1");
@@ -185,16 +192,20 @@ void CE7Advanced::injectInitialPackets()
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set A2");
-        atNodeName=new char[3];
-        atNodeName[0]=curPhaseName;
-        strcat(atNodeName,"11");
-        tmp->atNode = atNodeName;
-        tmp->message->setPathArraySize(5);
-        tmp->message->setPath(0,curPhaseCounter+14);
-        tmp->message->setPath(1,curPhaseCounter+13);
-        tmp->message->setPath(2,curPhaseCounter+95);
-        tmp->message->setPath(3,curPhaseCounter+94);
-        tmp->message->setPath(4,curPhaseCounter+12);//first hop
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x11");
+        tmp->atNode[0]=curPhaseName;
+        tmp->message->setPathArraySize(10);
+        tmp->message->setPath(0,nextPhaseCounter+93);
+        tmp->message->setPath(1,nextPhaseCounter+92);
+        tmp->message->setPath(2,nextPhaseCounter+95);
+        tmp->message->setPath(3,nextPhaseCounter+94);
+        tmp->message->setPath(4,nextPhaseCounter+12);
+        tmp->message->setPath(5,nextPhaseCounter+11);
+        tmp->message->setPath(6,curPhaseCounter+13);
+        tmp->message->setPath(7,curPhaseCounter+95);
+        tmp->message->setPath(8,curPhaseCounter+94);
+        tmp->message->setPath(9,curPhaseCounter+12);//first hop
         tmp->message->setKind(101);
         //schedule event message for this injection class
         selfNote = new cMessage("S: A2");
@@ -208,15 +219,14 @@ void CE7Advanced::injectInitialPackets()
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set B1");
-        atNodeName=new char[3];
-        atNodeName[0]=curPhaseName;
-        strcat(atNodeName,"21");
-        tmp->atNode = atNodeName;
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x21");
+        tmp->atNode[0]=curPhaseName;
         tmp->message->setPathArraySize(9);
-        tmp->message->setPath(0,curPhaseCounter+97);//last hop
-        tmp->message->setPath(1,curPhaseCounter+96);
-        tmp->message->setPath(2,curPhaseCounter+25);
-        tmp->message->setPath(3,curPhaseCounter+24);
+        tmp->message->setPath(0,nextPhaseCounter+92);//last hop
+        tmp->message->setPath(1,nextPhaseCounter+91);
+        tmp->message->setPath(2,nextPhaseCounter+22);
+        tmp->message->setPath(3,nextPhaseCounter+21);
         tmp->message->setPath(4,curPhaseCounter+23);
         tmp->message->setPath(5,curPhaseCounter+93);
         tmp->message->setPath(6,curPhaseCounter+92);
@@ -240,14 +250,14 @@ void CE7Advanced::injectInitialPackets()
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set A3");
-        atNodeName=new char[3];
-        atNodeName[0]=curPhaseName;
-        strcat(atNodeName,"11");
-        tmp->atNode = atNodeName;
-        tmp->message->setPathArraySize(3);
-        tmp->message->setPath(0,curPhaseCounter+14); //last hop
-        tmp->message->setPath(1,curPhaseCounter+13);
-        tmp->message->setPath(2,curPhaseCounter+12);//first hop
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x11");
+        tmp->atNode[0]=curPhaseName;
+        tmp->message->setPathArraySize(4);
+        tmp->message->setPath(0,nextPhaseCounter+12); //last hop
+        tmp->message->setPath(1,nextPhaseCounter+11);
+        tmp->message->setPath(2,curPhaseCounter+13);
+        tmp->message->setPath(3,curPhaseCounter+12);//first hop
         tmp->message->setKind(101);
         //schedule event message for this injection class
         selfNote = new cMessage("S: A3");
@@ -261,15 +271,14 @@ void CE7Advanced::injectInitialPackets()
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set B2");
-        atNodeName=new char[3];
-        atNodeName[0]=curPhaseName;
-        strcat(atNodeName,"21");
-        tmp->atNode = atNodeName;
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x21");
+        tmp->atNode[0]=curPhaseName;
         tmp->message->setPathArraySize(8);
-        tmp->message->setPath(0,curPhaseCounter+97);
-        tmp->message->setPath(1,curPhaseCounter+96);
-        tmp->message->setPath(2,curPhaseCounter+25);
-        tmp->message->setPath(3,curPhaseCounter+24);
+        tmp->message->setPath(0,nextPhaseCounter+92);
+        tmp->message->setPath(1,nextPhaseCounter+91);
+        tmp->message->setPath(2,nextPhaseCounter+22);
+        tmp->message->setPath(3,nextPhaseCounter+21);
         tmp->message->setPath(4,curPhaseCounter+23);
         tmp->message->setPath(5,curPhaseCounter+95);
         tmp->message->setPath(6,curPhaseCounter+94);
@@ -287,16 +296,15 @@ void CE7Advanced::injectInitialPackets()
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set C1");
-        atNodeName=new char[3];
-        atNodeName[0]=curPhaseName;
-        strcat(atNodeName,"31");
-        tmp->atNode = atNodeName;
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x31");
+        tmp->atNode[0]=curPhaseName;
         tmp->message->setPathArraySize(10);
-        tmp->message->setPath(0,curPhaseCounter+98);
-        tmp->message->setPath(1,curPhaseCounter+97);
-        tmp->message->setPath(2,curPhaseCounter+99);
-        tmp->message->setPath(3,curPhaseCounter+35);
-        tmp->message->setPath(4,curPhaseCounter+34);
+        tmp->message->setPath(0,nextPhaseCounter+92);
+        tmp->message->setPath(1,nextPhaseCounter+95);
+        tmp->message->setPath(2,nextPhaseCounter+94);
+        tmp->message->setPath(3,nextPhaseCounter+32);
+        tmp->message->setPath(4,nextPhaseCounter+31);
         tmp->message->setPath(5,curPhaseCounter+33);
         tmp->message->setPath(6,curPhaseCounter+93);
         tmp->message->setPath(7,curPhaseCounter+92);
@@ -319,12 +327,11 @@ void CE7Advanced::injectInitialPackets()
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set A4");
-        atNodeName=new char[3];
-        atNodeName[0]=curPhaseName;
-        strcat(atNodeName,"13");
-        tmp->atNode = atNodeName;
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x13");
+        tmp->atNode[0]=curPhaseName;
         tmp->message->setPathArraySize(1);
-        tmp->message->setPath(0,curPhaseCounter+14); //last hop
+        tmp->message->setPath(0,nextPhaseCounter+11); //last hop
         tmp->message->setKind(101);
         //schedule event message for this injection class
         selfNote = new cMessage("S: A4");
@@ -338,15 +345,14 @@ void CE7Advanced::injectInitialPackets()
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set B3");
-        atNodeName=new char[3];
-        atNodeName[0]=curPhaseName;
-        strcat(atNodeName,"21");
-        tmp->atNode = atNodeName;
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x21");
+        tmp->atNode[0]=curPhaseName;
         tmp->message->setPathArraySize(6);
-        tmp->message->setPath(0,curPhaseCounter+97);
-        tmp->message->setPath(1,curPhaseCounter+96);
-        tmp->message->setPath(2,curPhaseCounter+25);
-        tmp->message->setPath(3,curPhaseCounter+24);
+        tmp->message->setPath(0,nextPhaseCounter+92);
+        tmp->message->setPath(1,nextPhaseCounter+91);
+        tmp->message->setPath(2,nextPhaseCounter+22);
+        tmp->message->setPath(3,nextPhaseCounter+21);
         tmp->message->setPath(4,curPhaseCounter+23);
         tmp->message->setPath(5,curPhaseCounter+22);
         tmp->message->setKind(101);
@@ -362,16 +368,15 @@ void CE7Advanced::injectInitialPackets()
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set C2");
-        atNodeName=new char[3];
-        atNodeName[0]=curPhaseName;
-        strcat(atNodeName,"31");
-        tmp->atNode = atNodeName;
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x31");
+        tmp->atNode[0]=curPhaseName;
         tmp->message->setPathArraySize(9);
-        tmp->message->setPath(0,curPhaseCounter+98);
-        tmp->message->setPath(1,curPhaseCounter+97);
-        tmp->message->setPath(2,curPhaseCounter+99);
-        tmp->message->setPath(3,curPhaseCounter+35);
-        tmp->message->setPath(4,curPhaseCounter+34);
+        tmp->message->setPath(0,nextPhaseCounter+92);
+        tmp->message->setPath(1,nextPhaseCounter+95);
+        tmp->message->setPath(2,nextPhaseCounter+94);
+        tmp->message->setPath(3,nextPhaseCounter+32);
+        tmp->message->setPath(4,nextPhaseCounter+31);
         tmp->message->setPath(5,curPhaseCounter+33);
         tmp->message->setPath(6,curPhaseCounter+95);
         tmp->message->setPath(7,curPhaseCounter+94);
@@ -394,12 +399,11 @@ void CE7Advanced::injectInitialPackets()
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set B4");
-        atNodeName=new char[3];
-        atNodeName[0]=curPhaseName;
-        strcat(atNodeName,"23");
-        tmp->atNode = atNodeName;
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x23");
+        tmp->atNode[0]=curPhaseName;
         tmp->message->setPathArraySize(1);
-        tmp->message->setPath(0,curPhaseCounter+24); //last hop
+        tmp->message->setPath(0,nextPhaseCounter+21); //last hop
         tmp->message->setKind(101);
         //schedule event message for this injection class
         selfNote = new cMessage("S: B4");
@@ -413,16 +417,15 @@ void CE7Advanced::injectInitialPackets()
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set C3");
-        atNodeName=new char[3];
-        atNodeName[0]=curPhaseName;
-        strcat(atNodeName,"31");
-        tmp->atNode = atNodeName;
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x31");
+        tmp->atNode[0]=curPhaseName;
         tmp->message->setPathArraySize(7);
-        tmp->message->setPath(0,curPhaseCounter+98);
-        tmp->message->setPath(1,curPhaseCounter+97);
-        tmp->message->setPath(2,curPhaseCounter+99);
-        tmp->message->setPath(3,curPhaseCounter+35);
-        tmp->message->setPath(4,curPhaseCounter+34);
+        tmp->message->setPath(0,nextPhaseCounter+92);
+        tmp->message->setPath(1,nextPhaseCounter+95);
+        tmp->message->setPath(2,nextPhaseCounter+94);
+        tmp->message->setPath(3,nextPhaseCounter+32);
+        tmp->message->setPath(4,nextPhaseCounter+31);
         tmp->message->setPath(5,curPhaseCounter+33);
         tmp->message->setPath(6,curPhaseCounter+32);
         tmp->message->setKind(101);
@@ -441,12 +444,11 @@ void CE7Advanced::injectInitialPackets()
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set C4");
-        atNodeName=new char[3];
-        atNodeName[0]=curPhaseName;
-        strcat(atNodeName,"33");
-        tmp->atNode = atNodeName;
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x33");
+        tmp->atNode[0]=curPhaseName;
         tmp->message->setPathArraySize(1);
-        tmp->message->setPath(0,curPhaseCounter+34); //last hop
+        tmp->message->setPath(0,nextPhaseCounter+31); //last hop
         tmp->message->setKind(101);
         //schedule event message for this injection class
         selfNote = new cMessage("S: C4");
@@ -457,16 +459,12 @@ void CE7Advanced::injectInitialPackets()
 
 
 //inverse Phase follows
-        if (curPhaseCounter==1)
-        {
-            curPhaseName='m';
-            curPhaseCounter=200;
-        }
-        else
-        {
-            curPhaseName='n';
-            curPhaseCounter=100;
-        }
+        char n=curPhaseName;
+        curPhaseName=nextPhaseName;
+        nextPhaseName=n;
+        short int x=curPhaseCounter;
+        curPhaseCounter=nextPhaseCounter;
+        nextPhaseCounter=x;
 
         selfNote = new cMessage("Start of Phase");
         selfNote->setKind(102); //this means that the first entry of the injection struct shall be started by this message
@@ -476,11 +474,3 @@ void CE7Advanced::injectInitialPackets()
         scheduleAt(timeSyncR5, selfNote);
 
     }
-
-    void concat3(char& first,const char * second, char * buffer)
-    {
-        buffer[0]=first;
-        buffer[1]=second[0];
-        buffer[2]=second[1];
-    }
-
