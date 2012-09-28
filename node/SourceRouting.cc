@@ -14,6 +14,7 @@
 #include <map>
 #include <omnetpp.h>
 #include "SourceRoutingPacket_m.h"
+//#include "QueueListener.cc"
 
 
 /**
@@ -23,6 +24,7 @@ class SourceRouting : public cSimpleModule
 {
   private:
     int myAddress;
+    long queueLen;
 
     typedef std::map<int,int> RoutingTable; // destaddr -> gateindex
     RoutingTable rtable;
@@ -30,9 +32,29 @@ class SourceRouting : public cSimpleModule
     simsignal_t dropSignal;
     simsignal_t outputIfSignal;
 
+    /*listener class as
+    * cListener is only "A do-nothing implementation of cIListener, suitable as a base class for other listeners."
+    * and we need to "redefine one or more of the overloaded receiveSignal() methods" */
+
+    class QueueListener : public cListener {
+        public:
+            long queuelength;
+            QueueListener(){}
+            void receiveSignal (cComponent *source, simsignal_t signalID, long l){
+                ev << "Signal received" << l << endl;
+                queuelength=l;
+                source->getFullPath();
+            }
+    };
+
+    QueueListener *listener;
+
+
+
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
+    void receiveSignal(cComponent *src, simsignal_t id, long l);
 };
 
 Define_Module(SourceRouting);
@@ -44,6 +66,7 @@ void SourceRouting::initialize()
 
     dropSignal = registerSignal("drop");
     outputIfSignal = registerSignal("outputIf");
+
 
     //
     // Brute force approach -- every node does topology discovery on its own,
@@ -73,51 +96,115 @@ void SourceRouting::initialize()
         int gateIndex = parentModuleGate->getIndex();
         int address = topo->getNode(i)->getModule()->par("address");
         rtable[address] = gateIndex;
-        EV << "  towards address " << address << " gateIndex is " << gateIndex << endl;
+        EV << "RTABLE:    towards address " << address << " gateIndex is " << gateIndex << endl;
     }
     delete topo;
+
+    //init listener (even at first time want to check whether subscribed)
+    listener = new QueueListener();
+
 }
+
+
+
+void SourceRouting::receiveSignal(cComponent *src, simsignal_t id, long l){
+    ev << "Signal received" << "the queue length of " << (*src).getFullPath() <<" is " << l << endl;
+    queueLen = l;
+}
+
+
 
 void SourceRouting::handleMessage(cMessage *msg)
 {
-    SourceRoutingPacket *pk = check_and_cast<SourceRoutingPacket *>(msg);
-    int remDestCount = pk->getDestAddrArraySize();
-    int curDestAddr = pk->getDestAddr(remDestCount-1); //currentAddress is last one in array
+    /*two principal possibilities for messages:
+     *  1. QueueLength Packets which wants to obtain the current queue length
+     *  2. SourceRoutingPacket need be forwarded,absorbed,...
+     */
 
-    //case final destination
-    if (curDestAddr == myAddress && remDestCount == 1)
+
+
+    //TODO it's not correct implementing this here, should be at node level!
+    if (msg->hasPar("queueLenQ"))
     {
-        //EV << "local delivery of packet " << pk->getName() << endl;
-        send(pk, "localOut");
-        emit(outputIfSignal, -1); // -1: local
-        return;
+
+        //we need send back a queue length response for the fitting gate!
+        long int outHop = msg->par("queueLenQ").longValue();
+        //lookup in RoutingTable
+        RoutingTable::iterator it = rtable.find(outHop);
+        if (it==rtable.end())
+        {
+            //EV << "FAIL   : retrieving queue length"
+            return;
+        }
+
+        int outGateIndex = (*it).second;
+        int qlen=0;
+
+        //check whether already subscribed
+        if (isSubscribed("qlen", listener))
+        {
+            //we assume it's the right one => manual check in adversary definition!
+            qlen=listener->queuelength;
+        }
+        else
+        {
+            getParentModule()->getSubmodule("queue",outGateIndex)->subscribe("qlen", listener);
+            //assume no signal yet => just leave qlen at zero
+        }
+        cMessage *answer = new cMessage("answer queue length");
+        answer->addPar("qlen");
+        answer->addPar("qlen").setLongValue(qlen);
+        sendDirect(answer, msg->getSenderGate());
+        cancelAndDelete(msg);
     }
 
-    //case intermediate (source-route) destination
-    if (curDestAddr == myAddress && remDestCount > 1)
+
+
+
+
+    else
     {
-        EV << "IHOP:      at " << myAddress << "packet" << pk->getName() << endl;
-        //delete curDestAddr, by decreasing array size by one
-        pk->setDestAddrArraySize(--remDestCount);
-        //set "old next" destination as current one
-        curDestAddr = pk->getDestAddr(remDestCount-1);
-        //we still have to forward it, so don't return yet!
+        //assume it's an SourceRoutingPacket (might as well omit the try block)
+        SourceRoutingPacket *pk = check_and_cast<SourceRoutingPacket *>(msg);
+        int remDestCount = pk->getDestAddrArraySize();
+        int curDestAddr = pk->getDestAddr(remDestCount-1); //currentAddress is last one in array
+
+        //case final destination
+        if (curDestAddr == myAddress && remDestCount == 1)
+        {
+            //EV << "local delivery of packet " << pk->getName() << endl;
+            send(pk, "localOut");
+            emit(outputIfSignal, -1); // -1: local
+            return;
+        }
+
+        //case intermediate (source-route) destination
+        if (curDestAddr == myAddress && remDestCount > 1)
+        {
+            EV << "IHOP:      at " << myAddress << "packet" << pk->getName() << endl;
+            //delete curDestAddr, by decreasing array size by one
+            pk->setDestAddrArraySize(--remDestCount);
+            //set "old next" destination as current one
+            curDestAddr = pk->getDestAddr(remDestCount-1);
+            //we still have to forward it, so don't return yet!
+        }
+
+        //case intermediate hop, simple forward
+        RoutingTable::iterator it = rtable.find(curDestAddr);
+        if (it==rtable.end())
+        {
+            EV << "address " << curDestAddr << " unreachable from address " << myAddress << ", discarding packet " << pk->getName() << endl;
+            emit(dropSignal, (long)pk->getByteLength());
+            delete pk;
+            return;
+        }
+
+        int outGateIndex = (*it).second;
+        //EV << "forwarding packet " << pk->getName() << " on gate index " << outGateIndex << endl;
+        pk->setHopCount(pk->getHopCount()+1);
+        emit(outputIfSignal, outGateIndex);
+
+        send(pk, "out", outGateIndex);
     }
 
-    //case intermediate hop, simple forward
-    RoutingTable::iterator it = rtable.find(curDestAddr);
-    if (it==rtable.end())
-    {
-        EV << "address " << curDestAddr << " unreachable from address " << myAddress << ", discarding packet " << pk->getName() << endl;
-        emit(dropSignal, (long)pk->getByteLength());
-        delete pk;
-        return;
-    }
-
-    int outGateIndex = (*it).second;
-    //EV << "forwarding packet " << pk->getName() << " on gate index " << outGateIndex << endl;
-    pk->setHopCount(pk->getHopCount()+1);
-    emit(outputIfSignal, outGateIndex);
-
-    send(pk, "out", outGateIndex);
 }

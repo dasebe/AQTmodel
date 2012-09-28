@@ -19,7 +19,7 @@ import ned.DatarateChannel;
 //
 network CE7Advanced
 {
-    @display("bgb=688,735");
+    @display("bgb=688,735,white,,0");
     types:
         channel C extends DatarateChannel
         {
@@ -29,7 +29,7 @@ network CE7Advanced
     submodules:
 
         adversary: CE7Advanced {
-            @display("p=38,38;i=block/process");
+            @display("p=38,38;b=25,25,rect,grey83");
         }
 
         a2: SourceRoutingNode {
@@ -125,11 +125,11 @@ network CE7Advanced
             address = 98;
         }
         m10: SourceRoutingNode {
-            @display("p=502,314;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=502,383;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 910;
         }
         m9: SourceRoutingNode {
-            @display("p=502,383;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=502,458;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 99;
         }
         c6: SourceRoutingNode {
@@ -186,7 +186,6 @@ network CE7Advanced
         m6.port++ <--> C <--> m7.port++;
         m7.port++ <--> C <--> m8.port++;
         m9.port++ <--> C <--> m10.port++;
-        m9.port++ <--> C <--> m7.port++;
         m10.port++ <--> C <--> c6.port++;
         m10.port++ <--> C <--> b6.port++;
         m10.port++ <--> C <--> a6.port++;
@@ -196,5 +195,6 @@ network CE7Advanced
         c6.port++ <--> C <--> c1.port++;
         b6.port++ <--> C <--> b1.port++;
         a6.port++ <--> C <--> a1.port++;
+        m10.port++ <--> m7.port++;
 }
 

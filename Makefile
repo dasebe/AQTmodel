@@ -43,6 +43,7 @@ OBJS = \
     $O/builder/netbuilder.o \
     $O/node/SourceRouting.o \
     $O/node/L2Queue.o \
+    $O/node/QueueListener.o \
     $O/node/SourceRoutingApp.o \
     $O/node/AdversarialInjectionMessage_m.o \
     $O/node/SourceRoutingPacket_m.o
@@ -146,6 +147,7 @@ $O/builder/netbuilder.o: builder/netbuilder.cc
 $O/node/AdversarialInjectionMessage_m.o: node/AdversarialInjectionMessage_m.cc \
 	node/AdversarialInjectionMessage_m.h
 $O/node/L2Queue.o: node/L2Queue.cc
+$O/node/QueueListener.o: node/QueueListener.cc
 $O/node/SourceRouting.o: node/SourceRouting.cc \
 	node/SourceRoutingPacket_m.h
 $O/node/SourceRoutingApp.o: node/SourceRoutingApp.cc \

@@ -42,9 +42,9 @@ simple L2Queue
         @statistic[txBytes](title="transmitting packet byte length";unit=bytes;record=vector?,count,sum,histogram;interpolationmode=none);
         @statistic[rxBytes](title="received packet byte length";unit=bytes;record=vector?,count,sum,histogram;interpolationmode=none);
     gates:
-        input in;
-        output out;
-        inout line;
+        input in; //from upper layer
+        output out; //to itself?
+        inout line; //to link connection to other module
 }
 
 

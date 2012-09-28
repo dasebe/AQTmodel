@@ -94,6 +94,15 @@ void CE7Advanced::initialize()
     Inj * tmp;
     int tmpi=0;
 
+//learn queue length
+
+    cModule *targetModule = getParentModule()->getSubmodule("a1")->getSubmodule("app");
+    cMessage *queueLenMsg = new cMessage("queue length a1-a2?");
+    (*queueLenMsg).addPar("queueLenQ");
+    (*queueLenMsg).par("queueLenQ").setLongValue(12);
+    sendDirect(queueLenMsg, targetModule, "adversaryControl");
+
+
 
 //round 0
     // (initial packets A)
