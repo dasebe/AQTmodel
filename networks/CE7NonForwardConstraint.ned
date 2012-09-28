@@ -9,7 +9,7 @@
 
 package networks;
 
-import adversaries.CE7Adversary;
+import adversaries.CE7AdversaryNonForwardConstraint;
 import node.SourceRouting;
 import node.SourceRoutingNode;
 import ned.DatarateChannel;
@@ -17,7 +17,7 @@ import ned.DatarateChannel;
 //
 // A ten-node network topology
 //
-network CE7
+network CE7NonForwardConstraint
 {
     @display("bgb=564,692");
     types:
@@ -40,7 +40,7 @@ network CE7
             @display("p=343,192");
             address = 22;
         }
-        adversary: CE7Adversary {
+        adversary: CE7AdversaryNonForwardConstraint {
             @display("p=55,219");
         }
         a1: SourceRoutingNode {

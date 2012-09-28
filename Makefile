@@ -14,7 +14,14 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
 #USERIF_LIBS = $(TKENV_LIBS)
 
 # C++ include paths (with -I)
-INCLUDE_PATH = -I. -Ibuilder -Inetworks -Inode -Iresults
+INCLUDE_PATH = \
+    -I. \
+    -Iadversaries \
+    -Ibuilder \
+    -Inetworks \
+    -Inode \
+    -IresultAnalysis \
+    -Iresults
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -29,8 +36,11 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
 OBJS = \
+    $O/adversaries/BBAdversary.o \
+    $O/adversaries/CE7Adversary.o \
+    $O/adversaries/CE3Adversary.o \
+    $O/adversaries/CE7AdversaryNonForwardConstraint.o \
     $O/builder/netbuilder.o \
-    $O/node/BBAdversary.o \
     $O/node/SourceRouting.o \
     $O/node/L2Queue.o \
     $O/node/SourceRoutingApp.o \
@@ -110,22 +120,30 @@ clean:
 	-rm -rf $O
 	-rm -f adversarialQueueing adversarialQueueing.exe libadversarialQueueing.so libadversarialQueueing.a libadversarialQueueing.dll libadversarialQueueing.dylib
 	-rm -f ./*_m.cc ./*_m.h
+	-rm -f adversaries/*_m.cc adversaries/*_m.h
 	-rm -f builder/*_m.cc builder/*_m.h
 	-rm -f networks/*_m.cc networks/*_m.h
 	-rm -f node/*_m.cc node/*_m.h
+	-rm -f resultAnalysis/*_m.cc resultAnalysis/*_m.h
 	-rm -f results/*_m.cc results/*_m.h
 
 cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc builder/*.cc networks/*.cc node/*.cc results/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc builder/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
+$O/adversaries/BBAdversary.o: adversaries/BBAdversary.cc \
+	node/AdversarialInjectionMessage_m.h
+$O/adversaries/CE3Adversary.o: adversaries/CE3Adversary.cc \
+	node/AdversarialInjectionMessage_m.h
+$O/adversaries/CE7Adversary.o: adversaries/CE7Adversary.cc \
+	node/AdversarialInjectionMessage_m.h
+$O/adversaries/CE7AdversaryNonForwardConstraint.o: adversaries/CE7AdversaryNonForwardConstraint.cc \
+	node/AdversarialInjectionMessage_m.h
 $O/builder/netbuilder.o: builder/netbuilder.cc
 $O/node/AdversarialInjectionMessage_m.o: node/AdversarialInjectionMessage_m.cc \
-	node/AdversarialInjectionMessage_m.h
-$O/node/BBAdversary.o: node/BBAdversary.cc \
 	node/AdversarialInjectionMessage_m.h
 $O/node/L2Queue.o: node/L2Queue.cc
 $O/node/SourceRouting.o: node/SourceRouting.cc \

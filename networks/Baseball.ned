@@ -9,7 +9,7 @@
 
 package networks;
 
-import node.BBAdversary;
+import adversaries.BBAdversary;
 import node.SourceRouting;
 import node.SourceRoutingNode;
 import ned.DatarateChannel;

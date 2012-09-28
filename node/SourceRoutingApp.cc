@@ -115,7 +115,7 @@ void SourceRoutingApp::handleMessage(cMessage *msg)
         npk->setByteLength(packetLengthBytes->longValue());
         npk->setSrcAddr(myAddress);
         npk->setDestAddrArraySize(pk->getPathArraySize());
-        npk->setSchedulingPriority(2); //higher means lower priority, adversarial messages get 1
+        npk->setSchedulingPriority(4); //higher means lower priority, adversarial messages get 1-2
         unsigned int i=0; //because array size is unsigned!
         while(i < (pk->getPathArraySize()))
         {
@@ -135,7 +135,7 @@ void SourceRoutingApp::handleMessage(cMessage *msg)
     {
         // Handle incoming packet
         SourceRoutingPacket *pk = check_and_cast<SourceRoutingPacket *>(msg);
-        EV << "ARRIVAL:     packet " << pk->getName() << " after " << pk->getHopCount() << "hops" << endl;
+        EV << "ARRIVAL:    pf " << pk->getName() << " at " << pk->getDestAddr(0) << " hops " << pk->getHopCount() << endl;
         emit(endToEndDelaySignal, simTime() - pk->getCreationTime());
         emit(hopCountSignal, pk->getHopCount());
         emit(sourceAddressSignal, pk->getSrcAddr());

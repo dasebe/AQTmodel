@@ -9,7 +9,7 @@
 
 package networks;
 
-import node.CE3Adversary;
+import adversaries.CE3Adversary;
 import node.SourceRouting;
 import node.SourceRoutingNode;
 import ned.DatarateChannel;
