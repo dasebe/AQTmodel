@@ -37,7 +37,7 @@ void CE7Advanced::injectInitialPackets()
     //define adversarial injections
     int initialSetSize=100; //in time steps (not simulationTime!!)
     AdvSchedMess * tmp;
-    maxPhaseCounter=100;
+    maxPhaseCounter=30;
 
 //learn queue length
     //before the queue length later on can be queried -> need to create the listener objects
@@ -292,11 +292,10 @@ void CE7Advanced::injectInitialPackets()
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set A4");
         tmp->atNode=new char[3];
-        strcpy (tmp->atNode,"x12");
-        tmp->atNode[0]=curPhaseName;
-        tmp->message->setPathArraySize(2);
+        strcpy (tmp->atNode,"x11");
+        tmp->atNode[0]=nextPhaseName;
+        tmp->message->setPathArraySize(1);
         tmp->message->setPath(0,nextPhaseCounter+12); //last hop
-        tmp->message->setPath(1,nextPhaseCounter+11); //last hop
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
@@ -355,11 +354,10 @@ void CE7Advanced::injectInitialPackets()
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set B4");
         tmp->atNode=new char[3];
-        strcpy (tmp->atNode,"x22");
-        tmp->atNode[0]=curPhaseName;
-        tmp->message->setPathArraySize(2);
+        strcpy (tmp->atNode,"x21");
+        tmp->atNode[0]=nextPhaseName;
+        tmp->message->setPathArraySize(1);
         tmp->message->setPath(0,nextPhaseCounter+22);
-        tmp->message->setPath(1,nextPhaseCounter+21);
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
@@ -395,11 +393,10 @@ void CE7Advanced::injectInitialPackets()
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set C4");
         tmp->atNode=new char[3];
-        strcpy (tmp->atNode,"x32");
-        tmp->atNode[0]=curPhaseName;
-        tmp->message->setPathArraySize(2);
+        strcpy (tmp->atNode,"x31");
+        tmp->atNode[0]=nextPhaseName;
+        tmp->message->setPathArraySize(1);
         tmp->message->setPath(0,nextPhaseCounter+32);
-        tmp->message->setPath(1,nextPhaseCounter+31);
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage

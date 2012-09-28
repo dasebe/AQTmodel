@@ -37,7 +37,7 @@ void CE3Advanced::injectInitialPackets()
     //define adversarial injections
     int initialSetSize=100; //in time steps (not simulationTime!!)
     AdvSchedMess * tmp;
-    maxPhaseCounter=200;
+    maxPhaseCounter=30;
 
 //learn queue length
     //before the queue length later on can be queried -> need to create the listener objects
