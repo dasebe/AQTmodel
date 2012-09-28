@@ -25,6 +25,8 @@ simple SourceRouting
         output out[];
         input localIn;
         output localOut;
+        input adversaryControl @directIn; //for direct control of the adversary via cmessages
+        
 }
 
 

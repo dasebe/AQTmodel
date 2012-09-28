@@ -96,7 +96,7 @@ void CE7Advanced::initialize()
 
 //learn queue length
 
-    cModule *targetModule = getParentModule()->getSubmodule("a1")->getSubmodule("app");
+    cModule *targetModule = getParentModule()->getSubmodule("a1")->getSubmodule("routing");
     cMessage *queueLenMsg = new cMessage("queue length a1-a2?");
     (*queueLenMsg).addPar("queueLenQ");
     (*queueLenMsg).par("queueLenQ").setLongValue(12);

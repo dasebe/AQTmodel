@@ -12,7 +12,7 @@ package adversaries;
 //
 // Application model to generate traffic for the network.
 //
-simple CE7Advanced like IAdversary
+simple CE7Advanced
 {
     parameters:
 		volatile double sendIaTime @unit(s) = default(10ms); // time between generating packets
@@ -21,7 +21,7 @@ simple CE7Advanced like IAdversary
         @signal[injectedPackets](type="long");
         @statistic[injectedPackets](title="injected Packets"; interpolationmode=none; record=count);
     gates:
-        output adversaryControl @loose;
+        inout adversaryControl @loose; //for direct control of nodes, their routing, and for getting feedback on network state
 }
 
 

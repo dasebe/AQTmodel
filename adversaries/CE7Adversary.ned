@@ -12,7 +12,7 @@ package adversaries;
 //
 // Application model to generate traffic for the network.
 //
-simple CE7Adversary like IAdversary
+simple CE7Adversary
 {
     parameters:
 		volatile double sendIaTime @unit(s) = default(10ms); // time between generating packets

@@ -141,20 +141,19 @@ void SourceRouting::handleMessage(cMessage *msg)
         int qlen=0;
 
         //check whether already subscribed
-        if (isSubscribed("qlen", listener))
-        {
-            //we assume it's the right one => manual check in adversary definition!
-            qlen=listener->queuelength;
-        }
-        else
+        if (!isSubscribed("qlen", listener))
         {
             getParentModule()->getSubmodule("queue",outGateIndex)->subscribe("qlen", listener);
-            //assume no signal yet => just leave qlen at zero
         }
+
+        //we assume we are not subscribed to the right queue! - no further consistency check!
+        qlen=listener->queuelength;
+
         cMessage *answer = new cMessage("answer queue length");
         answer->addPar("qlen");
         answer->addPar("qlen").setLongValue(qlen);
-        sendDirect(answer, msg->getSenderGate());
+        cModule *adversary = msg->getSenderModule();
+        sendDirect(answer, adversary, "adversaryControl$i");
         cancelAndDelete(msg);
     }
 
