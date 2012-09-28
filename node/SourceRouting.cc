@@ -32,29 +32,10 @@ class SourceRouting : public cSimpleModule
     simsignal_t dropSignal;
     simsignal_t outputIfSignal;
 
-    /*listener class as
-    * cListener is only "A do-nothing implementation of cIListener, suitable as a base class for other listeners."
-    * and we need to "redefine one or more of the overloaded receiveSignal() methods" */
-
-    class QueueListener : public cListener {
-        public:
-            long queuelength;
-            QueueListener(){}
-            void receiveSignal (cComponent *source, simsignal_t signalID, long l){
-                ev << "Signal received" << l << endl;
-                queuelength=l;
-                source->getFullPath();
-            }
-    };
-
-    QueueListener *listener;
-
-
 
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
-    void receiveSignal(cComponent *src, simsignal_t id, long l);
 };
 
 Define_Module(SourceRouting);
@@ -100,17 +81,10 @@ void SourceRouting::initialize()
     }
     delete topo;
 
-    //init listener (even at first time want to check whether subscribed)
-    listener = new QueueListener();
 
 }
 
 
-
-void SourceRouting::receiveSignal(cComponent *src, simsignal_t id, long l){
-    ev << "Signal received" << "the queue length of " << (*src).getFullPath() <<" is " << l << endl;
-    queueLen = l;
-}
 
 
 
@@ -123,7 +97,7 @@ void SourceRouting::handleMessage(cMessage *msg)
 
 
 
-    //TODO it's not correct implementing this here, should be at node level!
+    //give adversary right gate index to quere queue lengths
     if (msg->hasPar("queueLenQ"))
     {
 
@@ -136,22 +110,10 @@ void SourceRouting::handleMessage(cMessage *msg)
             //EV << "FAIL   : retrieving queue length"
             return;
         }
-
         int outGateIndex = (*it).second;
-        int qlen=0;
-
-        //check whether already subscribed
-        if (!isSubscribed("qlen", listener))
-        {
-            getParentModule()->getSubmodule("queue",outGateIndex)->subscribe("qlen", listener);
-        }
-
-        //we assume we are not subscribed to the right queue! - no further consistency check!
-        qlen=listener->queuelength;
-
-        cMessage *answer = new cMessage("answer queue length");
-        answer->addPar("qlen");
-        answer->addPar("qlen").setLongValue(qlen);
+        cMessage *answer = new cMessage(getParentModule()->getName());
+        answer->addPar("qlenGate"); //deprecated way!
+        answer->addPar("qlenGate").setLongValue(outGateIndex);
         cModule *adversary = msg->getSenderModule();
         sendDirect(answer, adversary, "adversaryControl$i");
         cancelAndDelete(msg);

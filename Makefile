@@ -37,6 +37,7 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 # Object files for local .cc and .msg files
 OBJS = \
     $O/adversaries/CE7Adversary.o \
+    $O/adversaries/AdvancedAdversary.o \
     $O/adversaries/BBAdversary.o \
     $O/adversaries/CE7Advanced.o \
     $O/adversaries/CE3Adversary.o \
@@ -134,11 +135,15 @@ depend:
 	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc builder/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
+$O/adversaries/AdvancedAdversary.o: adversaries/AdvancedAdversary.cc \
+	adversaries/AdvancedAdversary.h \
+	node/AdversarialInjectionMessage_m.h
 $O/adversaries/BBAdversary.o: adversaries/BBAdversary.cc \
 	node/AdversarialInjectionMessage_m.h
 $O/adversaries/CE3Adversary.o: adversaries/CE3Adversary.cc \
 	node/AdversarialInjectionMessage_m.h
 $O/adversaries/CE7Advanced.o: adversaries/CE7Advanced.cc \
+	adversaries/AdvancedAdversary.h \
 	node/AdversarialInjectionMessage_m.h
 $O/adversaries/CE7Adversary.o: adversaries/CE7Adversary.cc \
 	node/AdversarialInjectionMessage_m.h

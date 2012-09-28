@@ -1,6 +1,7 @@
 
 
 .tkenvlog
+.tkenvrc
 ./results/*
 ./out/*
 *.vci

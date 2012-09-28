@@ -115,7 +115,7 @@ void SourceRoutingApp::handleMessage(cMessage *msg)
         npk->setByteLength(packetLengthBytes->longValue());
         npk->setSrcAddr(myAddress);
         npk->setDestAddrArraySize(pk->getPathArraySize());
-        npk->setSchedulingPriority(4); //higher means lower priority, adversarial messages get 1-2
+        npk->setSchedulingPriority(6); //higher means lower priority, adversarial messages get 1-2
         unsigned int i=0; //because array size is unsigned!
         while(i < (pk->getPathArraySize()))
         {
