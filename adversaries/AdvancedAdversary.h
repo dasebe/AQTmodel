@@ -13,7 +13,7 @@
 #endif
 
 #include "../messages/AdversarialInjectionMessage_m.h"
-
+#include "QueueListener.h"
 
 /**
  * message kinds:
@@ -65,40 +65,10 @@ protected:
     short int  curPhaseCounter;
     char nextPhaseName;
     short int  nextPhaseCounter;
-
-
-    /**
-     * listener class to learn about queue lengths
-     * Needed because cListener is only "A do-nothing implementation of cIListener, suitable as a base class for other listeners."
-     * and we need to "redefine one or more of the overloaded receiveSignal() methods"
-     */
-
-    //TODO unclean -> should be separate file
-    class QueueListener : public cListener {
-        public:
-            int queueCount;
-            long queuelength[2];
-            cComponent * subscribedComponents[2]; //TODO use case only 2 subscriptions - works for now (else #include <vector>)
-            QueueListener()//(int queueCount)
-            {
-                //queuelength=new long[queueCount];
-                this->queueCount=2;
-                queuelength[0]=0;
-                queuelength[1]=0;
-            }
-            void receiveSignal (cComponent *source, simsignal_t signalID, long l){
-                //ev << "QueueListener Queue Length Signal received: " << l << endl;
-                for (int i=0;i<queueCount;i++)
-                {
-                    if(subscribedComponents[i]==source)
-                        queuelength[i]=l;
-                }
-            }
-    };
+    long maxPhaseCounter;
 
     QueueListener *listener;
     long queueLen;
-
 
     // signals for statistics (e.g.)
     simsignal_t injectedPackets;
@@ -108,7 +78,6 @@ protected:
 
     virtual void injectInitialPackets(){};
     virtual void injectPhasePackets(){};
-    virtual void receiveSignal(cComponent *src, simsignal_t id, long l);
 };
 
 Define_Module(AdvancedAdversary);

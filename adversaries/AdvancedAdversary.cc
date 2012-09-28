@@ -19,7 +19,8 @@ AdvancedAdversary::AdvancedAdversary(){}
 
 AdvancedAdversary::~AdvancedAdversary()
 {
-    //TODO there is some clean-up required!
+    //TODO where's the clean-up
+    delete(listener);
 }
 
 void AdvancedAdversary::initialize()
@@ -29,6 +30,7 @@ void AdvancedAdversary::initialize()
     injectionRate = par("injectionRate");
     injectionCount = 0;
     timeSync = simTime(); // == 0 (as we init!)
+    maxPhaseCounter=0;
     WATCH(injectionCount);
 
     //define adversarial injections
@@ -123,17 +125,11 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
         else
         {
             //then this scheduler is done
+            cancelAndDelete(aSMess->message);
             cancelAndDelete(msg);
         }
 
     }
 
 }
-
-
-void AdvancedAdversary::receiveSignal(cComponent *src, simsignal_t id, long l){
-    ev << "Signal received" << "the queue length of " << (*src).getFullPath() <<" is " << l << endl;
-    queueLen = l;
-}
-
 

@@ -41,6 +41,8 @@ OBJS = \
     $O/adversaries/BBAdversary.o \
     $O/adversaries/CE7Advanced.o \
     $O/adversaries/CE3Adversary.o \
+    $O/adversaries/CE3Advanced.o \
+    $O/adversaries/QueueListener.o \
     $O/node/SourceRoutingApp.o \
     $O/node/L2Queue.o \
     $O/node/SourceRouting.o \
@@ -135,15 +137,22 @@ depend:
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/AdvancedAdversary.o: adversaries/AdvancedAdversary.cc \
-	adversaries/AdvancedAdversary.h
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
 $O/adversaries/BBAdversary.o: adversaries/BBAdversary.cc \
 	messages/AdversarialInjectionMessage_m.h
+$O/adversaries/CE3Advanced.o: adversaries/CE3Advanced.cc \
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
 $O/adversaries/CE3Adversary.o: adversaries/CE3Adversary.cc \
 	messages/AdversarialInjectionMessage_m.h
 $O/adversaries/CE7Advanced.o: adversaries/CE7Advanced.cc \
-	adversaries/AdvancedAdversary.h
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
 $O/adversaries/CE7Adversary.o: adversaries/CE7Adversary.cc \
 	messages/AdversarialInjectionMessage_m.h
+$O/adversaries/QueueListener.o: adversaries/QueueListener.cc \
+	adversaries/QueueListener.h
 $O/messages/AdversarialInjectionMessage_m.o: messages/AdversarialInjectionMessage_m.cc \
 	messages/AdversarialInjectionMessage_m.h
 $O/messages/SourceRoutingPacket_m.o: messages/SourceRoutingPacket_m.cc \

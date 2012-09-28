@@ -35,8 +35,9 @@ void CE7Advanced::injectInitialPackets()
     WATCH(injectionCount);
 
     //define adversarial injections
-    int initialSetSize=5; //in time steps (not simulationTime!!)
+    int initialSetSize=100; //in time steps (not simulationTime!!)
     AdvSchedMess * tmp;
+    maxPhaseCounter=100;
 
 //learn queue length
     //before the queue length later on can be queried -> need to create the listener objects
@@ -405,18 +406,20 @@ void CE7Advanced::injectInitialPackets()
         scheduleAt(timeSync,tmp);
 
 //inverse Phase follows
-        char n=curPhaseName;
-        curPhaseName=nextPhaseName;
-        nextPhaseName=n;
-        short int x=curPhaseCounter;
-        curPhaseCounter=nextPhaseCounter;
-        nextPhaseCounter=x;
+        if (maxPhaseCounter-->0)
+        {
+            char n=curPhaseName;
+            curPhaseName=nextPhaseName;
+            nextPhaseName=n;
+            short int x=curPhaseCounter;
+            curPhaseCounter=nextPhaseCounter;
+            nextPhaseCounter=x;
 
-        cMessage *selfNote = new cMessage("Start of Phase");
-        selfNote->setKind(102); //this means that the first entry of the injection struct shall be started by this message
-        tmp->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        selfNote->addPar("phaseCtrl");
-        //the round number 5 of this phase is the first round of the next phase
-        scheduleAt(timeSyncR5, selfNote);
-
+            cMessage *selfNote = new cMessage("Start of Phase");
+            selfNote->setKind(102); //this means that the first entry of the injection struct shall be started by this message
+            tmp->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
+            selfNote->addPar("phaseCtrl");
+            //the round number 5 of this phase is the first round of the next phase
+            scheduleAt(timeSyncR5, selfNote);
+        }
     }
