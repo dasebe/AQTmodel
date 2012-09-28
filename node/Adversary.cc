@@ -24,6 +24,7 @@ class Adversary : public cSimpleModule
     long bufferSize;
     double injectionRate;
     SimTime timeSync;
+    int noInjs;
 
     struct Inj
     {
@@ -41,7 +42,7 @@ class Adversary : public cSimpleModule
     long injectionCount;
 
     // signals for statistics (e.g.)
-            //none as yet
+    simsignal_t injectedPackets;
 
   public:
     Adversary();
@@ -62,8 +63,12 @@ Adversary::Adversary()
 
 Adversary::~Adversary()
 {
-    //not used anymore as messages are destroyed in handleMessage
+    for (int i=0; i < noInjs;i++)
+    {
+        cancelAndDelete(injections[i].message);
+    }
     //cancelAndDelete(selfNote);
+    //delete(injections);
 }
 
 void Adversary::initialize()
@@ -76,7 +81,7 @@ void Adversary::initialize()
     WATCH(injectionCount);
 
     //define adversarial injections
-    int noInjs = 5;
+    noInjs = 5;
     injections = (Inj*) malloc(noInjs*sizeof(Inj));
 
     //class 0 (initial packets)
@@ -96,7 +101,7 @@ void Adversary::initialize()
 
     //class 1 (round 1)
     injections[1].interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-    injections[1].packetCount=bufferSize;
+    injections[1].packetCount= floor(bufferSize*injectionRate);
     injections[1].message =  new AdversarialInjectionMessage("set 1");
     injections[1].atNode = "v0";
     injections[1].message->setPathArraySize(4);
@@ -114,7 +119,7 @@ void Adversary::initialize()
 
     //class 2 (round 2) confinement packets
     injections[2].interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-    injections[2].packetCount=bufferSize/2;
+    injections[2].packetCount=floor(bufferSize/2*injectionRate);
     injections[2].message =  new AdversarialInjectionMessage("confinement 1");
     injections[2].atNode = "w0";
     injections[2].message->setPathArraySize(1);
@@ -130,7 +135,7 @@ void Adversary::initialize()
 
     //class 3 (round 2)
     injections[3].interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-    injections[3].packetCount=bufferSize;
+    injections[3].packetCount=floor(bufferSize*injectionRate);
     injections[3].message =  new AdversarialInjectionMessage("set 2");
     injections[3].atNode = "v0";
     injections[3].message->setPathArraySize(4);
@@ -148,7 +153,7 @@ void Adversary::initialize()
 
     //class 4 (round 3)
     injections[4].interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-    injections[4].packetCount=bufferSize;
+    injections[4].packetCount=floor(bufferSize*injectionRate);
     injections[4].message =  new AdversarialInjectionMessage("set 3");
     injections[4].atNode = "v1";
     injections[4].message->setPathArraySize(1);
@@ -161,6 +166,9 @@ void Adversary::initialize()
     //when to start this phase
     timeSync += injections[3].packetCount*(timeSlots->doubleValue());
     scheduleAt(timeSync, selfNote);
+
+
+    injectedPackets = registerSignal("injectedPackets");
 }
 
 
@@ -184,7 +192,8 @@ void Adversary::handleMessage(cMessage *msg)
         if (injections[cl].packetCount-- > 0) //only send a message if remaining
         {
             //send duplicate of message, as we won't be the owner after it has been passed to targetModule
-            injectionCount++;
+            emit(injectedPackets, ++injectionCount);
+
             sendDirect(injections[cl].message->dup(), targetModule, "adversaryControl");
 
             if (ev.isGUI()) getParentModule()->bubble("injecting round 0");
@@ -199,6 +208,6 @@ void Adversary::handleMessage(cMessage *msg)
             scheduleAt(simTime() + injections[cl].interInjectionTime, selfNote);
         }
         cancelAndDelete(msg);
-        }
+    }
 }
 

@@ -127,6 +127,7 @@ void SourceRoutingApp::handleMessage(cMessage *msg)
 
         //delete adversarial command
         delete(pk);
+        //cancelAndDelete(msg);?
 
 
     }
