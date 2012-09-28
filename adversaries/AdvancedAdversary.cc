@@ -37,7 +37,6 @@ void AdvancedAdversary::initialize()
     injectionRate = par("injectionRate");
     injectionCount = 0;
     timeSync = simTime(); // == 0 (as we init!)
-    overallRoundTime = 0;
     WATCH(injectionCount);
 
     //define adversarial injections

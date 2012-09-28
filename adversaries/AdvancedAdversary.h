@@ -52,7 +52,6 @@ protected:
     double injectionRate;
     SimTime timeSync;
     int noInjs;
-    int overallRoundTime;
 
     struct Inj
     {

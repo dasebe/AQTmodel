@@ -195,6 +195,6 @@ network CE7Advanced
         c6.port++ <--> C <--> c1.port++;
         b6.port++ <--> C <--> b1.port++;
         a6.port++ <--> C <--> a1.port++;
-        m10.port++ <--> m7.port++;
+        m10.port++ <--> C <--> m7.port++;
 }
 

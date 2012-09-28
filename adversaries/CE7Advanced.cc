@@ -135,10 +135,10 @@ void CE7Advanced::injectInitialPackets()
     void CE7Advanced::injectPhasePackets()
     {
         Inj * tmp;
-        int tmpi=0;
+        int tmpi=3;
         //we assume we are not subscribed to the right queue! - no further consistency check!
-        overallRoundTime=listener->queuelength + 1; //because one transmitted right away
-        ev << "got queue length: "<< overallRoundTime << endl;
+        long roundTime=listener->queuelength + 1; //because one transmitted right away
+        ev << "got queue length: "<< roundTime << endl;
 
 //round 1
         timeSync = simTime(); //offset for first round = 0
@@ -147,7 +147,7 @@ void CE7Advanced::injectInitialPackets()
         // (set A1)
         tmp = &injections[tmpi];
         (*tmp).interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        (*tmp).packetCount=floor(bufferSize*injectionRate);
+        (*tmp).packetCount=floor(roundTime*injectionRate);
         (*tmp).message =  new AdversarialInjectionMessage("set A1");
         (*tmp).atNode = "a1";
         (*tmp).message->setPathArraySize(6);
@@ -167,12 +167,12 @@ void CE7Advanced::injectInitialPackets()
 
 
 //round 2
-        timeSync += overallRoundTime*(timeSlots->doubleValue());
+        timeSync += roundTime*(timeSlots->doubleValue());
 
         // (set A2)
         tmp = &injections[tmpi];
         (*tmp).interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        (*tmp).packetCount=floor(bufferSize*injectionRate);
+        (*tmp).packetCount=floor(roundTime*injectionRate);
         (*tmp).message =  new AdversarialInjectionMessage("set A2");
         (*tmp).atNode = "a1";
         (*tmp).message->setPathArraySize(5);
@@ -192,7 +192,7 @@ void CE7Advanced::injectInitialPackets()
         // (set B1)
         tmp = &injections[tmpi];
         (*tmp).interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        (*tmp).packetCount=floor(bufferSize*injectionRate);
+        (*tmp).packetCount=floor(roundTime*injectionRate);
         (*tmp).message =  new AdversarialInjectionMessage("set B1");
         (*tmp).atNode = "b1";
         (*tmp).message->setPathArraySize(9);
@@ -215,13 +215,13 @@ void CE7Advanced::injectInitialPackets()
 
 
 //round 3
-        timeSync += overallRoundTime*(timeSlots->doubleValue());
+        timeSync += roundTime*(timeSlots->doubleValue());
 
 
         // (set A3)
         tmp = &injections[tmpi];
         (*tmp).interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        (*tmp).packetCount=floor(bufferSize*injectionRate);
+        (*tmp).packetCount=floor(roundTime*injectionRate);
         (*tmp).message =  new AdversarialInjectionMessage("set A3");
         (*tmp).atNode = "a1";
         (*tmp).message->setPathArraySize(3);
@@ -239,7 +239,7 @@ void CE7Advanced::injectInitialPackets()
         // (set B2)
         tmp = &injections[tmpi];
         (*tmp).interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        (*tmp).packetCount=floor(bufferSize*injectionRate);
+        (*tmp).packetCount=floor(roundTime*injectionRate);
         (*tmp).message =  new AdversarialInjectionMessage("set B2");
         (*tmp).atNode = "b1";
         (*tmp).message->setPathArraySize(8);
@@ -262,7 +262,7 @@ void CE7Advanced::injectInitialPackets()
         // (set C1)
         tmp = &injections[tmpi];
         (*tmp).interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        (*tmp).packetCount=floor(bufferSize*injectionRate);
+        (*tmp).packetCount=floor(roundTime*injectionRate);
         (*tmp).message =  new AdversarialInjectionMessage("set C1");
         (*tmp).atNode = "c1";
         (*tmp).message->setPathArraySize(10);
@@ -286,12 +286,12 @@ void CE7Advanced::injectInitialPackets()
 
 
 //round 4
-        timeSync += overallRoundTime*(timeSlots->doubleValue());
+        timeSync += roundTime*(timeSlots->doubleValue());
 
         // (set A4) direct inject
         tmp = &injections[tmpi];
         (*tmp).interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        (*tmp).packetCount=floor(bufferSize*injectionRate);
+        (*tmp).packetCount=floor(roundTime*injectionRate);
         (*tmp).message =  new AdversarialInjectionMessage("set A4");
         (*tmp).atNode = "a3";
         (*tmp).message->setPathArraySize(1);
@@ -307,7 +307,7 @@ void CE7Advanced::injectInitialPackets()
         // (set B3)
         tmp = &injections[tmpi];
         (*tmp).interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        (*tmp).packetCount=floor(bufferSize*injectionRate);
+        (*tmp).packetCount=floor(roundTime*injectionRate);
         (*tmp).message =  new AdversarialInjectionMessage("set B3");
         (*tmp).atNode = "b1";
         (*tmp).message->setPathArraySize(6);
@@ -328,7 +328,7 @@ void CE7Advanced::injectInitialPackets()
         // (set C2)
         tmp = &injections[tmpi];
         (*tmp).interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        (*tmp).packetCount=floor(bufferSize*injectionRate);
+        (*tmp).packetCount=floor(roundTime*injectionRate);
         (*tmp).message =  new AdversarialInjectionMessage("set C2");
         (*tmp).atNode = "c1";
         (*tmp).message->setPathArraySize(9);
@@ -351,12 +351,12 @@ void CE7Advanced::injectInitialPackets()
 
 
 //round 5
-        timeSync += overallRoundTime*(timeSlots->doubleValue());
+        timeSync += roundTime*(timeSlots->doubleValue());
 
         // (set B4) direct inject
         tmp = &injections[tmpi];
         (*tmp).interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        (*tmp).packetCount=floor(bufferSize*injectionRate);
+        (*tmp).packetCount=floor(roundTime*injectionRate);
         (*tmp).message =  new AdversarialInjectionMessage("set B4");
         (*tmp).atNode = "b3";
         (*tmp).message->setPathArraySize(1);
@@ -372,7 +372,7 @@ void CE7Advanced::injectInitialPackets()
         // (set C3)
         tmp = &injections[tmpi];
         (*tmp).interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        (*tmp).packetCount=floor(bufferSize*injectionRate);
+        (*tmp).packetCount=floor(roundTime*injectionRate);
         (*tmp).message =  new AdversarialInjectionMessage("set C3");
         (*tmp).atNode = "c1";
         (*tmp).message->setPathArraySize(7);
@@ -392,12 +392,12 @@ void CE7Advanced::injectInitialPackets()
         scheduleAt(timeSync, selfNote);
 
 //round 6
-        timeSync += overallRoundTime*(timeSlots->doubleValue());
+        timeSync += roundTime*(timeSlots->doubleValue());
 
         // (set A4) direct inject
         tmp = &injections[tmpi];
         (*tmp).interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        (*tmp).packetCount=floor(bufferSize*injectionRate);
+        (*tmp).packetCount=floor(roundTime*injectionRate);
         (*tmp).message =  new AdversarialInjectionMessage("set C4");
         (*tmp).atNode = "c3";
         (*tmp).message->setPathArraySize(1);
