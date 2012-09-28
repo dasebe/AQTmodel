@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgc 4.2 from node/AdversarialInjectionMessage.msg.
+// Generated file, do not edit! Created by opp_msgc 4.2 from messages/AdversarialInjectionMessage.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:

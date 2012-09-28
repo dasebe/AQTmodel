@@ -7,8 +7,8 @@
  #include <omnetpp.h>
 #endif
 
-#include <vector>
-#include "AdversarialInjectionMessage_m.h"
+#include "../messages/AdversarialInjectionMessage_m.h"
+#include "../messages/AdvSchedMess.h"
 #include "AdvancedAdversary.h"
 
 /**
@@ -35,11 +35,8 @@ void CE7Advanced::injectInitialPackets()
     WATCH(injectionCount);
 
     //define adversarial injections
-    noInjs = 3+3+3+3+3; //3initial sets, 3x3injections + 3 direct injects
-    injections = (Inj*) malloc(noInjs*sizeof(Inj));
-    int initialSetSize=10; //in time steps (not simulationTime!!)
-    Inj * tmp;
-    int tmpi=0;
+    int initialSetSize=5; //in time steps (not simulationTime!!)
+    AdvSchedMess * tmp;
 
 //learn queue length
     //before the queue length later on can be queried -> need to create the listener objects
@@ -64,23 +61,19 @@ void CE7Advanced::injectInitialPackets()
 
 //round 0
     // (initial packets A)
-    tmp = &injections[tmpi];
-    tmp->interInjectionTime = 0;
-    tmp->interInjectionTime = 0;
+    tmp = new AdvSchedMess;
+    tmp->interInjectionTime=0;
     tmp->packetCount=initialSetSize;
-    tmp->message =  new AdversarialInjectionMessage("initial set A0");
+    tmp->message=new AdversarialInjectionMessage("initial set A0");
     tmp->atNode=new char[3];
     strcpy (tmp->atNode,"x11");
     tmp->atNode[0]=curPhaseName;
     tmp->message->setPathArraySize(1);
     tmp->message->setPath(0,curPhaseCounter+12);
     tmp->message->setKind(101);
-    //schedule event message for this injection class
-    selfNote = new cMessage("S: A0");
-    selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-    selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-    //when to start this phase
-    scheduleAt(timeSync, selfNote);
+    tmp->setSchedulingPriority(1);
+    //schedule this now as selfmessage
+    scheduleAt(timeSync,tmp);
 
 
 //round 1
@@ -91,7 +84,7 @@ void CE7Advanced::injectInitialPackets()
     timeSync += initialSetSize*(timeSlots->doubleValue());
 
     // (initial packets B)
-    tmp = &injections[tmpi];
+    tmp = new AdvSchedMess;
     tmp->interInjectionTime = 0;
     tmp->packetCount= initialSetSize;
     tmp->message =  new AdversarialInjectionMessage("initial set B0");
@@ -103,19 +96,16 @@ void CE7Advanced::injectInitialPackets()
     tmp->message->setPath(1,curPhaseCounter+91);
     tmp->message->setPath(2,curPhaseCounter+22);
     tmp->message->setKind(101);
-    //schedule event message for this injection class
-    selfNote = new cMessage("S: B0");
-    selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-    selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-    //when to start this phase
-    scheduleAt(timeSync, selfNote);
+    tmp->setSchedulingPriority(1);
+    //schedule this now as selfmessage
+    scheduleAt(timeSync,tmp);
 
 
 //round 3
     timeSync += initialSetSize*(timeSlots->doubleValue());
 
     // (initial packets C)
-    tmp = &injections[tmpi];
+    tmp = new AdvSchedMess;
     tmp->interInjectionTime = 0;
     tmp->packetCount=initialSetSize;
     tmp->message =  new AdversarialInjectionMessage("initial set C0");
@@ -129,12 +119,9 @@ void CE7Advanced::injectInitialPackets()
     tmp->message->setPath(3,curPhaseCounter+94);
     tmp->message->setPath(4,curPhaseCounter+32);
     tmp->message->setKind(101);
-    //schedule event message for this injection class
-    selfNote = new cMessage("S: C0");
-    selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-    selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-    //when to start this phase
-    scheduleAt(timeSync, selfNote);
+    tmp->setSchedulingPriority(1);
+    //schedule this now as selfmessage
+    scheduleAt(timeSync,tmp);
 }
 
 
@@ -145,9 +132,8 @@ void CE7Advanced::injectInitialPackets()
 
     void CE7Advanced::injectPhasePackets()
     {
-        Inj * tmp;
-        int tmpi=3;
-        //we assume we are not subscribed to the right queue! - no further consistency check!
+        AdvSchedMess * tmp;
+        //we assume we are indeed subscribed to the right queue! - no further consistency check!
         long roundTime=listener->queuelength[curPhaseCounter/100-1] + 1; //because one transmitted right away
         ev << "QL: "<< roundTime << endl;
 
@@ -156,7 +142,7 @@ void CE7Advanced::injectInitialPackets()
 
 
         // (set A1)
-        tmp = &injections[tmpi];
+        tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set A1");
@@ -174,12 +160,9 @@ void CE7Advanced::injectInitialPackets()
         tmp->message->setPath(7,curPhaseCounter+91);
         tmp->message->setPath(8,curPhaseCounter+12);//first hop
         tmp->message->setKind(101);
-        //schedule event message for this injection class
-        selfNote = new cMessage("S: A1");
-        selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(2); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        //when to start this phase
-        scheduleAt(timeSync, selfNote);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
 
 
@@ -187,7 +170,7 @@ void CE7Advanced::injectInitialPackets()
         timeSync += roundTime*(timeSlots->doubleValue());
 
         // (set A2)
-        tmp = &injections[tmpi];
+        tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set A2");
@@ -205,15 +188,12 @@ void CE7Advanced::injectInitialPackets()
         tmp->message->setPath(7,curPhaseCounter+94);
         tmp->message->setPath(8,curPhaseCounter+12);//first hop
         tmp->message->setKind(101);
-        //schedule event message for this injection class
-        selfNote = new cMessage("S: A2");
-        selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(2); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        //when to start this phase
-        scheduleAt(timeSync, selfNote);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
         // (set B1)
-        tmp = &injections[tmpi];
+        tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set B1");
@@ -230,12 +210,9 @@ void CE7Advanced::injectInitialPackets()
         tmp->message->setPath(6,curPhaseCounter+91);
         tmp->message->setPath(7,curPhaseCounter+22);//first hop
         tmp->message->setKind(101);
-        //schedule event message for this injection class
-        selfNote = new cMessage("S: B1");
-        selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(2); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        //when to start this phase
-        scheduleAt(timeSync, selfNote);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
 
 //round 3
@@ -243,7 +220,7 @@ void CE7Advanced::injectInitialPackets()
 
 
         // (set A3)
-        tmp = &injections[tmpi];
+        tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set A3");
@@ -255,15 +232,12 @@ void CE7Advanced::injectInitialPackets()
         tmp->message->setPath(1,nextPhaseCounter+11);
         tmp->message->setPath(2,curPhaseCounter+12);//first hop
         tmp->message->setKind(101);
-        //schedule event message for this injection class
-        selfNote = new cMessage("S: A3");
-        selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(2); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        //when to start this phase
-        scheduleAt(timeSync, selfNote);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
         // (set B2)
-        tmp = &injections[tmpi];
+        tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set B2");
@@ -279,15 +253,12 @@ void CE7Advanced::injectInitialPackets()
         tmp->message->setPath(5,curPhaseCounter+94);
         tmp->message->setPath(6,curPhaseCounter+22);
         tmp->message->setKind(101);
-        //schedule event message for this injection class
-        selfNote = new cMessage("S: B2");
-        selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(2); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        //when to start this phase
-        scheduleAt(timeSync, selfNote);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
         // (set C1)
-        tmp = &injections[tmpi];
+        tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set C1");
@@ -306,37 +277,32 @@ void CE7Advanced::injectInitialPackets()
         tmp->message->setPath(8,curPhaseCounter+91);
         tmp->message->setPath(9,curPhaseCounter+32);
         tmp->message->setKind(101);
-        //schedule event message for this injection class
-        selfNote = new cMessage("S: C1");
-        selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(2); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        //when to start this phase
-        scheduleAt(timeSync, selfNote);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
 
 //round 4
         timeSync += roundTime*(timeSlots->doubleValue());
 
         // (set A4) direct inject
-        tmp = &injections[tmpi];
+        tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set A4");
         tmp->atNode=new char[3];
         strcpy (tmp->atNode,"x12");
         tmp->atNode[0]=curPhaseName;
-        tmp->message->setPathArraySize(1);
-        tmp->message->setPath(0,nextPhaseCounter+11); //last hop
+        tmp->message->setPathArraySize(2);
+        tmp->message->setPath(0,nextPhaseCounter+12); //last hop
+        tmp->message->setPath(1,nextPhaseCounter+11); //last hop
         tmp->message->setKind(101);
-        //schedule event message for this injection class
-        selfNote = new cMessage("S: A4");
-        selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(2); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        //when to start this phase
-        scheduleAt(timeSync, selfNote);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
         // (set B3)
-        tmp = &injections[tmpi];
+        tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set B3");
@@ -350,15 +316,12 @@ void CE7Advanced::injectInitialPackets()
         tmp->message->setPath(3,nextPhaseCounter+21);
         tmp->message->setPath(4,curPhaseCounter+22);
         tmp->message->setKind(101);
-        //schedule event message for this injection class
-        selfNote = new cMessage("S: B3");
-        selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(2); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        //when to start this phase
-        scheduleAt(timeSync, selfNote);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
         // (set C2)
-        tmp = &injections[tmpi];
+        tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set C2");
@@ -376,12 +339,9 @@ void CE7Advanced::injectInitialPackets()
         tmp->message->setPath(7,curPhaseCounter+94);
         tmp->message->setPath(8,curPhaseCounter+32);
         tmp->message->setKind(101);
-        //schedule event message for this injection class
-        selfNote = new cMessage("S: C2");
-        selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(2); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        //when to start this phase
-        scheduleAt(timeSync, selfNote);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
 
 //round 5
@@ -389,25 +349,23 @@ void CE7Advanced::injectInitialPackets()
         SimTime timeSyncR5=timeSync;
 
         // (set B4) direct inject
-        tmp = &injections[tmpi];
+        tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set B4");
         tmp->atNode=new char[3];
         strcpy (tmp->atNode,"x22");
         tmp->atNode[0]=curPhaseName;
-        tmp->message->setPathArraySize(1);
-        tmp->message->setPath(0,nextPhaseCounter+21); //last hop
+        tmp->message->setPathArraySize(2);
+        tmp->message->setPath(0,nextPhaseCounter+22);
+        tmp->message->setPath(1,nextPhaseCounter+21);
         tmp->message->setKind(101);
-        //schedule event message for this injection class
-        selfNote = new cMessage("S: B4");
-        selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(2); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        //when to start this phase
-        scheduleAt(timeSync, selfNote);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
         // (set C3)
-        tmp = &injections[tmpi];
+        tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set C3");
@@ -423,34 +381,28 @@ void CE7Advanced::injectInitialPackets()
         tmp->message->setPath(5,nextPhaseCounter+31);
         tmp->message->setPath(6,curPhaseCounter+32);
         tmp->message->setKind(101);
-        //schedule event message for this injection class
-        selfNote = new cMessage("S: C3");
-        selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(2); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        //when to start this phase
-        scheduleAt(timeSync, selfNote);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
 //round 6
         timeSync += roundTime*(timeSlots->doubleValue());
 
         // (set C4) direct inject
-        tmp = &injections[tmpi];
+        tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
         tmp->message =  new AdversarialInjectionMessage("set C4");
         tmp->atNode=new char[3];
         strcpy (tmp->atNode,"x32");
         tmp->atNode[0]=curPhaseName;
-        tmp->message->setPathArraySize(1);
-        tmp->message->setPath(0,nextPhaseCounter+31); //last hop
+        tmp->message->setPathArraySize(2);
+        tmp->message->setPath(0,nextPhaseCounter+32);
+        tmp->message->setPath(1,nextPhaseCounter+31);
         tmp->message->setKind(101);
-        //schedule event message for this injection class
-        selfNote = new cMessage("S: C4");
-        selfNote->setKind(tmpi++); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(2); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-        //when to start this phase
-        scheduleAt(timeSync, selfNote);
-
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
 //inverse Phase follows
         char n=curPhaseName;
@@ -460,9 +412,9 @@ void CE7Advanced::injectInitialPackets()
         curPhaseCounter=nextPhaseCounter;
         nextPhaseCounter=x;
 
-        selfNote = new cMessage("Start of Phase");
+        cMessage *selfNote = new cMessage("Start of Phase");
         selfNote->setKind(102); //this means that the first entry of the injection struct shall be started by this message
-        selfNote->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
+        tmp->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
         selfNote->addPar("phaseCtrl");
         //the round number 5 of this phase is the first round of the next phase
         scheduleAt(timeSyncR5, selfNote);

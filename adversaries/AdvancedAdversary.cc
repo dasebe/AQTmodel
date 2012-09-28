@@ -15,19 +15,11 @@
  * to reflect the actions done by the adversary
  */
 
-AdvancedAdversary::AdvancedAdversary()
-{
-    selfNote = NULL;
-}
+AdvancedAdversary::AdvancedAdversary(){}
 
 AdvancedAdversary::~AdvancedAdversary()
 {
-    for (int i=0; i < noInjs;i++)
-    {
-        cancelAndDelete(injections[i].message);
-    }
-    //cancelAndDelete(selfNote);
-    //delete(injections);
+    //TODO there is some clean-up required!
 }
 
 void AdvancedAdversary::initialize()
@@ -53,7 +45,8 @@ void AdvancedAdversary::initialize()
      * Because of this it has to be called at the end after all initial injection
      * _took_ place -> we create a special selfmessage for this.
      */
-    selfNote = new cMessage("Start of Phase");
+
+    cMessage *selfNote = new cMessage("Start of Phase");
     selfNote->setKind(102); //this means that the first entry of the injection struct shall be started by this message
     selfNote->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
     selfNote->addPar("phaseCtrl");
@@ -98,39 +91,41 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
         return;
     }
 
+
+
+
+
     if(msg->isSelfMessage()) //scheduling of injections is all done by selfMessaging
     {
-        //const char * name = msg->getName(); //don't use strings anymore
-        int cl = msg->getKind();
-
-
+        //don't catch exception - assume it's fine
+        AdvSchedMess *aSMess = check_and_cast<AdvSchedMess *>(msg);
 
         //parentModule is complete network
         //then select the vertice/node
         //then select the corresponding app (to which we will deliver the message by avoiding the queue...)
-        cModule *targetModule = getParentModule()->getSubmodule(injections[cl].atNode)->getSubmodule("app");
+        cModule *targetModule = getParentModule()->getSubmodule(aSMess->atNode)->getSubmodule("app");
 
         //we already have a message defined in our Inj struct
 
-        if (injections[cl].packetCount-- > 0) //only send a message if remaining
+        if (aSMess->packetCount-- > 0) //only send a message if remaining
         {
 
             emit(injectedPackets, ++injectionCount);
             //send duplicate of message, as we won't be the owner after it has been passed to targetModule
-            sendDirect(injections[cl].message->dup(), targetModule, "adversaryControl");
+            sendDirect(aSMess->message->dup(), targetModule, "adversaryControl");
 
             if (ev.isGUI()) getParentModule()->bubble("inject");
 
-            EV << "INJECT:     at " << injections[cl].atNode << "  set " << msg->getName() << "  remain " << injections[cl].packetCount << endl;
+            EV << "INJECT:     at " << aSMess->atNode << "  set " << msg->getName() << "  remain " << aSMess->packetCount << endl;
 
-            //char pkname[60];
-            //sprintf(pkname,"%s remain %ld", msg->, injections[cl].packetCount);
-            selfNote = new cMessage(msg->getName());
-            selfNote->setKind(cl); //same class as before
-            selfNote->setSchedulingPriority(4); //used to be msg->getSchedulingPriority()
-            scheduleAt(simTime() + injections[cl].interInjectionTime, selfNote);
+            scheduleAt(simTime() + aSMess->interInjectionTime, aSMess);
         }
-        cancelAndDelete(msg);
+        else
+        {
+            //then this scheduler is done
+            cancelAndDelete(msg);
+        }
+
     }
 
 }

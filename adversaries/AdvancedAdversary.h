@@ -7,7 +7,12 @@
  #include <omnetpp.h>
 #endif
 
-#include "AdversarialInjectionMessage_m.h"
+#ifndef ADVSCHEDMESS_H
+#define ADVSCHEDMESS_H
+#include "../messages/AdvSchedMess.h"
+#endif
+
+#include "../messages/AdversarialInjectionMessage_m.h"
 
 
 /**
@@ -55,20 +60,6 @@ protected:
     double injectionRate;
     SimTime timeSync;
     int noInjs;
-
-    struct Inj
-    {
-        long packetCount;   // [start,stop] time range for injection
-        char* atNode;         // where to initially deploy the packets upon injection
-        double interInjectionTime;  // 1/injectionRate - will directly go into the offset for scheduleAt events
-        AdversarialInjectionMessage *message; //adversarial injection command to be send to nodes
-        int packetNHops;
-        int *packetPath;    // path injected together with the packets (possibly of unkown length)
-    };
-
-    // state
-    Inj *injections;
-    cMessage *selfNote; //self-messaging //actually not needed as class attribute // TODO: clean-up
     long injectionCount;
     char curPhaseName;
     short int  curPhaseCounter;

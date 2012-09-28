@@ -15,8 +15,8 @@
 
 #include <vector>
 #include <omnetpp.h>
-#include "SourceRoutingPacket_m.h"
-#include "AdversarialInjectionMessage_m.h"
+#include "../messages/SourceRoutingPacket_m.h"
+#include "../messages/AdversarialInjectionMessage_m.h"
 
 
 

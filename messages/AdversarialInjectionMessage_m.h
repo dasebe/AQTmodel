@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgc 4.2 from node/AdversarialInjectionMessage.msg.
+// Generated file, do not edit! Created by opp_msgc 4.2 from messages/AdversarialInjectionMessage.msg.
 //
 
 #ifndef _ADVERSARIALINJECTIONMESSAGE_M_H_
@@ -16,7 +16,7 @@
 
 
 /**
- * Class generated from <tt>node/AdversarialInjectionMessage.msg</tt> by opp_msgc.
+ * Class generated from <tt>messages/AdversarialInjectionMessage.msg</tt> by opp_msgc.
  * <pre>
  * packet AdversarialInjectionMessage {
  *     int path[];

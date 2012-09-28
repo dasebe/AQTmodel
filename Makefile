@@ -17,7 +17,7 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
 INCLUDE_PATH = \
     -I. \
     -Iadversaries \
-    -Ibuilder \
+    -Imessages \
     -Inetworks \
     -Inode \
     -IresultAnalysis \
@@ -41,17 +41,16 @@ OBJS = \
     $O/adversaries/BBAdversary.o \
     $O/adversaries/CE7Advanced.o \
     $O/adversaries/CE3Adversary.o \
-    $O/builder/netbuilder.o \
     $O/node/SourceRoutingApp.o \
     $O/node/L2Queue.o \
     $O/node/SourceRouting.o \
-    $O/node/AdversarialInjectionMessage_m.o \
-    $O/node/SourceRoutingPacket_m.o
+    $O/messages/AdversarialInjectionMessage_m.o \
+    $O/messages/SourceRoutingPacket_m.o
 
 # Message files
 MSGFILES = \
-    node/AdversarialInjectionMessage.msg \
-    node/SourceRoutingPacket.msg
+    messages/AdversarialInjectionMessage.msg \
+    messages/SourceRoutingPacket.msg
 
 #------------------------------------------------------------------------------
 
@@ -122,7 +121,7 @@ clean:
 	-rm -f adversarialQueueing adversarialQueueing.exe libadversarialQueueing.so libadversarialQueueing.a libadversarialQueueing.dll libadversarialQueueing.dylib
 	-rm -f ./*_m.cc ./*_m.h
 	-rm -f adversaries/*_m.cc adversaries/*_m.h
-	-rm -f builder/*_m.cc builder/*_m.h
+	-rm -f messages/*_m.cc messages/*_m.h
 	-rm -f networks/*_m.cc networks/*_m.h
 	-rm -f node/*_m.cc node/*_m.h
 	-rm -f resultAnalysis/*_m.cc resultAnalysis/*_m.h
@@ -132,30 +131,24 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc builder/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/AdvancedAdversary.o: adversaries/AdvancedAdversary.cc \
-	adversaries/AdvancedAdversary.h \
-	node/AdversarialInjectionMessage_m.h
+	adversaries/AdvancedAdversary.h
 $O/adversaries/BBAdversary.o: adversaries/BBAdversary.cc \
-	node/AdversarialInjectionMessage_m.h
+	messages/AdversarialInjectionMessage_m.h
 $O/adversaries/CE3Adversary.o: adversaries/CE3Adversary.cc \
-	node/AdversarialInjectionMessage_m.h
+	messages/AdversarialInjectionMessage_m.h
 $O/adversaries/CE7Advanced.o: adversaries/CE7Advanced.cc \
-	adversaries/AdvancedAdversary.h \
-	node/AdversarialInjectionMessage_m.h
+	adversaries/AdvancedAdversary.h
 $O/adversaries/CE7Adversary.o: adversaries/CE7Adversary.cc \
-	node/AdversarialInjectionMessage_m.h
-$O/builder/netbuilder.o: builder/netbuilder.cc
-$O/node/AdversarialInjectionMessage_m.o: node/AdversarialInjectionMessage_m.cc \
-	node/AdversarialInjectionMessage_m.h
+	messages/AdversarialInjectionMessage_m.h
+$O/messages/AdversarialInjectionMessage_m.o: messages/AdversarialInjectionMessage_m.cc \
+	messages/AdversarialInjectionMessage_m.h
+$O/messages/SourceRoutingPacket_m.o: messages/SourceRoutingPacket_m.cc \
+	messages/SourceRoutingPacket_m.h
 $O/node/L2Queue.o: node/L2Queue.cc
-$O/node/SourceRouting.o: node/SourceRouting.cc \
-	node/SourceRoutingPacket_m.h
-$O/node/SourceRoutingApp.o: node/SourceRoutingApp.cc \
-	node/AdversarialInjectionMessage_m.h \
-	node/SourceRoutingPacket_m.h
-$O/node/SourceRoutingPacket_m.o: node/SourceRoutingPacket_m.cc \
-	node/SourceRoutingPacket_m.h
+$O/node/SourceRouting.o: node/SourceRouting.cc
+$O/node/SourceRoutingApp.o: node/SourceRoutingApp.cc
 
