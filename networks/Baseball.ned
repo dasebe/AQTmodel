@@ -17,7 +17,7 @@ import ned.DatarateChannel;
 //
 // A ten-node network topology
 //
-network DanielBB
+network Baseball
 {
     @display("bgb=688,504");
     types:

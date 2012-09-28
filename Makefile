@@ -1,12 +1,12 @@
 #
-# OMNeT++/OMNEST Makefile for routing
+# OMNeT++/OMNEST Makefile for adversarialQueueing
 #
 # This file was generated with the command:
 #  opp_makemake -f --deep -O out
 #
 
 # Name of target to be created (-o option)
-TARGET = routing$(EXE_SUFFIX)
+TARGET = adversarialQueueing$(EXE_SUFFIX)
 
 # User interface (uncomment one) (-u option)
 USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
@@ -14,15 +14,7 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
 #USERIF_LIBS = $(TKENV_LIBS)
 
 # C++ include paths (with -I)
-INCLUDE_PATH = \
-    -I. \
-    -Ibuilder \
-    -Inetworks \
-    -Inode \
-    -Iparsim \
-    -Iresults \
-    -Itemplates \
-    -Itemplates/randomtopo
+INCLUDE_PATH = -I. -Ibuilder -Inetworks -Inode -Iresults
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -40,20 +32,15 @@ OBJS = \
     $O/builder/netbuilder.o \
     $O/node/SourceRouting.o \
     $O/node/L2Queue.o \
-    $O/node/Routing.o \
     $O/node/Adversary.o \
-    $O/node/App.o \
-    $O/node/BurstyApp.o \
     $O/node/SourceRoutingApp.o \
     $O/node/AdversarialInjectionMessage_m.o \
-    $O/node/SourceRoutingPacket_m.o \
-    $O/node/Packet_m.o
+    $O/node/SourceRoutingPacket_m.o
 
 # Message files
 MSGFILES = \
     node/AdversarialInjectionMessage.msg \
-    node/SourceRoutingPacket.msg \
-    node/Packet.msg
+    node/SourceRoutingPacket.msg
 
 #------------------------------------------------------------------------------
 
@@ -121,21 +108,18 @@ msgheaders: $(MSGFILES:.msg=_m.h)
 
 clean:
 	-rm -rf $O
-	-rm -f routing routing.exe librouting.so librouting.a librouting.dll librouting.dylib
+	-rm -f adversarialQueueing adversarialQueueing.exe libadversarialQueueing.so libadversarialQueueing.a libadversarialQueueing.dll libadversarialQueueing.dylib
 	-rm -f ./*_m.cc ./*_m.h
 	-rm -f builder/*_m.cc builder/*_m.h
 	-rm -f networks/*_m.cc networks/*_m.h
 	-rm -f node/*_m.cc node/*_m.h
-	-rm -f parsim/*_m.cc parsim/*_m.h
 	-rm -f results/*_m.cc results/*_m.h
-	-rm -f templates/*_m.cc templates/*_m.h
-	-rm -f templates/randomtopo/*_m.cc templates/randomtopo/*_m.h
 
 cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc builder/*.cc networks/*.cc node/*.cc parsim/*.cc results/*.cc templates/*.cc templates/randomtopo/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc builder/*.cc networks/*.cc node/*.cc results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/builder/netbuilder.o: builder/netbuilder.cc
@@ -143,15 +127,7 @@ $O/node/AdversarialInjectionMessage_m.o: node/AdversarialInjectionMessage_m.cc \
 	node/AdversarialInjectionMessage_m.h
 $O/node/Adversary.o: node/Adversary.cc \
 	node/AdversarialInjectionMessage_m.h
-$O/node/App.o: node/App.cc \
-	node/Packet_m.h
-$O/node/BurstyApp.o: node/BurstyApp.cc \
-	node/Packet_m.h
 $O/node/L2Queue.o: node/L2Queue.cc
-$O/node/Packet_m.o: node/Packet_m.cc \
-	node/Packet_m.h
-$O/node/Routing.o: node/Routing.cc \
-	node/Packet_m.h
 $O/node/SourceRouting.o: node/SourceRouting.cc \
 	node/SourceRoutingPacket_m.h
 $O/node/SourceRoutingApp.o: node/SourceRoutingApp.cc \
