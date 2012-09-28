@@ -29,172 +29,172 @@ network CE7Advanced
     submodules:
 
         adversary: CE7Advanced {
-            @display("p=38,38;b=25,25,rect,grey83");
+            @display("p=93,45;b=25,25,rect,grey83");
         }
 
-        a2: SourceRoutingNode {
+        n12: SourceRoutingNode {
             @display("p=25,214;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 12;
+            address = 112;
         }
-        m1: SourceRoutingNode {
+        n91: SourceRoutingNode {
             @display("p=94,314;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 91;
+            address = 191;
         }
-        b2: SourceRoutingNode {
+        n22: SourceRoutingNode {
             @display("p=156,224;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 22;
+            address = 122;
         }
-        m2: SourceRoutingNode {
+        n92: SourceRoutingNode {
             @display("p=94,383;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 92;
+            address = 192;
         }
-        a1: SourceRoutingNode {
-            @display("p=340,26;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 11;
+        n11: SourceRoutingNode {
+            @display("p=365,74;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 111;
         }
-        c2: SourceRoutingNode {
+        n32: SourceRoutingNode {
             @display("p=275,224;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 32;
+            address = 132;
         }
-        m4: SourceRoutingNode {
+        n94: SourceRoutingNode {
             @display("p=215,314;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 94;
+            address = 194;
         }
-        m5: SourceRoutingNode {
+        n95: SourceRoutingNode {
             @display("p=215,383;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 95;
+            address = 195;
         }
-        m3: SourceRoutingNode {
+        n93: SourceRoutingNode {
             @display("p=94,458;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 93;
+            address = 193;
         }
-        a3: SourceRoutingNode {
+        n13: SourceRoutingNode {
             @display("p=25,536;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 13;
+            address = 113;
         }
-        a4: SourceRoutingNode {
-            @display("p=340,709;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 14;
+        m11: SourceRoutingNode {
+            @display("p=365,703;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 111;
         }
-        b3: SourceRoutingNode {
+        n23: SourceRoutingNode {
             @display("p=156,546;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 23;
+            address = 123;
         }
-        b4: SourceRoutingNode {
-            @display("p=340,661;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 24;
+        m21: SourceRoutingNode {
+            @display("p=365,666;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 221;
         }
-        c3: SourceRoutingNode {
+        n33: SourceRoutingNode {
             @display("p=275,546;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 33;
+            address = 133;
         }
-        c4: SourceRoutingNode {
-            @display("p=340,611;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 34;
+        m31: SourceRoutingNode {
+            @display("p=365,629;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 231;
         }
-        b1: SourceRoutingNode {
-            @display("p=340,67;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 21;
+        n21: SourceRoutingNode {
+            @display("p=365,103;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 121;
         }
-        c1: SourceRoutingNode {
-            @display("p=340,109;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 31;
+        n31: SourceRoutingNode {
+            @display("p=365,139;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 131;
         }
-        c5: SourceRoutingNode {
+        m32: SourceRoutingNode {
             @display("p=448,546;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 35;
+            address = 232;
         }
-        b5: SourceRoutingNode {
+        m22: SourceRoutingNode {
             @display("p=558,546;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 25;
+            address = 222;
         }
-        a5: SourceRoutingNode {
+        m12: SourceRoutingNode {
             @display("p=661,536;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 15;
+            address = 212;
         }
-        m6: SourceRoutingNode {
+        m91: SourceRoutingNode {
             @display("p=611,458;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 96;
+            address = 291;
         }
-        m7: SourceRoutingNode {
+        m92: SourceRoutingNode {
             @display("p=611,383;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 97;
+            address = 292;
         }
-        m8: SourceRoutingNode {
+        m93: SourceRoutingNode {
             @display("p=611,314;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 98;
+            address = 293;
         }
-        m10: SourceRoutingNode {
+        m95: SourceRoutingNode {
             @display("p=502,383;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 910;
+            address = 295;
         }
-        m9: SourceRoutingNode {
+        m94: SourceRoutingNode {
             @display("p=502,458;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 99;
+            address = 294;
         }
-        c6: SourceRoutingNode {
+        m33: SourceRoutingNode {
             @display("p=448,226;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 36;
+            address = 233;
         }
-        b6: SourceRoutingNode {
+        m23: SourceRoutingNode {
             @display("p=558,224;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 26;
+            address = 223;
         }
-        a6: SourceRoutingNode {
+        m13: SourceRoutingNode {
             @display("p=661,214;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 16;
+            address = 213;
         }
     connections:
 
-        m1.port++ <--> C <--> b2.port++;
-        a2.port++ <--> C <--> m1.port++;
-        m1.port++ <--> C <--> m2.port++;
-        c2.port++ <--> C <--> m4.port++;
-        b2.port++ <--> C <--> m4.port++;
-        m4.port++ <--> C <--> m5.port++;
-        m5.port++ <--> C <--> m2.port++;
-        m2.port++ <--> C <--> m3.port++;
-        m3.port++ <--> C <--> a3.port++;
-        a3.port++ <--> C <--> a4.port++;
-        m3.port++ <--> C <--> b3.port++;
-        b3.port++ <--> C <--> b4.port++;
-        m3.port++ <--> C <--> c3.port++;
-        m5.port++ <--> C <--> a3.port++;
-        m5.port++ <--> C <--> b3.port++;
-        m5.port++ <--> C <--> c3.port++;
-        c3.port++ <--> C <--> c4.port++;
-        a2.port++ <--> C <--> m4.port++;
-        c2.port++ <--> C <--> m1.port++;
-        a2.port++ <--> C <--> a3.port++;
-        b2.port++ <--> C <--> b3.port++;
-        c2.port++ <--> C <--> c3.port++;
-        a1.port++ <--> C <--> a2.port++;
-        b1.port++ <--> C <--> b2.port++;
-        c1.port++ <--> C <--> c2.port++;
-        c4.port++ <--> C <--> c5.port++;
-        b4.port++ <--> C <--> b5.port++;
-        a4.port++ <--> C <--> a5.port++;
-        a5.port++ <--> C <--> m6.port++;
-        a5.port++ <--> C <--> m9.port++;
-        a5.port++ <--> C <--> a6.port++;
-        b5.port++ <--> C <--> m6.port++;
-        b5.port++ <--> C <--> m9.port++;
-        b5.port++ <--> C <--> b6.port++;
-        c5.port++ <--> C <--> m6.port++;
-        c5.port++ <--> C <--> m9.port++;
-        c5.port++ <--> C <--> c6.port++;
-        m6.port++ <--> C <--> m7.port++;
-        m7.port++ <--> C <--> m8.port++;
-        m9.port++ <--> C <--> m10.port++;
-        m10.port++ <--> C <--> c6.port++;
-        m10.port++ <--> C <--> b6.port++;
-        m10.port++ <--> C <--> a6.port++;
-        m8.port++ <--> C <--> c6.port++;
-        m8.port++ <--> C <--> b6.port++;
-        m8.port++ <--> C <--> a6.port++;
-        c6.port++ <--> C <--> c1.port++;
-        b6.port++ <--> C <--> b1.port++;
-        a6.port++ <--> C <--> a1.port++;
-        m10.port++ <--> C <--> m7.port++;
+        n91.port++ <--> C <--> n22.port++;
+        n12.port++ <--> C <--> n91.port++;
+        n91.port++ <--> C <--> n92.port++;
+        n32.port++ <--> C <--> n94.port++;
+        n22.port++ <--> C <--> n94.port++;
+        n94.port++ <--> C <--> n95.port++;
+        n95.port++ <--> C <--> n92.port++;
+        n92.port++ <--> C <--> n93.port++;
+        n93.port++ <--> C <--> n13.port++;
+        n13.port++ <--> C <--> m11.port++;
+        n93.port++ <--> C <--> n23.port++;
+        n23.port++ <--> C <--> m21.port++;
+        n93.port++ <--> C <--> n33.port++;
+        n95.port++ <--> C <--> n13.port++;
+        n95.port++ <--> C <--> n23.port++;
+        n95.port++ <--> C <--> n33.port++;
+        n33.port++ <--> C <--> m31.port++;
+        n12.port++ <--> C <--> n94.port++;
+        n32.port++ <--> C <--> n91.port++;
+        n12.port++ <--> C <--> n13.port++;
+        n22.port++ <--> C <--> n23.port++;
+        n32.port++ <--> C <--> n33.port++;
+        n11.port++ <--> C <--> n12.port++;
+        n21.port++ <--> C <--> n22.port++;
+        n31.port++ <--> C <--> n32.port++;
+        m31.port++ <--> C <--> m32.port++;
+        m21.port++ <--> C <--> m22.port++;
+        m11.port++ <--> C <--> m12.port++;
+        m12.port++ <--> C <--> m91.port++;
+        m12.port++ <--> C <--> m94.port++;
+        m12.port++ <--> C <--> m13.port++;
+        m22.port++ <--> C <--> m91.port++;
+        m22.port++ <--> C <--> m94.port++;
+        m22.port++ <--> C <--> m23.port++;
+        m32.port++ <--> C <--> m91.port++;
+        m32.port++ <--> C <--> m94.port++;
+        m32.port++ <--> C <--> m33.port++;
+        m91.port++ <--> C <--> m92.port++;
+        m92.port++ <--> C <--> m93.port++;
+        m94.port++ <--> C <--> m95.port++;
+        m95.port++ <--> C <--> m33.port++;
+        m95.port++ <--> C <--> m23.port++;
+        m95.port++ <--> C <--> m13.port++;
+        m93.port++ <--> C <--> m33.port++;
+        m93.port++ <--> C <--> m23.port++;
+        m93.port++ <--> C <--> m13.port++;
+        m33.port++ <--> C <--> n31.port++;
+        m23.port++ <--> C <--> n21.port++;
+        m13.port++ <--> C <--> n11.port++;
+        m95.port++ <--> C <--> m92.port++;
 }
 

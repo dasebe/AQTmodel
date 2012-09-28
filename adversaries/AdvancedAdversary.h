@@ -67,6 +67,8 @@ protected:
     Inj *injections;
     cMessage *selfNote; //self-messaging //actually not needed as class attribute // TODO: clean-up
     long injectionCount;
+    char curPhaseName;
+    short int  curPhaseCounter;
 
 
     /**
