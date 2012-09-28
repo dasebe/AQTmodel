@@ -1,24 +1,16 @@
-//
-// This file is part of an OMNeT++/OMNEST simulation example.
-//
-// Copyright (C) 1992-2008 Andras Varga
-//
-// This file is distributed WITHOUT ANY WARRANTY. See the file
-// `license' for details on this and other legal matters.
-//
 
-package node;
+package adversarialqueueing.node;
 
 //
-// Application model to generate traffic for the network.
+// Application layer for network nodes
 //
 simple SourceRoutingApp like IApp
 {
     parameters:
         int address;  // local node address
-        string destAddresses;  // destination addresses
-        volatile double sendIaTime @unit(s) = default(exponential(1s)); // time between generating packets
-        volatile int packetLength @unit(byte);  // length of one message (fixed! no "volatile" modifier)
+        //string destAddresses;  // destination addresses
+        volatile double sendIaTime @unit(s) = default(1ms); // time between generating packets
+        volatile int packetLength @unit(byte) = default(1250 bytes);  // length of one message (fixed! no "volatile" modifier)
         @display("i=block/browser");
         @signal[endToEndDelay](type="simtime_t");
         @signal[hopCount](type="int");

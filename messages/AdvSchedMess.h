@@ -4,6 +4,10 @@
 #include <omnetpp.h>
 #include <AdversarialInjectionMessage_m.h>
 
+//
+// This cMessage subtype is used to sync and schedule the adversary internally via the exchange of selfmessages (events)
+//
+
 class AdvSchedMess : public ::cMessage
 {
 public:

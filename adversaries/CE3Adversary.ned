@@ -7,7 +7,7 @@
 // `license' for details on this and other legal matters.
 //
 
-package adversaries;
+package adversarialqueueing.adversaries;
 
 //
 // Application model to generate traffic for the network.

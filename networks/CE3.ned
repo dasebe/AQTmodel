@@ -1,21 +1,14 @@
-//
-// This file is part of an OMNeT++/OMNEST simulation example.
-//
-// Copyright (C) 1992-2008 Andras Varga
-//
-// This file is distributed WITHOUT ANY WARRANTY. See the file
-// `license' for details on this and other legal matters.
-//
 
-package networks;
+package adversarialqueueing.networks;
 
-import adversaries.CE3Adversary;
-import node.SourceRouting;
-import node.SourceRoutingNode;
+import adversarialqueueing.adversaries.CE3Adversary;
+import adversarialqueueing.node.SourceRouting;
+import adversarialqueueing.node.SourceRoutingNode;
 import ned.DatarateChannel;
 
+
 //
-// A ten-node network topology
+// This is the basic omnet network description of CE3.
 //
 network CE3
 {

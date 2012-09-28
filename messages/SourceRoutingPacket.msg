@@ -1,24 +1,16 @@
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details.
-// 
-// You should have received a copy of the GNU Lesser General Public License
-// along with this program.  If not, see http://www.gnu.org/licenses/.
-// 
 
 //
-// TODO generated message class
+// This is the omnet message template for messages to be exchanged between network nodes.
+// In order to exactly predetermine the path a packet takes through the network, this is implemented as source routing.
+// The files
+//  SourceRoutingPacket_m.h
+//  SourceRoutingPacket_m.cc
+// are automatically created from it. 
 //
+
 packet SourceRoutingPacket {
-    int srcAddr;
-    int destAddr[];
-    int hopCount;
+    int srcAddr;							//omnet address (int) of the packet's originator
+    int destAddr[]; 					//array of nodes to visit, last one goes first (reversed order)
+    int hopCount;							
     int recordRoute[];
 }

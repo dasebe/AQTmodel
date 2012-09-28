@@ -14,7 +14,7 @@
  */
 
 /**
- * Generates traffic for the network.
+ * Adversary
  */
 class BBAdversary : public cSimpleModule
 {

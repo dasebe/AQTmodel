@@ -19,9 +19,9 @@
  * Class generated from <tt>messages/SourceRoutingPacket.msg</tt> by opp_msgc.
  * <pre>
  * packet SourceRoutingPacket {
- *     int srcAddr;
- *     int destAddr[];
- *     int hopCount;
+ *     int srcAddr;							
+ *     int destAddr[]; 					
+ *     int hopCount;							
  *     int recordRoute[];
  * }
  * </pre>

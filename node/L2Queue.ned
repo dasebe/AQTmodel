@@ -7,7 +7,7 @@
 // `license' for details on this and other legal matters.
 //
 
-package node;
+package adversarialqueueing.node;
 
 //
 // Represents the network interface for a point-to-point connection.

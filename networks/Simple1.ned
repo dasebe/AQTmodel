@@ -7,9 +7,9 @@
 // `license' for details on this and other legal matters.
 //
 
-package networks;
+package adversarialqueueing.networks;
 
-import node.SourceRoutingNode;
+import adversarialqueueing.node.SourceRoutingNode;
 import ned.DatarateChannel;
 
 //

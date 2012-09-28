@@ -1,11 +1,3 @@
-//
-// This file is part of an OMNeT++/OMNEST simulation example.
-//
-// Copyright (C) 1992-2008 Andras Varga
-//
-// This file is distributed WITHOUT ANY WARRANTY. See the file
-// `license' for details on this and other legal matters.
-//
 
 #include <string.h>
 
@@ -21,14 +13,13 @@
 
 
 /**
- * Generates traffic for the network.
+ * Controlled by the adversary, receives injection commands and create corresponding packets.
  */
 class SourceRoutingApp : public cSimpleModule
 {
   private:
     // configuration
     int myAddress;
-    std::vector<int> destAddresses;
     cPar *sendIATime;
     cPar *packetLengthBytes;
 
@@ -73,16 +64,6 @@ void SourceRoutingApp::initialize()
     WATCH(pkCounter);
     WATCH(myAddress);
 
-    //parse destAddresses from String
-    const char *destAddressesPar = par("destAddresses");
-    cStringTokenizer tokenizer(destAddressesPar);
-    const char *token;
-    while ((token = tokenizer.nextToken())!=NULL)
-        destAddresses.push_back(atoi(token));
-
-
-    if (destAddresses.size() == 0)
-        throw cRuntimeError("At least one address must be specified in the destAddresses parameter!");
 
 //    generatePacket = new cMessage("nextPacket");
 //    scheduleAt(sendIATime->doubleValue(), generatePacket);
