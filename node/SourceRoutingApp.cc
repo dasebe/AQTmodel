@@ -97,27 +97,29 @@ void SourceRoutingApp::handleMessage(cMessage *msg)
     //const char *  x = msg->getArrivalGate()->getFullName();
 
     //if this is send by the Adversary and named sendPacket
-    if (strcmp (msg->getFullName(),"injection")==0)
+    //const char * msgtype = msg->getClassName();
+
+    if (msg->getKind() == 101)
     {
         //getting information about injection
         AdversarialInjectionMessage *pk = check_and_cast<AdversarialInjectionMessage *>(msg);
 
 
-        // Sending packet
+        // construct package name
         char pkname[40];
-        //what about pkname??
-        sprintf(pkname,"node %d, new pkt, send packets: %ld", myAddress, pkCounter++);
-        EV << "node "  << myAddress << ": received injection command" << endl;
+        sprintf(pkname,"%s:    no %ld from node %d", pk->getName(), pkCounter++, myAddress);
+        //EV << "node "  << myAddress << ": received injection command" << endl;
 
         //generate new Network Packet (SourceRoutingPacket)
         SourceRoutingPacket *npk = new SourceRoutingPacket(pkname);
         npk->setByteLength(packetLengthBytes->longValue());
         npk->setSrcAddr(myAddress);
         npk->setDestAddrArraySize(pk->getPathArraySize());
+        npk->setSchedulingPriority(2); //higher means lower priority, adversarial messages get 1
         unsigned int i=0; //because array size is unsigned!
         while(i < (pk->getPathArraySize()))
         {
-            npk->setDestAddr(i,pk->getPath(i));
+            npk->setDestAddr(i,pk->getPath(i)); //use build-in methods - more performance through call by reference... (not yet implemented)
             i++;
         }
         //send new packet to router
@@ -128,11 +130,11 @@ void SourceRoutingApp::handleMessage(cMessage *msg)
 
 
     }
-    else
+    else if (msg->isPacket()) //no type/class check! -> assume only other poss is SourceRoutingPacket
     {
         // Handle incoming packet
         SourceRoutingPacket *pk = check_and_cast<SourceRoutingPacket *>(msg);
-        EV << "received packet " << pk->getName() << " after " << pk->getHopCount() << "hops" << endl;
+        EV << "ARRIVAL:     packet " << pk->getName() << " after " << pk->getHopCount() << "hops" << endl;
         emit(endToEndDelaySignal, simTime() - pk->getCreationTime());
         emit(hopCountSignal, pk->getHopCount());
         emit(sourceAddressSignal, pk->getSrcAddr());
@@ -144,5 +146,6 @@ void SourceRoutingApp::handleMessage(cMessage *msg)
             getParentModule()->bubble("Arrived!");
         }
     }
+    //else unkown message
 }
 

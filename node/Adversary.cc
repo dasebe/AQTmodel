@@ -8,22 +8,36 @@
 
 
 /**
+ * message kinds:
+ * 0-99:  adversarial rounds (injection round)
+ * 101:   adversarial command
+ */
+
+/**
  * Generates traffic for the network.
  */
 class Adversary : public cSimpleModule
 {
   private:
     // configuration
-    cPar *sendIATime;
+    cPar *timeSlots;
+
+    struct Inj
+    {
+        int packetCount;   // [start,stop] time range for injection
+        const char* atNode;         // where to initially deploy the packets upon injection
+        double interInjectionTime;  // 1/injectionRate - will directly go into the offset for scheduleAt events
+        AdversarialInjectionMessage *message; //adversarial injection command to be send to nodes
+        int packetNHops;
+        int *packetPath;    // path injected together with the packets (possibly of unkown length)
+    };
 
     // state
+    Inj *injections;
     cMessage *selfNote; //self-messaging
-    int round;   // adversarial round (overall state of adversary)
-    int messagesPerRound[4];
-    int confinementCounter;
     long injectionCount;
 
-    // signals
+    // signals for statistics (e.g.)
             //none as yet
 
   public:
@@ -45,188 +59,138 @@ Adversary::Adversary()
 
 Adversary::~Adversary()
 {
-    cancelAndDelete(selfNote);
+    //not used anymore as messages are destroyed in handleMessage
+    //cancelAndDelete(selfNote);
 }
 
 void Adversary::initialize()
 {
-    sendIATime = &par("sendIaTime");
-
-    round = 0;
+    timeSlots = &par("sendIaTime");
     injectionCount = 0;
-    confinementCounter = 500;//47; //currently only needed for control of timimg for confinement
+    WATCH(injectionCount);
 
-    messagesPerRound[0] = 1000;
-    messagesPerRound[1] = 1000;//90;
-    messagesPerRound[2] = 1000;//81;
-    messagesPerRound[3] = 1000;//73;
+    //define adversarial injections
+    int noInjs = 5;
+    injections = (Inj*) malloc(noInjs*sizeof(Inj));
 
-    WATCH(round);
+    //class 0 (initial packets)
+    injections[0].interInjectionTime = 0;
+    injections[0].packetCount=10;
+    injections[0].message =  new AdversarialInjectionMessage("initial set");
+    injections[0].atNode = "v0";
+    injections[0].message->setPathArraySize(1);
+    injections[0].message->setPath(0,111);//first hop
+    injections[0].message->setKind(101);
+    //schedule event message for this injection class
+    selfNote = new cMessage("start injection 0");
+    selfNote->setKind(0); //this means that the first entry of the injection struct shall be started by this message
+    selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 2 (default value is 0)
+    //when to start this phase
+    scheduleAt(simTime() + 0*(timeSlots->doubleValue()), selfNote);
 
-    //generate initial packet to start own state machine
-    selfNote = new cMessage("round0");
-    scheduleAt(simTime(), selfNote);
+    //class 1 (round 1)
+    injections[1].interInjectionTime = timeSlots->doubleValue();
+    injections[1].packetCount=10;
+    injections[1].message =  new AdversarialInjectionMessage("set 1");
+    injections[1].atNode = "v0";
+    injections[1].message->setPathArraySize(4);
+    injections[1].message->setPath(0,211); //last hop
+    injections[1].message->setPath(1,131);
+    injections[1].message->setPath(2,121);
+    injections[1].message->setPath(3,111);//first hop
+    injections[1].message->setKind(101);
+    //schedule event message for this injection class
+    selfNote = new cMessage("start injection 1");
+    selfNote->setKind(1); //this means that the first entry of the injection struct shall be started by this message
+    selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 2 (default value is 0)
+    //when to start this phase
+    scheduleAt(simTime() + 0*(timeSlots->doubleValue()), selfNote);
+
+    //class 2 (round 2) confinement packets
+    injections[2].interInjectionTime = timeSlots->doubleValue();
+    injections[2].packetCount=5;
+    injections[2].message =  new AdversarialInjectionMessage("confinement 1");
+    injections[2].atNode = "w0";
+    injections[2].message->setPathArraySize(1);
+    injections[2].message->setPath(0,121);
+    injections[2].message->setKind(101);
+    //schedule event message for this injection class
+    selfNote = new cMessage("start injection 2");
+    selfNote->setKind(2); //this means that the first entry of the injection struct shall be started by this message
+    selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 2 (default value is 0)
+    //when to start this phase
+    scheduleAt(simTime() + 10*(timeSlots->doubleValue()), selfNote);
+
+    //class 3 (round 2)
+    injections[3].interInjectionTime = timeSlots->doubleValue();
+    injections[3].packetCount=10;
+    injections[3].message =  new AdversarialInjectionMessage("set 2");
+    injections[3].atNode = "v0";
+    injections[3].message->setPathArraySize(4);
+    injections[3].message->setPath(0,211); //last hop
+    injections[3].message->setPath(1,131);
+    injections[3].message->setPath(2,122);
+    injections[3].message->setPath(3,111);//first hop
+    injections[3].message->setKind(101);
+    //schedule event message for this injection class
+    selfNote = new cMessage("start injection 3");
+    selfNote->setKind(3); //this means that the first entry of the injection struct shall be started by this message
+    selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 2 (default value is 0)
+    //when to start this phase
+    scheduleAt(simTime() + 10*(timeSlots->doubleValue()), selfNote);
+
+    //class 4 (round 3)
+    injections[4].interInjectionTime = timeSlots->doubleValue();
+    injections[4].packetCount=10;
+    injections[4].message =  new AdversarialInjectionMessage("set 3");
+    injections[4].atNode = "v1";
+    injections[4].message->setPathArraySize(1);
+    injections[4].message->setPath(0,211);
+    injections[4].message->setKind(101);
+    //schedule event message for this injection class
+    selfNote = new cMessage("start injection 4");
+    selfNote->setKind(4); //this means that the first entry of the injection struct shall be started by this message
+    selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 2 (default value is 0)
+    //when to start this phase
+    scheduleAt(simTime() + 20*(timeSlots->doubleValue()), selfNote);
 }
 
 
 
 void Adversary::handleMessage(cMessage *msg)
 {
-    //still spaghetti form of programming --> needs review!
 
-
-    //////////////////////////////////////////////////////////////
-
-    if (strcmp (msg->getFullName(),"round0")==0)
+    if(msg->isSelfMessage()) //only for events schedule by myself
     {
-        round = 0;
+
+        //const char * name = msg->getName();
+        int cl = msg->getKind();
 
         //parentModule is DanielBB (main module)
         //then select the vertice/node
         //then select the corresponding app (to which we will deliver the message by avoiding the queue...)
-        cModule *targetModule = getParentModule()->getSubmodule("v0")->getSubmodule("app");
-        //std::vector<const char *> a = targetModule->getGateNames();
+        cModule *targetModule = getParentModule()->getSubmodule(injections[cl].atNode)->getSubmodule("app");
 
-        //create an injection message to be send to the first hop of the new injection
-        AdversarialInjectionMessage *m = new AdversarialInjectionMessage("injection");
-        m->setPathArraySize(1);
-        m->setPath(0,111);//first hop
+        //we already have a message defined in our Inj struct
 
-        injectionCount++;
-        sendDirect(m, targetModule, "adversaryControl");
-        if (ev.isGUI()) getParentModule()->bubble("injecting round 0");
-
-        if(--messagesPerRound[0] > 0) //messagesPerRound first decreased (as we just sent one) then checked whether anything remains for this round
+        if (injections[cl].packetCount-- > 0) //only send a message if remaining
         {
-            //stay in round 1
-            scheduleAt(simTime(), new cMessage("round0"));
-        }
-        else
-        {
-            //now proceed to round 2
-            scheduleAt(simTime() + sendIATime->doubleValue(), new cMessage("round1"));
-        }
-    }
-
-    //////////////////////////////////////////////////////////////
-
-    else if (strcmp (msg->getFullName(),"round1")==0)
-    {
-        round = 1;
-
-        //parentModule is DanielBB (main module)
-        //then select the vertice/node
-        //then select the corresponding app (to which we will deliver the message by avoiding the queue...)
-        cModule *targetModule = getParentModule()->getSubmodule("v0")->getSubmodule("app");
-        //std::vector<const char *> a = targetModule->getGateNames();
-
-        //create an injection message to be send to the first hop of the new injection
-        AdversarialInjectionMessage *m = new AdversarialInjectionMessage("injection");
-        m->setPathArraySize(4);
-        m->setPath(0,211); //last hop
-        m->setPath(1,131);
-        m->setPath(2,121);
-        m->setPath(3,111);//first hop
-
-        injectionCount++;
-        sendDirect(m, targetModule, "adversaryControl");
-        if (ev.isGUI()) getParentModule()->bubble("injection command round 1...");
-
-        if(--messagesPerRound[1] > 0) //messagesPerRound first decreased (as we just sent one) then checked whether anything remains for this round
-        {
-            //stay in round 1
-            scheduleAt(simTime() + sendIATime->doubleValue(), new cMessage("round1"));
-        }
-        else
-        {
-            //now proceed to round 2
-            scheduleAt(simTime() + sendIATime->doubleValue(), new cMessage("round2"));
-        }
-    }
-
-    //////////////////////////////////////////////////////////////
-
-    else if (strcmp (msg->getFullName(),"round2")==0)
-    {
-        round = 2;
-
-        //parentModule is DanielBB (main module)
-        //then select the vertice/node
-        //then select the corresponding app (to which we will deliver the message by avoiding the queue...)
-        cModule *targetModule = getParentModule()->getSubmodule("v0")->getSubmodule("app");
-        //std::vector<const char *> a = targetModule->getGateNames();
-
-        //create an injection message to be send to the first hop of the new injection
-        AdversarialInjectionMessage *m = new AdversarialInjectionMessage("injection");
-        m->setPathArraySize(4);
-        m->setPath(0,211); //last hop
-        m->setPath(1,131);
-        m->setPath(2,122);
-        m->setPath(3,111);//first hop
-
-        injectionCount++;
-        sendDirect(m, targetModule, "adversaryControl");
-        if (ev.isGUI()) getParentModule()->bubble("injection command round 2...");
-
-
-
-        //confinement
-
-        if(confinementCounter-- > 0)
-        {
-            targetModule = getParentModule()->getSubmodule("w0")->getSubmodule("app");
-            //std::vector<const char *> a = targetModule->getGateNames();
-
-            //create an injection message to be send to the first hop of the new injection
-            m = new AdversarialInjectionMessage("injection");
-            m->setPathArraySize(1);
-            m->setPath(0,121);
+            //send duplicate of message, as we won't be the owner after it has been passed to targetModule
             injectionCount++;
-            sendDirect(m, targetModule, "adversaryControl");
-            if (ev.isGUI()) getParentModule()->bubble("injection command round 2...");
+            sendDirect(injections[cl].message->dup(), targetModule, "adversaryControl");
+
+            if (ev.isGUI()) getParentModule()->bubble("injecting round 0");
+
+            EV << "INJECT:     at " << injections[cl].atNode << "  set " << cl << "  remain " << injections[cl].packetCount << endl;
+
+            char pkname[40];
+            sprintf(pkname,"next  in %d remain %d", cl, injections[cl].packetCount);
+            selfNote = new cMessage(pkname);
+            selfNote->setKind(cl); //this means that the first entry of the injection struct shall be started by this message
+            selfNote->setSchedulingPriority(1); //higher means lower priority, normal packets get 2 (default value is 0)
+            scheduleAt(simTime() + injections[cl].interInjectionTime, selfNote);
         }
-
-
-        if(--messagesPerRound[2] > 0)
-        {
-            //stay in round 1
-            scheduleAt(simTime() + sendIATime->doubleValue(), new cMessage("round2"));
+        cancelAndDelete(msg);
         }
-        else
-        {
-            //now proceed to round 2
-            scheduleAt(simTime() + sendIATime->doubleValue(), new cMessage("round3"));
-        }
-    }
-
-    //////////////////////////////////////////////////////////////
-
-
-    else if (strcmp (msg->getFullName(),"round3")==0)
-    {
-        round = 3;
-
-        //parentModule is DanielBB (main module)
-        //then select the vertice/node
-        //then select the corresponding app (to which we will deliver the message by avoiding the queue...)
-        cModule *targetModule = getParentModule()->getSubmodule("v1")->getSubmodule("app");
-        //std::vector<const char *> a = targetModule->getGateNames();
-
-        //create an injection message to be send to the first hop of the new injection
-        AdversarialInjectionMessage *m = new AdversarialInjectionMessage("injection");
-        m->setPathArraySize(1);
-        m->setPath(0,211); //last hop
-
-        injectionCount++;
-        sendDirect(m, targetModule, "adversaryControl");
-        if (ev.isGUI()) getParentModule()->bubble("injection command round 1...");
-
-        if(--messagesPerRound[3] > 0) //messagesPerRound first decreased (as we just sent one) then checked whether anything remains for this round
-        {
-            //stay in round 1
-            scheduleAt(simTime() + sendIATime->doubleValue(), new cMessage("round3"));
-        }
-
-    }
 }
 
