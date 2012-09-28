@@ -106,7 +106,8 @@ void SourceRoutingApp::handleMessage(cMessage *msg)
         // Sending packet
         char pkname[40];
         //what about pkname??
-        sprintf(pkname,"node %d rcvd injection command - send packets: %ld", myAddress, pkCounter++);
+        sprintf(pkname,"node %d, new pkt, send packets: %ld", myAddress, pkCounter++);
+        EV << "node "  << myAddress << ": received injection command" << endl;
 
         //generate new Network Packet (SourceRoutingPacket)
         SourceRoutingPacket *npk = new SourceRoutingPacket(pkname);
