@@ -22,6 +22,7 @@ class Adversary : public cSimpleModule
     // configuration
     cPar *timeSlots;
     long bufferSize;
+    double injectionRate;
     SimTime timeSync;
 
     struct Inj
@@ -69,6 +70,7 @@ void Adversary::initialize()
 {
     timeSlots = &par("sendIaTime");
     bufferSize = par("frameCapacity");
+    injectionRate = par("injectionRate");
     injectionCount = 0;
     timeSync = simTime(); // == 0 (as we init!)
     WATCH(injectionCount);
@@ -93,7 +95,7 @@ void Adversary::initialize()
     scheduleAt(simTime() + 0*(timeSlots->doubleValue()), selfNote);
 
     //class 1 (round 1)
-    injections[1].interInjectionTime = timeSlots->doubleValue();
+    injections[1].interInjectionTime = (timeSlots->doubleValue())/injectionRate;
     injections[1].packetCount=bufferSize;
     injections[1].message =  new AdversarialInjectionMessage("set 1");
     injections[1].atNode = "v0";
@@ -111,7 +113,7 @@ void Adversary::initialize()
     scheduleAt(simTime() + 0*(timeSlots->doubleValue()), selfNote);
 
     //class 2 (round 2) confinement packets
-    injections[2].interInjectionTime = timeSlots->doubleValue();
+    injections[2].interInjectionTime = (timeSlots->doubleValue())/injectionRate;
     injections[2].packetCount=bufferSize/2;
     injections[2].message =  new AdversarialInjectionMessage("confinement 1");
     injections[2].atNode = "w0";
@@ -127,7 +129,7 @@ void Adversary::initialize()
     scheduleAt(timeSync, selfNote);
 
     //class 3 (round 2)
-    injections[3].interInjectionTime = timeSlots->doubleValue();
+    injections[3].interInjectionTime = (timeSlots->doubleValue())/injectionRate;
     injections[3].packetCount=bufferSize;
     injections[3].message =  new AdversarialInjectionMessage("set 2");
     injections[3].atNode = "v0";
@@ -145,7 +147,7 @@ void Adversary::initialize()
     scheduleAt(timeSync, selfNote);
 
     //class 4 (round 3)
-    injections[4].interInjectionTime = timeSlots->doubleValue();
+    injections[4].interInjectionTime = (timeSlots->doubleValue())/injectionRate;
     injections[4].packetCount=bufferSize;
     injections[4].message =  new AdversarialInjectionMessage("set 3");
     injections[4].atNode = "v1";
