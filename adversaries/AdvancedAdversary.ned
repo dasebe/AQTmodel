@@ -4,12 +4,12 @@ package adversarialqueueing.adversaries;
 //
 // Adversary
 //
-simple AdvancedAdversary
+moduleinterface AdvancedAdversary
 {
     parameters:
-		volatile double sendIaTime @unit(s) = default(10ms); // time between generating packets
-        int frameCapacity = default(1000); // L2Queue frame capacity (default value is not meaningful, but means infinite queue for L2Queue)
-        volatile double injectionRate = default(1); // L2Queue frame capacity (default value is not meaningful, but means infinite queue for L2Queue)
+		volatile double sendIaTime @unit(s); // time between generating packets
+        int frameCapacity; // L2Queue frame capacity (default value is not meaningful, but means infinite queue for L2Queue)
+        volatile double injectionRate; // L2Queue frame capacity (default value is not meaningful, but means infinite queue for L2Queue)
         @signal[injectedPackets](type="long");
         @statistic[injectedPackets](title="injected Packets"; interpolationmode=none; record=count);
     gates:

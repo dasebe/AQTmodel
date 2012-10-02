@@ -97,7 +97,7 @@ void SourceRouting::handleMessage(cMessage *msg)
         RoutingTable::iterator it = rtable.find(outHop);
         if (it==rtable.end())
         {
-            //EV << "FAIL   : retrieving queue length"
+            EV << "FAIL   : retrieving queue length";
             return;
         }
         int outGateIndex = (*it).second;

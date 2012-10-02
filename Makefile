@@ -36,13 +36,14 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
 OBJS = \
-    $O/adversaries/CE7Adversary.o \
     $O/adversaries/AdvancedAdversary.o \
-    $O/adversaries/BBAdversary.o \
-    $O/adversaries/CE7Advanced.o \
-    $O/adversaries/CE3Adversary.o \
-    $O/adversaries/CE3Advanced.o \
+    $O/adversaries/CE7half.o \
+    $O/adversaries/CE7.o \
+    $O/adversaries/BB.o \
+    $O/adversaries/CE3half.o \
     $O/adversaries/QueueListener.o \
+    $O/adversaries/CE3.o \
+    $O/adversaries/BBhalf.o \
     $O/node/SourceRoutingApp.o \
     $O/node/L2Queue.o \
     $O/node/SourceRouting.o \
@@ -139,17 +140,20 @@ depend:
 $O/adversaries/AdvancedAdversary.o: adversaries/AdvancedAdversary.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
-$O/adversaries/BBAdversary.o: adversaries/BBAdversary.cc \
-	messages/AdversarialInjectionMessage_m.h
-$O/adversaries/CE3Advanced.o: adversaries/CE3Advanced.cc \
+$O/adversaries/BB.o: adversaries/BB.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
-$O/adversaries/CE3Adversary.o: adversaries/CE3Adversary.cc \
+$O/adversaries/BBhalf.o: adversaries/BBhalf.cc \
 	messages/AdversarialInjectionMessage_m.h
-$O/adversaries/CE7Advanced.o: adversaries/CE7Advanced.cc \
+$O/adversaries/CE3.o: adversaries/CE3.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
-$O/adversaries/CE7Adversary.o: adversaries/CE7Adversary.cc \
+$O/adversaries/CE3half.o: adversaries/CE3half.cc \
+	messages/AdversarialInjectionMessage_m.h
+$O/adversaries/CE7.o: adversaries/CE7.cc \
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
+$O/adversaries/CE7half.o: adversaries/CE7half.cc \
 	messages/AdversarialInjectionMessage_m.h
 $O/adversaries/QueueListener.o: adversaries/QueueListener.cc \
 	adversaries/QueueListener.h

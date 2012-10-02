@@ -78,6 +78,7 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
                 getParentModule()->
                 getSubmodule(msg->getName())->
                 getSubmodule("queue",msg->par("qlenGate").longValue());
+        long test=msg->par("qlenGate").longValue();
         //subscribe listener to component
         listener->subscribedComponents[listener->getSubscribeCount()]->
                 subscribe("qlen", listener);

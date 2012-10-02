@@ -1,18 +1,20 @@
-
 package adversarialqueueing.networks;
 
-import adversarialqueueing.adversaries.CE3Adversary;
+
+import adversarialqueueing.adversaries.AdvancedAdversary;
 import adversarialqueueing.node.SourceRouting;
 import adversarialqueueing.node.SourceRoutingNode;
 import ned.DatarateChannel;
 
 
 //
-// This is the basic omnet network description of CE3.
+// This is the basic omnet network description of a circular model for CE7. 
 //
 network CE3
 {
-    @display("bgb=409,634");
+    parameters:	
+        string adType;
+    @display("bgb=688,735,white,,0");
     types:
         channel C extends DatarateChannel
         {
@@ -21,61 +23,76 @@ network CE3
         }
     submodules:
 
-        a1: SourceRoutingNode {
-            @display("p=216,122");
-            address = 11;
+        adversary: <adType> like AdvancedAdversary {
+            @display("p=353,307;b=25,25,rect,grey83");
         }
-        a2: SourceRoutingNode {
-            @display("p=216,377");
-            address = 12;
+        n12: SourceRoutingNode {
+            @display("p=155,127;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 112;
         }
-        b2: SourceRoutingNode {
-            @display("p=345,377");
-            address = 22;
+        n22: SourceRoutingNode {
+            @display("p=268,169;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 122;
         }
-        m1: SourceRoutingNode {
-            @display("p=283,212");
-            address = 91;
+        n11: SourceRoutingNode {
+            @display("p=562,127;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 111;
         }
-        b1: SourceRoutingNode {
-            @display("p=345,122");
-            address = 21;
+        n91: SourceRoutingNode {
+            @display("p=212,253;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 191;
         }
-        adversary: CE3Adversary {
-            @display("p=56,212");
+        n92: SourceRoutingNode {
+            @display("p=212,338;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 192;
         }
-        a0: SourceRoutingNode {
-            @display("p=216,21");
-            address = 10;
+        m11: SourceRoutingNode {
+            @display("p=155,470;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 211;
         }
-        b0: SourceRoutingNode {
-            @display("p=345,21");
-            address = 20;
+        m21: SourceRoutingNode {
+            @display("p=268,425;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 221;
         }
-        m2: SourceRoutingNode {
-            @display("p=283,295");
-            address = 92;
+        n21: SourceRoutingNode {
+            @display("p=423,169;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 121;
         }
-        a3: SourceRoutingNode {
-            @display("p=216,493");
-            address = 13;
+        m22: SourceRoutingNode {
+            @display("p=423,425;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 222;
         }
-        b3: SourceRoutingNode {
-            @display("p=345,493");
-            address = 23;
+        m12: SourceRoutingNode {
+            @display("p=562,470;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 212;
+        }
+        m92: SourceRoutingNode {
+            @display("p=491,253;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 292;
+        }
+        m91: SourceRoutingNode {
+            @display("p=491,338;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 291;
         }
     connections:
 
-        m1.port++ <--> C <--> b1.port++;
-        a1.port++ <--> C <--> a0.port++;
-        b0.port++ <--> C <--> b1.port++;
-        a1.port++ <--> C <--> m1.port++;
-        m1.port++ <--> C <--> m2.port++;
-        m2.port++ <--> C <--> a2.port++;
-        m2.port++ <--> C <--> b2.port++;
-        a1.port++ <--> C <--> a2.port++;
-        b1.port++ <--> C <--> b2.port++;
-        b2.port++ <--> C <--> b3.port++;
-        a2.port++ <--> C <--> a3.port++;
+        n22.port++ <--> C <--> n91.port++;
+        n91.port++ <--> C <--> n92.port++;
+        n12.port++ <--> C <--> n91.port++;
+        n11.port++ <--> C <--> n12.port++;
+        n21.port++ <--> C <--> n22.port++;
+        m21.port++ <--> C <--> m22.port++;
+        m11.port++ <--> C <--> m12.port++;
+        m12.port++ <--> C <--> m91.port++;
+        m22.port++ <--> C <--> m91.port++;
+        m91.port++ <--> C <--> m92.port++;
+        m92.port++ <--> C <--> n21.port++;
+        m22.port++ <--> C <--> n21.port++;
+        m92.port++ <--> C <--> n11.port++;
+        m12.port++ <--> C <--> n11.port++;
+        n22.port++ <--> C <--> m21.port++;
+        n92.port++ <--> C <--> m21.port++;
+        n12.port++ <--> C <--> m11.port++;
+        n92.port++ <--> C <--> m11.port++;
 }
 
