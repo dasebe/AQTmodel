@@ -38,7 +38,7 @@ void BB::injectInitialPackets()
     //define adversarial injections
     int initialSetSize=100; //in time steps (not simulationTime!!)
     AdvSchedMess * tmp;
-    maxPhaseCounter=30;
+    maxPhaseCounter=2000;  //currently overall time fixed to simTime<=100s
 
 //learn queue length
     //before the queue length later on can be queried -> need to create the listener objects

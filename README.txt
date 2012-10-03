@@ -38,7 +38,16 @@ Injections command are send in a two step manner. First (on a user side) they ar
 Preparing the next phase is in implementation up to an adversary designer. A dumb approach names the symmetric parts in a network similarly in a structured way so that by simple string modification different phases translate into the same representation.
 Then the start of a new phase is scheduled according to the adversary definition. This might just after the last injections of one phase happened (as for the Baseball network) or even be interleaved with injection from the still active phase (e.g. in CE7 type adversaries). 
 
-4. Package Structure
+4. Network Parameters
+
+A network consists of compound modules (SourceRoutingNode) which are linked by a channel.
+As the adversarial model is based on time slots, and assumes that in each time slot any packet can traverse any particular link (uniform packets and links), this must be ensured by the model parameters packet length, channel capacity and send interval.
+Any of these parameters, for example the capacity of a channel, isn't particularly important.
+The only limitation is that the adversaries adjusts inter packet time and packet sizes to this capacity.
+For now these values have been fixed to 10 Mbps channels, 1250 byte packets and an inter packet interval (time slot length) of 1ms.
+Finally, the maximal queue size is currently fixed to 1000 packets, and usually adversaries start with an initial queue of 100 packets.
+
+5. Package Structure
 
 ./omnetpp.ini           file to store configuration parameters for different runs
 ./adversarialQueueing   symbolic link to simulation binary
@@ -50,7 +59,7 @@ Then the start of a new phase is scheduled according to the adversary definition
 ./adversaries           definition of adversaries and their meta and helper classes
 ./resultAnalysis        save folder for analysization models of result files either in scave (.anf) or R (.R)
 
-5. Statistic Recording and Evaluation
+6. Statistic Recording and Evaluation
 
 some relevant recorded statistics are
  - the total number of injections
