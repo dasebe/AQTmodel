@@ -43,16 +43,19 @@ void CE3Advanced::injectInitialPackets()
     //before the queue length later on can be queried -> need to create the listener objects
 
     cModule *targetModule = getParentModule()->getSubmodule("n11")->getSubmodule("routing");
-    cMessage *queueLenMsg = new cMessage("queue length subscribe");
-    (*queueLenMsg).addPar("queueLenQ");
-    (*queueLenMsg).par("queueLenQ").setLongValue(112);
+    QueueLengthRequest *queueLenMsg = new QueueLengthRequest("getGate");
+    queueLenMsg->setModuleName("n11");
+    queueLenMsg->setOutAddress(112);
+    queueLenMsg->setKind(103);
     sendDirect(queueLenMsg, targetModule, "adversaryControl");
 
     targetModule = getParentModule()->getSubmodule("m11")->getSubmodule("routing");
-    queueLenMsg = new cMessage("queue length subscribe");
-    (*queueLenMsg).addPar("queueLenQ");
-    (*queueLenMsg).par("queueLenQ").setLongValue(212);
+    queueLenMsg = new QueueLengthRequest("getGate");
+    queueLenMsg->setModuleName("m11");
+    queueLenMsg->setOutAddress(212);
+    queueLenMsg->setKind(103);
     sendDirect(queueLenMsg, targetModule, "adversaryControl");
+
 
 //  set where to start (left site of gadget)
     curPhaseName='n';

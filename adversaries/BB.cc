@@ -8,6 +8,7 @@
 #endif
 
 #include "../messages/AdversarialInjectionMessage_m.h"
+#include "../messages/QueueLengthRequest_m.h"
 #include "../messages/AdvSchedMess.h"
 #include "AdvancedAdversary.h"
 
@@ -35,7 +36,7 @@ void BB::injectInitialPackets()
     WATCH(injectionCount);
 
     //define adversarial injections
-    int initialSetSize=4; //in time steps (not simulationTime!!)
+    int initialSetSize=100; //in time steps (not simulationTime!!)
     AdvSchedMess * tmp;
     maxPhaseCounter=30;
 
@@ -43,15 +44,17 @@ void BB::injectInitialPackets()
     //before the queue length later on can be queried -> need to create the listener objects
 
     cModule *targetModule = getParentModule()->getSubmodule("n1")->getSubmodule("routing");
-    cMessage *queueLenMsg = new cMessage("queue length subscribe");
-    (*queueLenMsg).addPar("queueLenQ");
-    (*queueLenMsg).par("queueLenQ").setLongValue(12);
+    QueueLengthRequest *queueLenMsg = new QueueLengthRequest("getGate");
+    queueLenMsg->setModuleName("n1");
+    queueLenMsg->setOutAddress(12);
+    queueLenMsg->setKind(103);
     sendDirect(queueLenMsg, targetModule, "adversaryControl");
 
     targetModule = getParentModule()->getSubmodule("m1")->getSubmodule("routing");
-    queueLenMsg = new cMessage("queue length subscribe");
-    (*queueLenMsg).addPar("queueLenQ");
-    (*queueLenMsg).par("queueLenQ").setLongValue(22);
+    queueLenMsg = new QueueLengthRequest("getGate");
+    queueLenMsg->setModuleName("m1");
+    queueLenMsg->setOutAddress(22);
+    queueLenMsg->setKind(103);
     sendDirect(queueLenMsg, targetModule, "adversaryControl");
 
 //  set where to start (left site of gadget)
@@ -126,7 +129,7 @@ void BB::injectInitialPackets()
         strcpy (tmp->atNode,"x2");
         tmp->atNode[0]=curPhaseName;
         tmp->message->setPathArraySize(1);
-        tmp->message->setPath(0,nextPhaseCounter+3);
+        tmp->message->setPath(0,curPhaseCounter+3);
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this at timesync as selfmessage
@@ -183,7 +186,6 @@ void BB::injectInitialPackets()
             cMessage *selfNote = new cMessage("Start of Phase");
             selfNote->setKind(102); //this means that the first entry of the injection struct shall be started by this message
             tmp->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
-            selfNote->addPar("phaseCtrl");
             //the round number 5 of this phase is the first round of the next phase
             scheduleAt(timeSync, selfNote);
         }

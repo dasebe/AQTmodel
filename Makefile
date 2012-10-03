@@ -48,11 +48,13 @@ OBJS = \
     $O/node/L2Queue.o \
     $O/node/SourceRouting.o \
     $O/messages/AdversarialInjectionMessage_m.o \
+    $O/messages/QueueLengthRequest_m.o \
     $O/messages/SourceRoutingPacket_m.o
 
 # Message files
 MSGFILES = \
     messages/AdversarialInjectionMessage.msg \
+    messages/QueueLengthRequest.msg \
     messages/SourceRoutingPacket.msg
 
 #------------------------------------------------------------------------------
@@ -159,6 +161,8 @@ $O/adversaries/QueueListener.o: adversaries/QueueListener.cc \
 	adversaries/QueueListener.h
 $O/messages/AdversarialInjectionMessage_m.o: messages/AdversarialInjectionMessage_m.cc \
 	messages/AdversarialInjectionMessage_m.h
+$O/messages/QueueLengthRequest_m.o: messages/QueueLengthRequest_m.cc \
+	messages/QueueLengthRequest_m.h
 $O/messages/SourceRoutingPacket_m.o: messages/SourceRoutingPacket_m.cc \
 	messages/SourceRoutingPacket_m.h
 $O/node/L2Queue.o: node/L2Queue.cc

@@ -13,12 +13,15 @@
 #endif
 
 #include "../messages/AdversarialInjectionMessage_m.h"
+#include "../messages/QueueLengthRequest_m.h"
 #include "QueueListener.h"
 
 /**
  * message kinds:
  * 0-99:  adversarial rounds (injection round)
  * 101:   adversarial command
+ * 102:   start of phase command
+ * 103:   queueRequest message
  */
 
 /**

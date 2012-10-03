@@ -63,10 +63,9 @@ void AdvancedAdversary::initialize()
 
 void AdvancedAdversary::handleMessage(cMessage *msg)
 {
-    //TODO architecture not clean: should use msgKind to distinguish different messages, and Params to hand over the injection command.
-
-    if (msg->hasPar("qlenGate"))
+    if (msg->getKind()==103)
     {
+        QueueLengthRequest *pk = check_and_cast<QueueLengthRequest *>(msg);
         //subscribe queue length listener -> stupid solution: FIXME
 
         //limitation: only two subscriptions!
@@ -76,9 +75,9 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
         //store component
         listener->subscribedComponents[listener->getSubscribeCount()]=
                 getParentModule()->
-                getSubmodule(msg->getName())->
-                getSubmodule("queue",msg->par("qlenGate").longValue());
-        long test=msg->par("qlenGate").longValue();
+                getSubmodule(pk->getModuleName())->
+                getSubmodule("queue",pk->getGateID());
+
         //subscribe listener to component
         listener->subscribedComponents[listener->getSubscribeCount()]->
                 subscribe("qlen", listener);
@@ -86,7 +85,7 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
         return;
     }
 
-    if (msg->hasPar("phaseCtrl"))
+    if (msg->getKind()==102)
     {
         //now that this Phase has started the adversary can take measurements and do injections
         injectPhasePackets();

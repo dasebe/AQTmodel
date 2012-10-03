@@ -5,7 +5,7 @@
 #include <map>
 #include <omnetpp.h>
 #include "../messages/SourceRoutingPacket_m.h"
-
+#include "../messages/QueueLengthRequest_m.h"
 
 /**
  * Static source routing, utilizing the cTopology class for shortest path in #hops.
@@ -88,25 +88,21 @@ void SourceRouting::handleMessage(cMessage *msg)
 
 
     //give adversary right gate index to quere queue lengths
-    if (msg->hasPar("queueLenQ"))
+    if (msg->getKind()==103)
     {
 
-        //we need send back a queue length response for the fitting gate!
-        long int outHop = msg->par("queueLenQ").longValue();
+        //the task of source routing is to find the right gate of the queue
+        QueueLengthRequest *pk = check_and_cast<QueueLengthRequest *>(msg);
         //lookup in RoutingTable
-        RoutingTable::iterator it = rtable.find(outHop);
+        RoutingTable::iterator it = rtable.find(pk->getOutAddress());
         if (it==rtable.end())
         {
             EV << "FAIL   : retrieving queue length";
             return;
         }
-        int outGateIndex = (*it).second;
-        cMessage *answer = new cMessage(getParentModule()->getName());
-        answer->addPar("qlenGate"); //deprecated way!
-        answer->addPar("qlenGate").setLongValue(outGateIndex);
+        pk->setGateID((*it).second);
         cModule *adversary = msg->getSenderModule();
-        sendDirect(answer, adversary, "adversaryControl$i");
-        cancelAndDelete(msg);
+        sendDirect(pk, adversary, "adversaryControl$i");
     }
 
 
