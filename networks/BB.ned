@@ -2,7 +2,6 @@
 package adversarialqueueing.networks;
 
 import adversarialqueueing.adversaries.AdvancedAdversary;
-import adversarialqueueing.adversaries.BBhalf;
 import adversarialqueueing.node.SourceRouting;
 import adversarialqueueing.node.SourceRoutingNode;
 import ned.DatarateChannel;

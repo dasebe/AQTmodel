@@ -4,7 +4,7 @@ package adversarialqueueing.adversaries;
 //
 // Adversary for circular CE7 
 //
-simple CE7Advanced like AdvancedAdversary
+simple CE7 like AdvancedAdversary
 {
     parameters:
 		volatile double sendIaTime @unit(s) = default(10ms); // time between generating packets

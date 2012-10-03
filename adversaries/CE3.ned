@@ -3,7 +3,7 @@ package adversarialqueueing.adversaries;
 //
 // Adversary for CE3
 //
-simple CE3Advanced like AdvancedAdversary
+simple CE3 like AdvancedAdversary
 {
     parameters:
 		volatile double sendIaTime @unit(s) = default(10ms); // time between generating packets

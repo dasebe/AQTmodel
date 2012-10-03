@@ -14,18 +14,18 @@
 /**
  * Generates and schedules injections for the nodes in the network.
  */
-class CE7Advanced : public AdvancedAdversary
+class CE7 : public AdvancedAdversary
 {
   protected:
     void injectInitialPackets();
     void injectPhasePackets();
 };
 
-Define_Module(CE7Advanced);
+Define_Module(CE7);
 
 
 
-void CE7Advanced::injectInitialPackets()
+void CE7::injectInitialPackets()
 {
     timeSlots = &par("sendIaTime");
     bufferSize = par("frameCapacity");
@@ -132,7 +132,7 @@ void CE7Advanced::injectInitialPackets()
 
 
 
-    void CE7Advanced::injectPhasePackets()
+    void CE7::injectPhasePackets()
     {
         AdvSchedMess * tmp;
         //we assume we are indeed subscribed to the right queue! - no further consistency check!
