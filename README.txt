@@ -71,3 +71,5 @@ Evaluation can be either done in scave (from the omnet++ distribution) or R with
 Use scave for quick overview statistics as it's quite fast, has an accessible gui and access to all the data.
 For advanced aggregation and statistic questions R seems an easier choice.
 See for example the computation of loss graphs in resultAnalysis/results.R
+
+Prior to analysis in R users need to obtain the omnet-R package retrievable from \url{https://github.com/omnetpp/omnetpp-resultfiles/downloads} and install it with the usual \fbox{\$ R CMD INSTALL omnetpp_0.1-1.tar.gz}.

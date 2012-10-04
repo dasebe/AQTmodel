@@ -37,6 +37,7 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 # Object files for local .cc and .msg files
 OBJS = \
     $O/adversaries/AdvancedAdversary.o \
+    $O/adversaries/CE71.o \
     $O/adversaries/CE7half.o \
     $O/adversaries/CE7.o \
     $O/adversaries/BB.o \
@@ -154,6 +155,9 @@ $O/adversaries/CE3.o: adversaries/CE3.cc \
 $O/adversaries/CE3half.o: adversaries/CE3half.cc \
 	messages/AdversarialInjectionMessage_m.h
 $O/adversaries/CE7.o: adversaries/CE7.cc \
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
+$O/adversaries/CE71.o: adversaries/CE71.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
 $O/adversaries/CE75.o: adversaries/CE75.cc \
