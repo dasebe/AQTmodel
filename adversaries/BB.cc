@@ -174,8 +174,8 @@ void BB::injectInitialPackets()
         timeSync += roundTime*(timeSlots->doubleValue());
 
 //inverse Phase follows
-        if (maxPhaseCounter-->0)
-        {
+        //if (maxPhaseCounter-->0)
+        //{
             char n=curPhaseName;
             curPhaseName=nextPhaseName;
             nextPhaseName=n;
@@ -188,5 +188,5 @@ void BB::injectInitialPackets()
             tmp->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
             //the round number 5 of this phase is the first round of the next phase
             scheduleAt(timeSync, selfNote);
-        }
+        //}
     }

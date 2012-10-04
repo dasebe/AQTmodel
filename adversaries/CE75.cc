@@ -14,18 +14,18 @@
 /**
  * Generates and schedules injections for the nodes in the network.
  */
-class CE7 : public AdvancedAdversary
+class CE75 : public AdvancedAdversary
 {
   protected:
     void injectInitialPackets();
     void injectPhasePackets();
 };
 
-Define_Module(CE7);
+Define_Module(CE75);
 
 
 
-void CE7::injectInitialPackets()
+void CE75::injectInitialPackets()
 {
     timeSlots = &par("sendIaTime");
     bufferSize = par("frameCapacity");
@@ -124,6 +124,42 @@ void CE7::injectInitialPackets()
     tmp->setSchedulingPriority(1);
     //schedule this now as selfmessage
     scheduleAt(timeSync,tmp);
+
+//round 4
+        timeSync += initialSetSize*(timeSlots->doubleValue());
+
+        // (initial packets D)
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime = 0;
+        tmp->packetCount=initialSetSize;
+        tmp->message =  new AdversarialInjectionMessage("initial set D0");
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x41");
+        tmp->atNode[0]=curPhaseName;
+        tmp->message->setPathArraySize(1);
+        tmp->message->setPath(0,curPhaseCounter+42);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(1);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
+
+//round 5
+        timeSync += initialSetSize*(timeSlots->doubleValue());
+
+        // (initial packets E)
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime = 0;
+        tmp->packetCount=initialSetSize;
+        tmp->message =  new AdversarialInjectionMessage("initial set E0");
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x51");
+        tmp->atNode[0]=curPhaseName;
+        tmp->message->setPathArraySize(1);
+        tmp->message->setPath(0,curPhaseCounter+52);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(1);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 }
 
 
@@ -132,7 +168,7 @@ void CE7::injectInitialPackets()
 
 
 
-    void CE7::injectPhasePackets()
+    void CE75::injectPhasePackets()
     {
         AdvSchedMess * tmp;
         //we assume we are indeed subscribed to the right queue! - no further consistency check!
@@ -151,16 +187,13 @@ void CE7::injectInitialPackets()
         tmp->atNode=new char[3];
         strcpy (tmp->atNode,"x11");
         tmp->atNode[0]=curPhaseName;
-        tmp->message->setPathArraySize(9);
-        tmp->message->setPath(0,nextPhaseCounter+93);
-        tmp->message->setPath(1,nextPhaseCounter+92);
-        tmp->message->setPath(2,nextPhaseCounter+91);
-        tmp->message->setPath(3,nextPhaseCounter+12);
-        tmp->message->setPath(4,nextPhaseCounter+11);
-        tmp->message->setPath(5,curPhaseCounter+93);
-        tmp->message->setPath(6,curPhaseCounter+92);
-        tmp->message->setPath(7,curPhaseCounter+91);
-        tmp->message->setPath(8,curPhaseCounter+12);//first hop
+        tmp->message->setPathArraySize(6);
+        tmp->message->setPath(0,nextPhaseCounter+12);
+        tmp->message->setPath(1,nextPhaseCounter+11);
+        tmp->message->setPath(2,curPhaseCounter+93);
+        tmp->message->setPath(3,curPhaseCounter+92);
+        tmp->message->setPath(4,curPhaseCounter+91);
+        tmp->message->setPath(5,curPhaseCounter+12);//first hop
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
@@ -179,16 +212,12 @@ void CE7::injectInitialPackets()
         tmp->atNode=new char[3];
         strcpy (tmp->atNode,"x11");
         tmp->atNode[0]=curPhaseName;
-        tmp->message->setPathArraySize(9);
-        tmp->message->setPath(0,nextPhaseCounter+93);
-        tmp->message->setPath(1,nextPhaseCounter+92);
-        tmp->message->setPath(2,nextPhaseCounter+95);
-        tmp->message->setPath(3,nextPhaseCounter+94);
-        tmp->message->setPath(4,nextPhaseCounter+12);
-        tmp->message->setPath(5,nextPhaseCounter+11);
-        tmp->message->setPath(6,curPhaseCounter+95);
-        tmp->message->setPath(7,curPhaseCounter+94);
-        tmp->message->setPath(8,curPhaseCounter+12);//first hop
+        tmp->message->setPathArraySize(5);
+        tmp->message->setPath(0,nextPhaseCounter+12);
+        tmp->message->setPath(1,nextPhaseCounter+11);
+        tmp->message->setPath(2,curPhaseCounter+95);
+        tmp->message->setPath(3,curPhaseCounter+94);
+        tmp->message->setPath(4,curPhaseCounter+12);//first hop
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
@@ -344,6 +373,25 @@ void CE7::injectInitialPackets()
         //schedule this now as selfmessage
         scheduleAt(timeSync,tmp);
 
+        // (set D1)
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        tmp->packetCount=floor(roundTime*injectionRate);
+        tmp->message =  new AdversarialInjectionMessage("set D1");
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x41");
+        tmp->atNode[0]=curPhaseName;
+        tmp->message->setPathArraySize(6);
+        tmp->message->setPath(0,nextPhaseCounter+42);
+        tmp->message->setPath(1,nextPhaseCounter+41);
+        tmp->message->setPath(2,curPhaseCounter+93);
+        tmp->message->setPath(3,curPhaseCounter+92);
+        tmp->message->setPath(4,curPhaseCounter+91);
+        tmp->message->setPath(5,curPhaseCounter+42);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
 
 //round 5
         timeSync += roundTime*(timeSlots->doubleValue());
@@ -385,6 +433,46 @@ void CE7::injectInitialPackets()
         //schedule this now as selfmessage
         scheduleAt(timeSync,tmp);
 
+        // (set D2)
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        tmp->packetCount=floor(roundTime*injectionRate);
+        tmp->message =  new AdversarialInjectionMessage("set D2");
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x41");
+        tmp->atNode[0]=curPhaseName;
+        tmp->message->setPathArraySize(5);
+        tmp->message->setPath(0,nextPhaseCounter+42);
+        tmp->message->setPath(1,nextPhaseCounter+41);
+        tmp->message->setPath(2,curPhaseCounter+95);
+        tmp->message->setPath(3,curPhaseCounter+94);
+        tmp->message->setPath(4,curPhaseCounter+42);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
+
+        // (set E1)
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        tmp->packetCount=floor(roundTime*injectionRate);
+        tmp->message =  new AdversarialInjectionMessage("set E1");
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x51");
+        tmp->atNode[0]=curPhaseName;
+        tmp->message->setPathArraySize(6);
+        tmp->message->setPath(0,nextPhaseCounter+52);
+        tmp->message->setPath(1,nextPhaseCounter+51);
+        tmp->message->setPath(2,curPhaseCounter+93);
+        tmp->message->setPath(3,curPhaseCounter+92);
+        tmp->message->setPath(4,curPhaseCounter+91);
+        tmp->message->setPath(5,curPhaseCounter+52);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
+
+
 //round 6
         timeSync += roundTime*(timeSlots->doubleValue());
 
@@ -398,6 +486,95 @@ void CE7::injectInitialPackets()
         tmp->atNode[0]=nextPhaseName;
         tmp->message->setPathArraySize(1);
         tmp->message->setPath(0,nextPhaseCounter+32);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
+
+        // (set D3)
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        tmp->packetCount=floor(roundTime*injectionRate);
+        tmp->message =  new AdversarialInjectionMessage("set D3");
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x41");
+        tmp->atNode[0]=curPhaseName;
+        tmp->message->setPathArraySize(3);
+        tmp->message->setPath(0,nextPhaseCounter+42);
+        tmp->message->setPath(1,nextPhaseCounter+41);
+        tmp->message->setPath(2,curPhaseCounter+42);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
+
+        // (set E2)
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        tmp->packetCount=floor(roundTime*injectionRate);
+        tmp->message =  new AdversarialInjectionMessage("set E2");
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x51");
+        tmp->atNode[0]=curPhaseName;
+        tmp->message->setPathArraySize(5);
+        tmp->message->setPath(0,nextPhaseCounter+52);
+        tmp->message->setPath(1,nextPhaseCounter+51);
+        tmp->message->setPath(2,curPhaseCounter+95);
+        tmp->message->setPath(3,curPhaseCounter+94);
+        tmp->message->setPath(4,curPhaseCounter+52);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
+
+//round 7
+        timeSync += roundTime*(timeSlots->doubleValue());
+
+        // (set D4)
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        tmp->packetCount=floor(roundTime*injectionRate);
+        tmp->message =  new AdversarialInjectionMessage("set D4");
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x41");
+        tmp->atNode[0]=nextPhaseName;
+        tmp->message->setPathArraySize(1);
+        tmp->message->setPath(0,nextPhaseCounter+42);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
+
+        // (set E3)
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        tmp->packetCount=floor(roundTime*injectionRate);
+        tmp->message =  new AdversarialInjectionMessage("set E3");
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x51");
+        tmp->atNode[0]=curPhaseName;
+        tmp->message->setPathArraySize(5);
+        tmp->message->setPath(0,nextPhaseCounter+52);
+        tmp->message->setPath(1,nextPhaseCounter+51);
+        tmp->message->setPath(2,curPhaseCounter+52);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(2);
+        //schedule this now as selfmessage
+        scheduleAt(timeSync,tmp);
+
+//round 8
+        timeSync += roundTime*(timeSlots->doubleValue());
+
+        // (set E4)
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        tmp->packetCount=floor(roundTime*injectionRate);
+        tmp->message =  new AdversarialInjectionMessage("set E4");
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"x51");
+        tmp->atNode[0]=nextPhaseName;
+        tmp->message->setPathArraySize(1);
+        tmp->message->setPath(0,nextPhaseCounter+52);
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage

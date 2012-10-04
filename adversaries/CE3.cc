@@ -244,8 +244,8 @@ void CE3::injectInitialPackets()
         scheduleAt(timeSync,tmp);
 
 //inverse Phase follows
-        if (maxPhaseCounter-->0)
-        {
+        //if (maxPhaseCounter-->0)
+        //{
             char n=curPhaseName;
             curPhaseName=nextPhaseName;
             nextPhaseName=n;
@@ -259,5 +259,5 @@ void CE3::injectInitialPackets()
             selfNote->addPar("phaseCtrl");
             //the round number 5 of this phase is the first round of the next phase
             scheduleAt(timeSyncR5, selfNote);
-        }
+        //}
     }

@@ -41,6 +41,7 @@ OBJS = \
     $O/adversaries/CE7.o \
     $O/adversaries/BB.o \
     $O/adversaries/CE3half.o \
+    $O/adversaries/CE75.o \
     $O/adversaries/QueueListener.o \
     $O/adversaries/CE3.o \
     $O/adversaries/BBhalf.o \
@@ -153,6 +154,9 @@ $O/adversaries/CE3.o: adversaries/CE3.cc \
 $O/adversaries/CE3half.o: adversaries/CE3half.cc \
 	messages/AdversarialInjectionMessage_m.h
 $O/adversaries/CE7.o: adversaries/CE7.cc \
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
+$O/adversaries/CE75.o: adversaries/CE75.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
 $O/adversaries/CE7half.o: adversaries/CE7half.cc \
