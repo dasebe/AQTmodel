@@ -59,6 +59,10 @@ network CE71
             @display("p=196,337;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 195;
         }
+        n97: SourceRoutingNode {
+            @display("p=196,416;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 195;
+        }
         n93: SourceRoutingNode {
             @display("p=83,337;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 193;
@@ -115,6 +119,10 @@ network CE71
             @display("p=494,268;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 295;
         }
+        m97: SourceRoutingNode {
+            @display("p=494,199;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 295;
+        }
         m94: SourceRoutingNode {
             @display("p=494,343;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 294;
@@ -152,17 +160,11 @@ network CE71
         m94.port++ <--> C <--> m95.port++;
         m95.port++ <--> C <--> m92.port++;
         m32.port++ <--> C <--> n31.port++;
-        m95.port++ <--> C <--> n31.port++;
-        m95.port++ <--> C <--> n21.port++;
         m22.port++ <--> C <--> n21.port++;
-        m95.port++ <--> C <--> n11.port++;
         m12.port++ <--> C <--> n11.port++;
         n32.port++ <--> C <--> m31.port++;
-        n95.port++ <--> C <--> m31.port++;
         n22.port++ <--> C <--> m21.port++;
-        n95.port++ <--> C <--> m21.port++;
         n12.port++ <--> C <--> m11.port++;
-        n95.port++ <--> C <--> m11.port++;
         n93.port++ <--> C <--> n96.port++;
         n96.port++ <--> C <--> m11.port++;
         n96.port++ <--> C <--> m21.port++;
@@ -172,5 +174,15 @@ network CE71
         m96.port++ <--> C <--> n11.port++;
         m93.port++ <--> C <--> m96.port++;
         n93.port++ <--> C <--> m93.port++;
+        m95.port++ <--> C <--> m97.port++;
+        m97.port++ <--> C <--> n31.port++;
+        m97.port++ <--> C <--> n21.port++;
+        m97.port++ <--> C <--> n11.port++;
+        n95.port++ <--> C <--> n97.port++;
+        n97.port++ <--> C <--> m11.port++;
+        n97.port++ <--> C <--> m21.port++;
+        n97.port++ <--> C <--> m31.port++;
+        n96.port++ <--> C <--> n95.port++;
+        m96.port++ <--> C <--> m95.port++;
 }
 

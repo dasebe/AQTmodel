@@ -354,13 +354,15 @@ void CE71::injectInitialPackets()
             tmp->atNode=new char[3];
             strcpy (tmp->atNode,"x11");
             tmp->atNode[0]=curPhaseName;
-            tmp->message->setPathArraySize(6);
-            tmp->message->setPath(0,nextPhaseCounter+96);
-            tmp->message->setPath(1,nextPhaseCounter+93);
-            tmp->message->setPath(2,curPhaseCounter+93);
-            tmp->message->setPath(3,curPhaseCounter+92);
-            tmp->message->setPath(4,curPhaseCounter+91);
-            tmp->message->setPath(5,curPhaseCounter+12);
+            tmp->message->setPathArraySize(8);
+            tmp->message->setPath(0,nextPhaseCounter+97);
+            tmp->message->setPath(1,nextPhaseCounter+95);
+            tmp->message->setPath(2,nextPhaseCounter+96);
+            tmp->message->setPath(3,nextPhaseCounter+93);
+            tmp->message->setPath(4,curPhaseCounter+93);
+            tmp->message->setPath(5,curPhaseCounter+92);
+            tmp->message->setPath(6,curPhaseCounter+91);
+            tmp->message->setPath(7,curPhaseCounter+12);
             tmp->message->setKind(101);
             tmp->setSchedulingPriority(2);
             //schedule this now as selfmessage
