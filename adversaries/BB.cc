@@ -120,10 +120,12 @@ void BB::injectInitialPackets()
 //round 2
         timeSync += roundTime*(timeSlots->doubleValue());
 
-        // (set A2)
+        // (set confinement)
         tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        tmp->packetCount=floor(roundTime*injectionRate);
+        //this should be of size B*r/(1+r)
+        //also ceil here as it's going to make it more efficient and still valid
+        tmp->packetCount=ceil((roundTime*injectionRate)/(1+injectionRate));
         tmp->message =  new AdversarialInjectionMessage("confinement");
         tmp->atNode=new char[2];
         strcpy (tmp->atNode,"x2");
@@ -135,7 +137,7 @@ void BB::injectInitialPackets()
         //schedule this at timesync as selfmessage
         scheduleAt(timeSync,tmp);
 
-        // (set B1)
+        // (set Y)
         tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
