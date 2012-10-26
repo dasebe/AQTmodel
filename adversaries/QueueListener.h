@@ -12,9 +12,7 @@
 
 class QueueListener : public cListener {
         public:
-            int queueCount;
-            long queuelength[2];
-            cComponent * subscribedComponents[2]; //TODO use case only 2 subscriptions - works for now (else #include <vector>)
+            long queuelength;
 
             QueueListener();
             ~QueueListener();

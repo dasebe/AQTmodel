@@ -116,7 +116,7 @@ void CE3::injectInitialPackets()
     {
         AdvSchedMess * tmp;
         //we assume we are indeed subscribed to the right queue! - no further consistency check!
-        long roundTime=listener->queuelength[curPhaseCounter/100-1] + 1; //because one transmitted right away
+        long roundTime=qlarray[curPhaseCounter/100-1]->queuelength + 1; //because one transmitted right away
         ev << "QL: "<< roundTime << endl;
 
 //round 1

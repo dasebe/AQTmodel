@@ -2,6 +2,8 @@
 #ifndef ADVANCEDADVERSARY_H_
 #define ADVANCEDADVERSARY_H_
 
+#include <vector>
+
 #ifndef OMNETPP_H
 #define OMNETPP_H
  #include <omnetpp.h>
@@ -70,7 +72,7 @@ protected:
     short int  nextPhaseCounter;
     long maxPhaseCounter;
 
-    QueueListener *listener;
+    std::vector<QueueListener*> qlarray;
     long queueLen;
 
     // signals for statistics (e.g.)

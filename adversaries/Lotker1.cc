@@ -134,7 +134,7 @@ void Lotker1::injectPhasePackets()
 {
     AdvSchedMess * tmp;
     //we assume we are indeed subscribed to the right queue! - no further consistency check!
-    long roundTime=listener->queuelength[curgadget-1] + 1; //because one transmitted right away
+    long roundTime=qlarray[curgadget-1]->queuelength + 1; //because one transmitted right away
     ev << "QL: "<< roundTime << endl;
 
     //round 1
@@ -159,7 +159,11 @@ void Lotker1::injectPhasePackets()
         sprintf(tmp->atNode,"%c2%d", curgadget+1+96, i);
         tmp->message->setPathArraySize(1);
         if (i==lengthn)
-            tmp->message->setPath(0,((curgadget+2)*100)+1); //send toward third gadget (seen from curgadget)
+        {
+            int targetAddr = curgadget +2;
+            targetAddr = ((targetAddr>lengthM?targetAddr%lengthM:targetAddr)*100) + 1;
+            tmp->message->setPath(0,targetAddr);
+        }
         else
             tmp->message->setPath(0,((curgadget+1)*100)+20+i+1); //send towards second gadget (seen from curgadget)
         tmp->message->setKind(101);
@@ -204,10 +208,13 @@ void Lotker1::injectPhasePackets()
 
 
     //schedule next round!
-    if (curgadget++ > 10)
+
+    //stop before even last gadget
+    if (++curgadget > 9)
     {
-        curgadget = curgadget % lengthM;
-        //wrap around needed - omit for not
+        //reset
+        curgadget = 1;
+        //wrap around needed - omit for now
     }
     else
     {

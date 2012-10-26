@@ -19,8 +19,10 @@ AdvancedAdversary::AdvancedAdversary(){}
 
 AdvancedAdversary::~AdvancedAdversary()
 {
-    //TODO where's the clean-up
-    delete(listener);
+    //delete all the queue listeners
+    for(unsigned int i=0; i<this->qlarray.size();i++)
+        delete(this->qlarray[i]);
+    delete(&(this->qlarray));
 }
 
 void AdvancedAdversary::initialize()
@@ -36,9 +38,6 @@ void AdvancedAdversary::initialize()
     //define adversarial injections
     noInjs = 0;
     //injections = (Inj*) malloc(noInjs*sizeof(Inj)); must be overwritten later
-
-    //init queue length listener
-    listener = new QueueListener();
 
     injectInitialPackets();
     /**
@@ -66,21 +65,19 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
     if (msg->getKind()==103)
     {
         QueueLengthRequest *pk = check_and_cast<QueueLengthRequest *>(msg);
-        //subscribe queue length listener -> stupid solution: FIXME
+        //subscribe new queue length listener
 
-        //limitation: only two subscriptions!
-        if (listener->getSubscribeCount()>1) {
-            return; //hitting limitation
-        }
-        //store component
-        listener->subscribedComponents[listener->getSubscribeCount()]=
-                getParentModule()->
-                getSubmodule(pk->getModuleName())->
+        //safe old array, into new one of bigger size
+        //only done once per adversary - fine
+
+        QueueListener * ql = new QueueListener();
+        this->qlarray.push_back(ql);
+
+        cModule *queue = getParentModule()->getSubmodule(pk->getModuleName())->
                 getSubmodule("queue",pk->getGateID());
 
         //subscribe listener to component
-        listener->subscribedComponents[listener->getSubscribeCount()]->
-                subscribe("qlen", listener);
+        queue->subscribe("qlen", ql);
         cancelAndDelete(msg);
         return;
     }
