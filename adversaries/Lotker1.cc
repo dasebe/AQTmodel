@@ -3,6 +3,7 @@
 #endif
 
 #include <math.h>
+//#include <stdio.h>
 
 #ifndef OMNETPP_H
 #define OMNETPP_H
@@ -21,11 +22,13 @@ class Lotker1 : public AdvancedAdversary
 protected:
     void injectInitialPackets();
     void injectPhasePackets();
+    void setLongPath(AdversarialInjectionMessage *message, int cur, bool lower);
 
-    char thirdPhaseName;
-    short int  thirdPhaseCounter;
+    int curgadget;
+
     //lotker parameter
     const static int lengthn = 8;
+    const static int lengthM = 10;
 };
 
 Define_Module(Lotker1);
@@ -48,36 +51,34 @@ void Lotker1::injectInitialPackets()
 
     //learn initial queue length
     //before the queue length later on can be queried -> need to create the listener objects
-    cModule *targetModule = getParentModule()->getSubmodule("a01")->getSubmodule("routing");
-    QueueLengthRequest *queueLenMsg = new QueueLengthRequest("getGate");
-    queueLenMsg->setModuleName("a01");
-    queueLenMsg->setOutAddress(102);
-    queueLenMsg->setKind(103);
-    sendDirect(queueLenMsg, targetModule, "adversaryControl");
 
-    targetModule = getParentModule()->getSubmodule("b01")->getSubmodule("routing");
-    queueLenMsg = new QueueLengthRequest("getGate");
-    queueLenMsg->setModuleName("b01");
-    queueLenMsg->setOutAddress(202);
-    queueLenMsg->setKind(103);
-    sendDirect(queueLenMsg, targetModule, "adversaryControl");
+    /*
+     * restriction by omnet: module names must begin with letter
+     * but routing based on integer addresses
+     * hence work with integers and convert
+     *
+     * there are gadgets from a to j and 1 to 10
+     * ascii(a is 97, j is 106)
+     */
+    cModule *targetModule;
+    QueueLengthRequest *queueLenMsg;
+    for(int i=1; i<11; i++)
+    {
+        char modn[3];
+        sprintf (modn, "%c01", i+96);
 
-    targetModule = getParentModule()->getSubmodule("c01")->getSubmodule("routing");
-    queueLenMsg = new QueueLengthRequest("getGate");
-    queueLenMsg->setModuleName("c01");
-    queueLenMsg->setOutAddress(302);
-    queueLenMsg->setKind(103);
-    sendDirect(queueLenMsg, targetModule, "adversaryControl");
+        targetModule = getParentModule()->getSubmodule(modn)->getSubmodule("routing");
+        queueLenMsg = new QueueLengthRequest("getGate");
+        queueLenMsg->setModuleName(modn);
+        queueLenMsg->setOutAddress(2+i*100);
+        queueLenMsg->setKind(103);
+        sendDirect(queueLenMsg, targetModule, "adversaryControl");
+    }
 
 
-
-    //  set where to start (left site of gadget)
-    curPhaseName='a';
-    curPhaseCounter=100;
-    nextPhaseName='b';
-    nextPhaseCounter=200;
-    thirdPhaseName='c';
-    thirdPhaseCounter=300;
+    //  set where to start (upper left site of gadget)
+    curgadget = 1;
+    //now all gadget are addressed relative to that one
 
 //round 0 create C(S,F_1)
     // (1) + (2)
@@ -89,16 +90,8 @@ void Lotker1::injectInitialPackets()
         tmp->packetCount=1;
         tmp->message=new AdversarialInjectionMessage("(1) init");
         tmp->atNode=new char[3];
-        sprintf(tmp->atNode,"x2%d",i);
-        tmp->atNode[0]=curPhaseName;
-        tmp->message->setPathArraySize(7);
-        tmp->message->setPath(0,thirdPhaseCounter+02);
-        tmp->message->setPath(1,thirdPhaseCounter+01);
-        tmp->message->setPath(2,nextPhaseCounter+20+lengthn);
-        tmp->message->setPath(3,nextPhaseCounter+21);
-        tmp->message->setPath(4,nextPhaseCounter+02);
-        tmp->message->setPath(5,nextPhaseCounter+01);
-        tmp->message->setPath(6,curPhaseCounter+20+lengthn);
+        sprintf(tmp->atNode,"%c2%d", curgadget+96, i);
+        setLongPath(tmp->message,curgadget+1,true);
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
@@ -109,15 +102,8 @@ void Lotker1::injectInitialPackets()
     tmp->packetCount=initialSetSize-lengthn+1;
     tmp->message=new AdversarialInjectionMessage("(1) init");
     tmp->atNode=new char[3];
-    sprintf(tmp->atNode,"x2%d",lengthn);
-    tmp->atNode[0]=curPhaseName;
-    tmp->message->setPathArraySize(6);
-    tmp->message->setPath(0,thirdPhaseCounter+02);
-    tmp->message->setPath(1,thirdPhaseCounter+01);
-    tmp->message->setPath(2,nextPhaseCounter+20+lengthn);
-    tmp->message->setPath(3,nextPhaseCounter+21);
-    tmp->message->setPath(4,nextPhaseCounter+02);
-    tmp->message->setPath(5,nextPhaseCounter+01);
+    sprintf(tmp->atNode,"%c2%d", curgadget+96,lengthn);
+    setLongPath(tmp->message,curgadget+1,true);
     tmp->message->setKind(101);
     tmp->setSchedulingPriority(1);
     //schedule this at timesync as selfmessage
@@ -130,17 +116,8 @@ void Lotker1::injectInitialPackets()
     tmp->packetCount=initialSetSize;
     tmp->message=new AdversarialInjectionMessage("(3) init");
     tmp->atNode=new char[3];
-    strcpy (tmp->atNode,"x01");
-    tmp->atNode[0]=curPhaseName;
-    tmp->message->setPathArraySize(8);
-    tmp->message->setPath(0,thirdPhaseCounter+02);
-    tmp->message->setPath(1,thirdPhaseCounter+01);
-    tmp->message->setPath(2,nextPhaseCounter+10+lengthn);
-    tmp->message->setPath(3,nextPhaseCounter+11);
-    tmp->message->setPath(4,nextPhaseCounter+02);
-    tmp->message->setPath(5,nextPhaseCounter+01);
-    tmp->message->setPath(6,curPhaseCounter+10+lengthn);
-    tmp->message->setPath(7,curPhaseCounter+12);
+    sprintf(tmp->atNode,"%c01", curgadget+96);
+    setLongPath(tmp->message,curgadget,false);
     tmp->message->setKind(101);
     tmp->setSchedulingPriority(1);
     //schedule this at timesync as selfmessage
@@ -157,7 +134,7 @@ void Lotker1::injectPhasePackets()
 {
     AdvSchedMess * tmp;
     //we assume we are indeed subscribed to the right queue! - no further consistency check!
-    long roundTime=listener->queuelength[curPhaseCounter/100-1] + 1; //because one transmitted right away
+    long roundTime=listener->queuelength[curgadget-1] + 1; //because one transmitted right away
     ev << "QL: "<< roundTime << endl;
 
     //round 1
@@ -165,6 +142,8 @@ void Lotker1::injectPhasePackets()
 
 
     // (single-edge confinement)
+
+    // ASSUMPTION: not called when already in last gadget
 
     for (int i=1; i<=lengthn; i++)
     {
@@ -174,16 +153,15 @@ void Lotker1::injectPhasePackets()
         //hence scheduleAt timeSync + i*timeslot and send ceil(ti) packets at rate r
         tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        tmp->packetCount=ceil(ti);
+        tmp->packetCount=floor(ti*injectionRate);
         tmp->message=new AdversarialInjectionMessage("confinement");
         tmp->atNode=new char[3];
-        sprintf(tmp->atNode,"x2%d",i);
-        tmp->atNode[0]=nextPhaseName;
+        sprintf(tmp->atNode,"%c2%d", curgadget+1+96, i);
         tmp->message->setPathArraySize(1);
         if (i==lengthn)
-            tmp->message->setPath(0,thirdPhaseCounter+1);
+            tmp->message->setPath(0,((curgadget+2)*100)+1); //send toward third gadget (seen from curgadget)
         else
-            tmp->message->setPath(0,nextPhaseCounter+20+i+1);
+            tmp->message->setPath(0,((curgadget+1)*100)+20+i+1); //send towards second gadget (seen from curgadget)
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
@@ -197,18 +175,8 @@ void Lotker1::injectPhasePackets()
     tmp->packetCount= floor(roundTime*injectionRate);
     tmp->message=new AdversarialInjectionMessage("(3) long way");
     tmp->atNode=new char[3];
-    strcpy (tmp->atNode,"x01");
-    tmp->atNode[0]=curPhaseName;
-    tmp->message->setPathArraySize(9);
-    tmp->message->setPath(0,thirdPhaseCounter+02);
-    tmp->message->setPath(1,thirdPhaseCounter+01);
-    tmp->message->setPath(2,nextPhaseCounter+10+lengthn);
-    tmp->message->setPath(3,nextPhaseCounter+11);
-    tmp->message->setPath(4,nextPhaseCounter+02);
-    tmp->message->setPath(5,nextPhaseCounter+01);
-    tmp->message->setPath(6,curPhaseCounter+10+lengthn);
-    tmp->message->setPath(7,curPhaseCounter+11);
-    tmp->message->setPath(8,curPhaseCounter+02);
+    sprintf(tmp->atNode,"%c01", curgadget+96);
+    setLongPath(tmp->message,curgadget,false);
     tmp->message->setKind(101);
     tmp->setSchedulingPriority(1);
     //schedule this at timesync as selfmessage
@@ -227,18 +195,70 @@ void Lotker1::injectPhasePackets()
     tmp->packetCount= X;
     tmp->message=new AdversarialInjectionMessage("X, (4)");
     tmp->atNode=new char[3];
-    strcpy (tmp->atNode,"x01");
-    tmp->atNode[0]=nextPhaseName;
-    tmp->message->setPathArraySize(5);
-    tmp->message->setPath(0,thirdPhaseCounter+02);
-    tmp->message->setPath(1,thirdPhaseCounter+01);
-    tmp->message->setPath(2,nextPhaseCounter+10+lengthn);
-    tmp->message->setPath(3,nextPhaseCounter+11);
-    tmp->message->setPath(4,nextPhaseCounter+02);
+    sprintf(tmp->atNode,"%c01", curgadget+1+96);
+    setLongPath(tmp->message,curgadget+1,false);
     tmp->message->setKind(101);
     tmp->setSchedulingPriority(1);
     //schedule this at timesync as selfmessage
     scheduleAt(timeSync,tmp);
 
-    //cancelAndDelete()
+
+    //schedule next round!
+    if (curgadget++ > 10)
+    {
+        curgadget = curgadget % lengthM;
+        //wrap around needed - omit for not
+    }
+    else
+    {
+        //each phase's duration: 2S+n
+        //already (roundTime+lengthn+1)
+        timeSync += (timeSlots->doubleValue()*roundTime);
+        cMessage *selfNote = new cMessage("Start of Phase");
+        selfNote->setKind(102); //this means that the first entry of the injection struct shall be started by this message
+        tmp->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
+        //the round number 5 of this phase is the first round of the next phase
+        scheduleAt(timeSync, selfNote);
+    }
+
+}
+
+
+
+
+
+
+void Lotker1::setLongPath(AdversarialInjectionMessage *message, int cur, bool lower)
+{
+    //cur might be different that global counter curGadget
+
+    // set path starting from firstgadget to last
+    //if lower always user lower ones
+    //if !lower start with one upper and then lower ones
+    // see [Lotker04]
+
+    //always use 4 waypoints per gadget (static shortest-path routing!)
+    // we don't always need the full chain - start from current gadget cur
+    int dc = 4*(lengthM-cur+1);
+    message->setPathArraySize(dc);
+
+
+
+    for(int i=cur;i<=lengthM;i++)
+    {
+        message->setPath(--dc,(i*100)+02);
+        //if lower or after the first gadget choose lower path x2y, else upper x1y
+        message->setPath(--dc,(i*100)+01+(lower || i!=cur ? 20 : 10));
+        //chose the last one in some gadget
+        message->setPath(--dc,(i*100)+lengthn+(lower || i!=cur ? 20 : 10));
+        //if next one is after last one: wrap around counter
+        message->setPath(--dc,(((i+1)>10?(i+1)%lengthM:i+1)*100)+01);
+    }
+
+    /*
+     * resulting path should look like (if c=cur, n=lengthn):
+     *   if lower: c(i*100)+02);02,c21,c2n,(c+1)01, (c+1)02,(c+1)21,(c+1)2n,(c+1)01,...
+     *   else: c02,c11,c1n,(c+1)01, (c+1)02,(c+1)21,(c+1)2n,(c+1)01,...
+     */
+
 }

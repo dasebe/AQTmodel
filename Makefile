@@ -17,6 +17,7 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
 INCLUDE_PATH = \
     -I. \
     -Iadversaries \
+    -Ibuilder \
     -Idocumentation \
     -Idocumentation/IEEEtranBST \
     -Idocumentation/bin \
@@ -48,9 +49,11 @@ OBJS = \
     $O/adversaries/CE3half.o \
     $O/adversaries/CE75.o \
     $O/adversaries/QueueListener.o \
+    $O/adversaries/Lotker2.o \
     $O/adversaries/Lotker1.o \
     $O/adversaries/CE3.o \
     $O/adversaries/BBhalf.o \
+    $O/builder/netbuilder.o \
     $O/node/SourceRoutingApp.o \
     $O/node/L2Queue.o \
     $O/node/SourceRouting.o \
@@ -133,6 +136,7 @@ clean:
 	-rm -f adversarialQueueing adversarialQueueing.exe libadversarialQueueing.so libadversarialQueueing.a libadversarialQueueing.dll libadversarialQueueing.dylib
 	-rm -f ./*_m.cc ./*_m.h
 	-rm -f adversaries/*_m.cc adversaries/*_m.h
+	-rm -f builder/*_m.cc builder/*_m.h
 	-rm -f documentation/*_m.cc documentation/*_m.h
 	-rm -f documentation/IEEEtranBST/*_m.cc documentation/IEEEtranBST/*_m.h
 	-rm -f documentation/bin/*_m.cc documentation/bin/*_m.h
@@ -147,7 +151,7 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/AdvancedAdversary.o: adversaries/AdvancedAdversary.cc \
@@ -177,8 +181,12 @@ $O/adversaries/CE7half.o: adversaries/CE7half.cc \
 $O/adversaries/Lotker1.o: adversaries/Lotker1.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
+$O/adversaries/Lotker2.o: adversaries/Lotker2.cc \
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
 $O/adversaries/QueueListener.o: adversaries/QueueListener.cc \
 	adversaries/QueueListener.h
+$O/builder/netbuilder.o: builder/netbuilder.cc
 $O/messages/AdversarialInjectionMessage_m.o: messages/AdversarialInjectionMessage_m.cc \
 	messages/AdversarialInjectionMessage_m.h
 $O/messages/QueueLengthRequest_m.o: messages/QueueLengthRequest_m.cc \
