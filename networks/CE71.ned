@@ -61,7 +61,7 @@ network CE71
         }
         n97: SourceRoutingNode {
             @display("p=196,416;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 195;
+            address = 197;
         }
         n93: SourceRoutingNode {
             @display("p=83,337;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
@@ -121,7 +121,7 @@ network CE71
         }
         m97: SourceRoutingNode {
             @display("p=494,199;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 295;
+            address = 297;
         }
         m94: SourceRoutingNode {
             @display("p=494,343;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
