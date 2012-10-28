@@ -553,7 +553,7 @@ void CE75::injectInitialPackets()
         tmp->atNode=new char[3];
         strcpy (tmp->atNode,"x51");
         tmp->atNode[0]=curPhaseName;
-        tmp->message->setPathArraySize(5);
+        tmp->message->setPathArraySize(3);
         tmp->message->setPath(0,nextPhaseCounter+52);
         tmp->message->setPath(1,nextPhaseCounter+51);
         tmp->message->setPath(2,curPhaseCounter+52);
