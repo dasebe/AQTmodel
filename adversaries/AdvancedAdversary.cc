@@ -22,7 +22,7 @@ AdvancedAdversary::~AdvancedAdversary()
     //delete all the queue listeners
     for(unsigned int i=0; i<this->qlarray.size();i++)
         delete(this->qlarray[i]);
-    delete(&(this->qlarray));
+    //delete(&(this->qlarray));
 }
 
 void AdvancedAdversary::initialize()
