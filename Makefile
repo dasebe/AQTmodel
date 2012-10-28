@@ -22,6 +22,7 @@ INCLUDE_PATH = \
     -Idocumentation/IEEEtranBST \
     -Idocumentation/bin \
     -Idocumentation/plots \
+    -Ieventlog \
     -Imessages \
     -Inetworks \
     -Inode \
@@ -45,9 +46,11 @@ OBJS = \
     $O/adversaries/CE71.o \
     $O/adversaries/CE7half.o \
     $O/adversaries/CE7.o \
+    $O/adversaries/CF7.o \
     $O/adversaries/BB.o \
     $O/adversaries/CE3half.o \
     $O/adversaries/CE75.o \
+    $O/adversaries/CF3.o \
     $O/adversaries/QueueListener.o \
     $O/adversaries/Lotker1.o \
     $O/adversaries/CE3.o \
@@ -140,6 +143,7 @@ clean:
 	-rm -f documentation/IEEEtranBST/*_m.cc documentation/IEEEtranBST/*_m.h
 	-rm -f documentation/bin/*_m.cc documentation/bin/*_m.h
 	-rm -f documentation/plots/*_m.cc documentation/plots/*_m.h
+	-rm -f eventlog/*_m.cc eventlog/*_m.h
 	-rm -f messages/*_m.cc messages/*_m.h
 	-rm -f networks/*_m.cc networks/*_m.h
 	-rm -f node/*_m.cc node/*_m.h
@@ -150,7 +154,7 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc eventlog/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/AdvancedAdversary.o: adversaries/AdvancedAdversary.cc \
@@ -177,6 +181,12 @@ $O/adversaries/CE75.o: adversaries/CE75.cc \
 	adversaries/QueueListener.h
 $O/adversaries/CE7half.o: adversaries/CE7half.cc \
 	messages/AdversarialInjectionMessage_m.h
+$O/adversaries/CF3.o: adversaries/CF3.cc \
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
+$O/adversaries/CF7.o: adversaries/CF7.cc \
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
 $O/adversaries/Lotker1.o: adversaries/Lotker1.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
