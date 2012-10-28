@@ -12,9 +12,9 @@ import ned.DatarateChannel;
 //
 network CE3
 {
-    parameters:	
+    parameters:
         string adType;
-    @display("bgb=688,735,white,,0");
+        @display("bgb=688,735,white,,0");
     types:
         channel C extends DatarateChannel
         {
@@ -35,7 +35,7 @@ network CE3
             address = 122;
         }
         n11: SourceRoutingNode {
-            @display("p=562,127;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=540,127;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 111;
         }
         n91: SourceRoutingNode {
@@ -63,7 +63,7 @@ network CE3
             address = 222;
         }
         m12: SourceRoutingNode {
-            @display("p=562,470;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=540,470;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 212;
         }
         m92: SourceRoutingNode {
