@@ -23,11 +23,19 @@ INCLUDE_PATH = \
     -Idocumentation/bin \
     -Idocumentation/plots \
     -Ieventlog \
+    -Ieventlog.old \
+    -Iicdcs2013 \
+    -Iicdcs2013/IEEEtranBST \
+    -Iicdcs2013/cited \
+    -Iicdcs2013/maxima \
+    -Iicdcs2013/plots \
+    -Iicdcs2013/topologies \
     -Imessages \
     -Inetworks \
     -Inode \
     -IresultAnalysis \
-    -Iresults
+    -Iresults \
+    -Iresults.old
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -144,17 +152,25 @@ clean:
 	-rm -f documentation/bin/*_m.cc documentation/bin/*_m.h
 	-rm -f documentation/plots/*_m.cc documentation/plots/*_m.h
 	-rm -f eventlog/*_m.cc eventlog/*_m.h
+	-rm -f eventlog.old/*_m.cc eventlog.old/*_m.h
+	-rm -f icdcs2013/*_m.cc icdcs2013/*_m.h
+	-rm -f icdcs2013/IEEEtranBST/*_m.cc icdcs2013/IEEEtranBST/*_m.h
+	-rm -f icdcs2013/cited/*_m.cc icdcs2013/cited/*_m.h
+	-rm -f icdcs2013/maxima/*_m.cc icdcs2013/maxima/*_m.h
+	-rm -f icdcs2013/plots/*_m.cc icdcs2013/plots/*_m.h
+	-rm -f icdcs2013/topologies/*_m.cc icdcs2013/topologies/*_m.h
 	-rm -f messages/*_m.cc messages/*_m.h
 	-rm -f networks/*_m.cc networks/*_m.h
 	-rm -f node/*_m.cc node/*_m.h
 	-rm -f resultAnalysis/*_m.cc resultAnalysis/*_m.h
 	-rm -f results/*_m.cc results/*_m.h
+	-rm -f results.old/*_m.cc results.old/*_m.h
 
 cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc eventlog/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc eventlog/*.cc eventlog.old/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/topologies/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc results.old/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/AdvancedAdversary.o: adversaries/AdvancedAdversary.cc \
@@ -199,7 +215,8 @@ $O/messages/QueueLengthRequest_m.o: messages/QueueLengthRequest_m.cc \
 	messages/QueueLengthRequest_m.h
 $O/messages/SourceRoutingPacket_m.o: messages/SourceRoutingPacket_m.cc \
 	messages/SourceRoutingPacket_m.h
-$O/node/L2Queue.o: node/L2Queue.cc
+$O/node/L2Queue.o: node/L2Queue.cc \
+	node/L2Queue.h
 $O/node/SourceRouting.o: node/SourceRouting.cc
 $O/node/SourceRoutingApp.o: node/SourceRoutingApp.cc
 

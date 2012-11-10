@@ -3,6 +3,8 @@
 #endif
 
 #include <math.h>
+#include <string>
+#include <iostream>
 //#include <stdio.h>
 
 #ifndef OMNETPP_H
@@ -12,6 +14,7 @@
 
 #include "../messages/AdversarialInjectionMessage_m.h"
 #include "../messages/AdvSchedMess.h"
+#include "../node/L2Queue.h"
 #include "AdvancedAdversary.h"
 
 /**
@@ -24,6 +27,7 @@ protected:
     void injectPhasePackets();
     void setLongPath(AdversarialInjectionMessage *message, int cur, bool lower);
     void singleEdgeConfinement(int targetGadget, double roundTime, SimTime baseTime);
+    void cleanUpLatePackets(int targetGadget);
 
     int curgadget;
 
@@ -46,7 +50,7 @@ void Lotker1::injectInitialPackets()
     WATCH(injectionCount);
 
     //define adversarial injections
-    int initialSetSize=1000; //in time steps (not simulationTime!!)
+    int initialSetSize=100; //in time steps (not simulationTime!!)
     AdvSchedMess * tmp;
     maxPhaseCounter=200;  //currently overall time fixed to simTime<=100s
 
@@ -71,7 +75,7 @@ void Lotker1::injectInitialPackets()
     queueLenMsg->setKind(103);
     sendDirect(queueLenMsg, targetModule, "adversaryControl");
 
-    for(int i=1; i<lengthM; i++)
+    for(int i=1; i<=lengthM; i++)
     {
         char modn[3];
         sprintf (modn, "%c01", i+96);
@@ -148,7 +152,14 @@ void Lotker1::injectPhasePackets()
     ev << "QL: "<< roundTime << endl;
     timeSync = simTime(); //offset for first round = 0
 
-    if(curgadget>0)
+    // clean up old packets (on confinement path)
+    // as this set grows to fast
+    if(curgadget>1)
+        cleanUpLatePackets(curgadget-1);
+    else if(curgadget==0)
+        cleanUpLatePackets(lengthM);
+
+    if(curgadget>0 && curgadget < lengthM)
     {
 
         // (single-edge confinement)
@@ -193,21 +204,46 @@ void Lotker1::injectPhasePackets()
         //each phase's duration: 2S+n
         //already (roundTime+lengthn+1)
         timeSync += (timeSlots->doubleValue()*roundTime);
+        curgadget++;
 
-        //stop before even last gadget
-        //TODO stop where?
-        if (++curgadget > 9)
-        {
-            //reset
-            curgadget = 0;
+    }
+    else if(curgadget == lengthM)
+    {
 
-            //as stated below proof of Lemma 3.14 (that is, in the proof of Lemma 3.13 on page 10)
-            // "no injection are done in the interval [t,t+S+n]"
-            timeSync += (timeSlots->doubleValue()*(roundTime + lengthn));
-            //wait for another buffer for appropriate timing
-            timeSync += (timeSlots->doubleValue()*roundTime);
-        }
+        //actual new injections:    new (3)
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        tmp->packetCount= floor(roundTime*injectionRate);
+        tmp->message=new AdversarialInjectionMessage("(3) long way");
+        tmp->atNode=new char[3];
+        sprintf(tmp->atNode,"%c01", curgadget+96);
+        setLongPath(tmp->message,curgadget,false);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(1);
+        //schedule this at timesync as selfmessage
+        scheduleAt(timeSync,tmp);
 
+        timeSync += (timeSlots->doubleValue())*(roundTime+lengthn+1);
+
+        //actual new injections: X   new (4)
+        double Rn = (1-injectionRate)/(1-pow(injectionRate,lengthn));
+        int X = floor(2*roundTime*(1-Rn)-injectionRate*roundTime+lengthn);
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        tmp->packetCount= X;
+        tmp->message=new AdversarialInjectionMessage("X, (4)");
+        tmp->atNode=new char[3];
+        sprintf(tmp->atNode,"a00");
+        tmp->message->setPathArraySize(1);
+        tmp->message->setPath(0,102);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(1);
+        //schedule this at timesync as selfmessage
+        scheduleAt(timeSync,tmp);
+
+        //no confinement, else: wait
+        timeSync += (timeSlots->doubleValue()*roundTime);
+        curgadget = 0;
     }
     else
     {
@@ -263,36 +299,37 @@ void Lotker1::injectPhasePackets()
         //single-edge confinement in gadget number 1
         singleEdgeConfinement(1,roundTime,timeSync);
 
-         // (3) n packets of length 1
-         tmp = new AdvSchedMess;
-         tmp->interInjectionTime=0;
-         tmp->packetCount=lengthn;
-         tmp->message=new AdversarialInjectionMessage("wrap 4");
-         tmp->atNode=new char[3];
-         strcpy (tmp->atNode,"a01");
-         tmp->message->setPathArraySize(1);
-         tmp->message->setPath(0,102);
-         tmp->message->setKind(101);
-         tmp->setSchedulingPriority(1);
-         //schedule this at timesync as selfmessage
-         scheduleAt(timeSync,tmp);
+        // (3) n packets of length 1
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime=0;
+        tmp->packetCount=lengthn;
+        tmp->message=new AdversarialInjectionMessage("wrap 4");
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"a01");
+        tmp->message->setPathArraySize(1);
+        tmp->message->setPath(0,102);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(1);
+        //schedule this at timesync as selfmessage
+        scheduleAt(timeSync,tmp);
 
-         // (3) S'=2S(1-Rn) packets full path
-         timeSync += (timeSlots->doubleValue()*lengthn);
-         double Rn = (1-injectionRate)/(1-pow(injectionRate,lengthn));
-         tmp = new AdvSchedMess;
-         tmp->interInjectionTime=0;
-         tmp->packetCount= floor(2*roundTime*(1-Rn));
-         tmp->message=new AdversarialInjectionMessage("wrap 5");
-         tmp->atNode=new char[3];
-         strcpy (tmp->atNode,"a01");
-         setLongPath(tmp->message,curgadget,false);
-         tmp->message->setKind(101);
-         tmp->setSchedulingPriority(1);
-         //schedule this at timesync as selfmessage
-         scheduleAt(timeSync,tmp);
+        // (3) S'=2S(1-Rn) packets full path
+        timeSync += (timeSlots->doubleValue()*lengthn);
+        double Rn = (1-injectionRate)/(1-pow(injectionRate,lengthn));
+        tmp = new AdvSchedMess;
+        tmp->interInjectionTime=0;
+        tmp->packetCount= floor(2*roundTime*(1-Rn));
+        tmp->message=new AdversarialInjectionMessage("wrap 5");
+        tmp->atNode=new char[3];
+        strcpy (tmp->atNode,"a01");
+        setLongPath(tmp->message,curgadget,false);
+        tmp->message->setKind(101);
+        tmp->setSchedulingPriority(1);
+        //schedule this at timesync as selfmessage
+        scheduleAt(timeSync,tmp);
 
-         timeSync += (timeSlots->doubleValue()*floor(2*roundTime*(1-Rn))/injectionRate);
+        timeSync += (timeSlots->doubleValue()*floor(2*roundTime*(1-Rn))/injectionRate);
+        curgadget++;
     }
 
 
@@ -377,5 +414,25 @@ void Lotker1::singleEdgeConfinement(int targetGadget, double roundTime, SimTime 
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
         scheduleAt(timeSync+(timeSlots->doubleValue())*i,tmp);
+    }
+}
+
+void Lotker1::cleanUpLatePackets(int targetChain)
+{
+    char *subname=new char[3];
+    for (int i=1; i<=lengthn; i++)
+    {
+        sprintf(subname,"%c2%i", (targetChain)+96,i);
+
+        cModule *modp = getParentModule()->getSubmodule(subname);
+        for (cModule::SubmoduleIterator i(modp); !i.end(); i++)
+        {
+            cModule *submodp = i();
+            const char *name = (submodp->getName());
+            if(strcmp (name,"queue") == 0){
+                L2Queue *q = check_and_cast<L2Queue *>(submodp);
+                q->dispose();
+            }
+        }
     }
 }

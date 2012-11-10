@@ -209,7 +209,7 @@ void CE3::injectInitialPackets()
         tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount=floor(roundTime*injectionRate);
-        tmp->message =  new AdversarialInjectionMessage("set B3");
+        tmp->message =  new AdversarialInjectionMessage("set B2");
         tmp->atNode=new char[3];
         strcpy (tmp->atNode,"x21");
         tmp->atNode[0]=curPhaseName;

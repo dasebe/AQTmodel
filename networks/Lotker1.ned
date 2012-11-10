@@ -462,13 +462,13 @@ network Lotker1
             @display("p=1974,296;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 602;
         }
-        f11: SourceRoutingNode {
-            @display("p=1940,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 611;
-        }
         f21: SourceRoutingNode {
-            @display("p=1940,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=1940,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 621;
+        }
+        f11: SourceRoutingNode {
+            @display("p=1940,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 611;
         }
         f12: SourceRoutingNode {
             @display("p=1905,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
@@ -544,13 +544,13 @@ network Lotker1
             @display("p=1575,296;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 702;
         }
-        g11: SourceRoutingNode {
-            @display("p=1547,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 711;
-        }
         g21: SourceRoutingNode {
-            @display("p=1547,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=1547,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 721;
+        }
+        g11: SourceRoutingNode {
+            @display("p=1547,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 711;
         }
         g12: SourceRoutingNode {
             @display("p=1512,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
@@ -627,13 +627,13 @@ network Lotker1
             @display("p=1175,296;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 802;
         }
-        h11: SourceRoutingNode {
-            @display("p=1147,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 811;
-        }
         h21: SourceRoutingNode {
-            @display("p=1147,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=1147,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 821;
+        }
+        h11: SourceRoutingNode {
+            @display("p=1147,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 811;
         }
         h12: SourceRoutingNode {
             @display("p=1112,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
@@ -709,13 +709,13 @@ network Lotker1
             @display("p=780,296;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 902;
         }
-        i11: SourceRoutingNode {
-            @display("p=752,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 911;
-        }
         i21: SourceRoutingNode {
-            @display("p=752,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=752,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 921;
+        }
+        i11: SourceRoutingNode {
+            @display("p=752,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 911;
         }
         i12: SourceRoutingNode {
             @display("p=717,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
@@ -792,13 +792,13 @@ network Lotker1
             @display("p=384,296;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 1002;
         }
-        j11: SourceRoutingNode {
-            @display("p=356,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 1011;
-        }
         j21: SourceRoutingNode {
-            @display("p=356,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=356,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 1021;
+        }
+        j11: SourceRoutingNode {
+            @display("p=356,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1011;
         }
         j12: SourceRoutingNode {
             @display("p=321,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
@@ -974,10 +974,10 @@ network Lotker1
         e19.port++ <--> C <--> f01.port++;
         e29.port++ <--> C <--> f01.port++;
         f01.port++ <--> C <--> f02.port++;
-        f02.port++ <--> C <--> f11.port++;
         f02.port++ <--> C <--> f21.port++;
-        f11.port++ <--> C <--> f22.port++;
-        f21.port++ <--> C <--> f12.port++;
+        f02.port++ <--> C <--> f11.port++;
+        f21.port++ <--> C <--> f22.port++;
+        f11.port++ <--> C <--> f12.port++;
         f22.port++ <--> C <--> f23.port++;
         f12.port++ <--> C <--> f13.port++;
         f23.port++ <--> C <--> f24.port++;
@@ -996,10 +996,10 @@ network Lotker1
         f29.port++ <--> C <--> g01.port++;
         f19.port++ <--> C <--> g01.port++;
         g01.port++ <--> C <--> g02.port++;
-        g02.port++ <--> C <--> g11.port++;
         g02.port++ <--> C <--> g21.port++;
-        g11.port++ <--> C <--> g22.port++;
-        g21.port++ <--> C <--> g12.port++;
+        g02.port++ <--> C <--> g11.port++;
+        g21.port++ <--> C <--> g22.port++;
+        g11.port++ <--> C <--> g12.port++;
         g22.port++ <--> C <--> g23.port++;
         g12.port++ <--> C <--> g13.port++;
         g23.port++ <--> C <--> g24.port++;
@@ -1018,10 +1018,10 @@ network Lotker1
         g29.port++ <--> C <--> h01.port++;
         g19.port++ <--> C <--> h01.port++;
         h01.port++ <--> C <--> h02.port++;
-        h02.port++ <--> C <--> h11.port++;
         h02.port++ <--> C <--> h21.port++;
-        h11.port++ <--> C <--> h22.port++;
-        h21.port++ <--> C <--> h12.port++;
+        h02.port++ <--> C <--> h11.port++;
+        h21.port++ <--> C <--> h22.port++;
+        h11.port++ <--> C <--> h12.port++;
         h22.port++ <--> C <--> h23.port++;
         h12.port++ <--> C <--> h13.port++;
         h23.port++ <--> C <--> h24.port++;
@@ -1040,10 +1040,10 @@ network Lotker1
         h29.port++ <--> C <--> i01.port++;
         h19.port++ <--> C <--> i01.port++;
         i01.port++ <--> C <--> i02.port++;
-        i02.port++ <--> C <--> i11.port++;
         i02.port++ <--> C <--> i21.port++;
-        i11.port++ <--> C <--> i22.port++;
-        i21.port++ <--> C <--> i12.port++;
+        i02.port++ <--> C <--> i11.port++;
+        i21.port++ <--> C <--> i22.port++;
+        i11.port++ <--> C <--> i12.port++;
         i22.port++ <--> C <--> i23.port++;
         i12.port++ <--> C <--> i13.port++;
         i23.port++ <--> C <--> i24.port++;
@@ -1062,10 +1062,10 @@ network Lotker1
         i29.port++ <--> C <--> j01.port++;
         i19.port++ <--> C <--> j01.port++;
         j01.port++ <--> C <--> j02.port++;
-        j02.port++ <--> C <--> j11.port++;
         j02.port++ <--> C <--> j21.port++;
-        j11.port++ <--> C <--> j22.port++;
-        j21.port++ <--> C <--> j12.port++;
+        j02.port++ <--> C <--> j11.port++;
+        j21.port++ <--> C <--> j22.port++;
+        j11.port++ <--> C <--> j12.port++;
         j22.port++ <--> C <--> j23.port++;
         j12.port++ <--> C <--> j13.port++;
         j23.port++ <--> C <--> j24.port++;
