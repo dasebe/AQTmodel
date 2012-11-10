@@ -26,6 +26,8 @@ INCLUDE_PATH = \
     -Ieventlog.old \
     -Iicdcs2013 \
     -Iicdcs2013/IEEEtranBST \
+    -Iicdcs2013/Jens-Photos \
+    -Iicdcs2013/bin \
     -Iicdcs2013/cited \
     -Iicdcs2013/maxima \
     -Iicdcs2013/plots \
@@ -155,6 +157,8 @@ clean:
 	-rm -f eventlog.old/*_m.cc eventlog.old/*_m.h
 	-rm -f icdcs2013/*_m.cc icdcs2013/*_m.h
 	-rm -f icdcs2013/IEEEtranBST/*_m.cc icdcs2013/IEEEtranBST/*_m.h
+	-rm -f icdcs2013/Jens-Photos/*_m.cc icdcs2013/Jens-Photos/*_m.h
+	-rm -f icdcs2013/bin/*_m.cc icdcs2013/bin/*_m.h
 	-rm -f icdcs2013/cited/*_m.cc icdcs2013/cited/*_m.h
 	-rm -f icdcs2013/maxima/*_m.cc icdcs2013/maxima/*_m.h
 	-rm -f icdcs2013/plots/*_m.cc icdcs2013/plots/*_m.h
@@ -170,7 +174,7 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc eventlog/*.cc eventlog.old/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/topologies/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc results.old/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc eventlog/*.cc eventlog.old/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/Jens-Photos/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/topologies/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc results.old/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/AdvancedAdversary.o: adversaries/AdvancedAdversary.cc \

@@ -12,13 +12,15 @@ import ned.DatarateChannel;
 network BB
 {
     parameters:
+		volatile double channelDelay @unit(s) = default(0ms);
+		volatile int channelDatarate @unit(bps) = default(10Mbps);
         string adType;
         @display("bgb=328,408,white");
     types:
         channel C extends DatarateChannel
         {
-            delay = 0ms;
-            datarate = 10Mbps;
+            delay = channelDelay;
+            datarate = channelDatarate;
         }
     submodules:
         adversary: <adType> like AdvancedAdversary {
