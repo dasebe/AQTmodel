@@ -36,7 +36,7 @@ void BB::injectInitialPackets()
     WATCH(injectionCount);
 
     //define adversarial injections
-    int initialSetSize=100; //in time steps (not simulationTime!!)
+    int initialSetSize=par("initialSetSize"); //in time steps (not simulationTime!!)
     AdvSchedMess * tmp;
     maxPhaseCounter=2000;  //currently overall time fixed to simTime<=100s
 

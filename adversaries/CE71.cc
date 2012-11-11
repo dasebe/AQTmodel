@@ -30,12 +30,13 @@ void CE71::injectInitialPackets()
     timeSlots = &par("sendIaTime");
     bufferSize = par("frameCapacity");
     injectionRate = par("injectionRate");
+    int initialSetSize= par("initialSetSize"); //in time steps (not simulationTime!!)
+
     injectionCount = 0;
     timeSync = simTime(); // == 0 (as we init!)
     WATCH(injectionCount);
 
     //define adversarial injections
-    int initialSetSize=100; //in time steps (not simulationTime!!)
     AdvSchedMess * tmp;
     maxPhaseCounter=100; //currently overall time fixed to simTime<=100s
 
