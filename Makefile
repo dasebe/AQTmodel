@@ -65,7 +65,6 @@ OBJS = \
     $O/adversaries/CE3.o \
     $O/adversaries/BBhalf.o \
     $O/builder/netbuilder.o \
-    $O/networks/VariableDelayChannel.o \
     $O/node/SourceRoutingApp.o \
     $O/node/L2Queue.o \
     $O/node/SourceRouting.o \
@@ -218,8 +217,6 @@ $O/messages/QueueLengthRequest_m.o: messages/QueueLengthRequest_m.cc \
 	messages/QueueLengthRequest_m.h
 $O/messages/SourceRoutingPacket_m.o: messages/SourceRoutingPacket_m.cc \
 	messages/SourceRoutingPacket_m.h
-$O/networks/VariableDelayChannel.o: networks/VariableDelayChannel.cc \
-	networks/VariableDelayChannel.h
 $O/node/L2Queue.o: node/L2Queue.cc \
 	node/L2Queue.h
 $O/node/SourceRouting.o: node/SourceRouting.cc
