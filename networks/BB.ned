@@ -2,6 +2,7 @@
 package adversarialqueueing.networks;
 
 import adversarialqueueing.adversaries.AdvancedAdversary;
+import adversarialqueueing.adversaries.Randomization;
 import adversarialqueueing.node.SourceRouting;
 import adversarialqueueing.node.SourceRoutingNode;
 import ned.DatarateChannel;
@@ -12,15 +13,14 @@ import ned.DatarateChannel;
 network BB
 {
     parameters:
-		volatile double channelDelay @unit(s) = default(0ms);
-		volatile int channelDatarate @unit(bps) = default(10Mbps);
+		volatile int datarate @unit(bps) = default(10Mbps);
         string adType;
-        @display("bgb=328,408,white");
+        @display("bgb=358,408,white");
     types:
-        channel VariableDelayChannel extends DatarateChannel
+        channel C extends DatarateChannel
         {
-            delay = channelDelay;
-            datarate = channelDatarate;
+            delay = 0ms;
+            datarate = datarate;
         }
     submodules:
         adversary: <adType> like AdvancedAdversary {
@@ -58,17 +58,20 @@ network BB
             @display("p=285,213");
             address = 23;
         }
+        randomization: Randomization {
+            @display("p=312,28");
+        }
     connections:
 
-        n2.port++ <--> VariableDelayChannel <--> n3.port++;
-        n3.port++ <--> VariableDelayChannel <--> m1.port++;
-        m1.port++ <--> VariableDelayChannel <--> m2.port++;
-        m2.port++ <--> VariableDelayChannel <--> m3.port++;
-        m2.port++ <--> VariableDelayChannel <--> m4.port++;
-        m4.port++ <--> VariableDelayChannel <--> n1.port++;
-        m3.port++ <--> VariableDelayChannel <--> n1.port++;
-        n1.port++ <--> VariableDelayChannel <--> n2.port++;
-        n2.port++ <--> VariableDelayChannel <--> n4.port++;
-        n4.port++ <--> VariableDelayChannel <--> m1.port++;
+        n2.port++ <--> C <--> n3.port++;
+        n3.port++ <--> C <--> m1.port++;
+        m1.port++ <--> C <--> m2.port++;
+        m2.port++ <--> C <--> m3.port++;
+        m2.port++ <--> C <--> m4.port++;
+        m4.port++ <--> C <--> n1.port++;
+        m3.port++ <--> C <--> n1.port++;
+        n1.port++ <--> C <--> n2.port++;
+        n2.port++ <--> C <--> n4.port++;
+        n4.port++ <--> C <--> m1.port++;
 }
 
