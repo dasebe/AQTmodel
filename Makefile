@@ -22,8 +22,6 @@ INCLUDE_PATH = \
     -Idocumentation/IEEEtranBST \
     -Idocumentation/bin \
     -Idocumentation/plots \
-    -Ieventlog \
-    -Ieventlog.old \
     -Iicdcs2013 \
     -Iicdcs2013/IEEEtranBST \
     -Iicdcs2013/Jens-Photos \
@@ -62,6 +60,7 @@ OBJS = \
     $O/adversaries/CE75.o \
     $O/adversaries/CF3.o \
     $O/adversaries/QueueListener.o \
+    $O/adversaries/Randomization.o \
     $O/adversaries/Lotker1.o \
     $O/adversaries/CE3.o \
     $O/adversaries/BBhalf.o \
@@ -154,8 +153,6 @@ clean:
 	-rm -f documentation/IEEEtranBST/*_m.cc documentation/IEEEtranBST/*_m.h
 	-rm -f documentation/bin/*_m.cc documentation/bin/*_m.h
 	-rm -f documentation/plots/*_m.cc documentation/plots/*_m.h
-	-rm -f eventlog/*_m.cc eventlog/*_m.h
-	-rm -f eventlog.old/*_m.cc eventlog.old/*_m.h
 	-rm -f icdcs2013/*_m.cc icdcs2013/*_m.h
 	-rm -f icdcs2013/IEEEtranBST/*_m.cc icdcs2013/IEEEtranBST/*_m.h
 	-rm -f icdcs2013/Jens-Photos/*_m.cc icdcs2013/Jens-Photos/*_m.h
@@ -175,7 +172,7 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc eventlog/*.cc eventlog.old/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/Jens-Photos/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/topologies/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc results.old/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/Jens-Photos/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/topologies/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc results.old/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/AdvancedAdversary.o: adversaries/AdvancedAdversary.cc \
@@ -213,6 +210,7 @@ $O/adversaries/Lotker1.o: adversaries/Lotker1.cc \
 	adversaries/QueueListener.h
 $O/adversaries/QueueListener.o: adversaries/QueueListener.cc \
 	adversaries/QueueListener.h
+$O/adversaries/Randomization.o: adversaries/Randomization.cc
 $O/builder/netbuilder.o: builder/netbuilder.cc
 $O/messages/AdversarialInjectionMessage_m.o: messages/AdversarialInjectionMessage_m.cc \
 	messages/AdversarialInjectionMessage_m.h
