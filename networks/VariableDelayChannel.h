@@ -19,12 +19,15 @@
 #ifndef VARIABLEDELAYCHANNEL_H_
 #define VARIABLEDELAYCHANNEL_H_
 
-class VariableDelayChannel : cDatarateChannel
+class VariableDelayChannel : public cDatarateChannel
 {
 public:
+
     VariableDelayChannel();
     void processMessage(cMessage *msg, simtime_t t, result_t& result);
     virtual ~VariableDelayChannel();
 };
+
+Define_Channel(VariableDelayChannel);
 
 #endif /* VARIABLEDELAYCHANNEL_H_ */

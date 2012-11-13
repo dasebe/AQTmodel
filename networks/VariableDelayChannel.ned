@@ -13,7 +13,7 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-import ned.DatarateChannel;
+//import ned.DatarateChannel;
 
 package adversarialqueueing.networks;
 
@@ -22,6 +22,6 @@ package adversarialqueueing.networks;
 //
 channel VariableDelayChannel
 {
-    volatile double delay @unit(s) = default(0ms);
-    volatile int datarate @unit(bps) = default(10Mbps);
+    volatile double delay @unit(s) = default(1ms);
+    volatile int datarate @unit(bps) = default(1000Mbps);
 }

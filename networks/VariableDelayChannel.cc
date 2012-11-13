@@ -29,8 +29,9 @@ VariableDelayChannel::~VariableDelayChannel()
 
 void VariableDelayChannel::processMessage(cMessage *msg, simtime_t t, result_t& result)
 {
-    SimTime *addelay = new SimTime();
-    addelay->parse("1ms");
-    cDatarateChannel::setDelay(exponential((*addelay).dbl()));
+    SimTime *delaymean, *delaystd = new SimTime();
+    delaymean->parse("1ms");
+    delaystd->parse("500us");
+    cDatarateChannel::setDelay(uniform((*delaymean).dbl(),(*delaystd).dbl()));
     cDatarateChannel::processMessage(msg, t, result);
 }
