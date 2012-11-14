@@ -10,8 +10,8 @@ class Randomization : public cSimpleModule
 {
 protected:
     cMessage *selfNote;
-    double meandelay;
-    double stddelay;
+    double meanrate;
+    double stdrate;
     SimTime timeslot;
     void initialize();
     void changeAllDelays();
@@ -27,10 +27,10 @@ void Randomization::initialize()
 
     timeslot = par("sendIaTime");
 
-    cPar *mdt = &par("meandelay");
-    meandelay = mdt->doubleValue();
-    cPar *sd = &par("stddelay");
-    stddelay = sd->doubleValue();
+    cPar *mdt = &par("meanrate");
+    meanrate = mdt->doubleValue();
+    cPar *sd = &par("stdrate");
+    stdrate = sd->doubleValue();
 
     selfNote = new cMessage("Change Delay");
     selfNote->setKind(110);
@@ -61,7 +61,7 @@ void Randomization::changeAllDelays()
             if(gchannel != NULL)
             {
                 cDatarateChannel *drchannel = check_and_cast<cDatarateChannel *>(gchannel);
-                drchannel->setDelay(truncnormal(meandelay,stddelay));
+                drchannel->setDatarate(truncnormal(meanrate,stdrate));
             }
         }
     }
