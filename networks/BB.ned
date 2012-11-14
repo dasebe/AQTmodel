@@ -58,7 +58,7 @@ network BB
             address = 23;
         }
         randomization: Randomization {
-            @display("p=312,28");
+            @display("p=312,28;i=status/ctrl");
         }
     connections:
 
