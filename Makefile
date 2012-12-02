@@ -64,6 +64,7 @@ OBJS = \
     $O/adversaries/BB.o \
     $O/adversaries/CE3half.o \
     $O/adversaries/CE75.o \
+    $O/adversaries/APlusMinor.o \
     $O/adversaries/CF3.o \
     $O/adversaries/QueueListener.o \
     $O/adversaries/Randomization.o \
@@ -187,6 +188,9 @@ depend:
 	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/Jens-Photos/*.cc icdcs2013/Jens-Photos13.11/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
+$O/adversaries/APlusMinor.o: adversaries/APlusMinor.cc \
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
 $O/adversaries/AdvancedAdversary.o: adversaries/AdvancedAdversary.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h

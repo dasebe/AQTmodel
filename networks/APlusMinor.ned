@@ -39,15 +39,15 @@ network APlusMinor
         }
         B: SourceRoutingNode {
             @display("p=245,70;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 2;
+            address = 3;
         }
         F: SourceRoutingNode {
             @display("p=213,142;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 3;
+            address = 4;
         }
         C: SourceRoutingNode {
             @display("p=50,142;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
-            address = 4;
+            address = 5;
         }
         randomization: Randomization {
             @display("p=38,21;i=status/ctrl");
