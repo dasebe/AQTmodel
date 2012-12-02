@@ -16,9 +16,10 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
 # C++ include paths (with -I)
 INCLUDE_PATH = \
     -I. \
-    -IDeterministic.NICHT \
     -IOMNeTWorkshop \
     -IOMNeTWorkshop/bin \
+    -IOMNeTWorkshop/plots \
+    -IOMNeTWorkshop/topologies \
     -Iadversaries \
     -Ibuilder \
     -Idocumentation \
@@ -35,16 +36,12 @@ INCLUDE_PATH = \
     -Iicdcs2013/plots \
     -Iicdcs2013/plots/sources \
     -Iicdcs2013/topologies \
+    -Iicdcs2013/topologies/bin \
     -Imessages \
     -Inetworks \
     -Inode \
-    -Iresult.1.stoch \
     -IresultAnalysis \
-    -Iresults \
-    -Iresults.old \
-    -IstochBB-1 \
-    -IstochBB.deadline \
-    -IstochCE3.deadline
+    -Iresults
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -156,9 +153,10 @@ clean:
 	-rm -rf $O
 	-rm -f adversarialQueueing adversarialQueueing.exe libadversarialQueueing.so libadversarialQueueing.a libadversarialQueueing.dll libadversarialQueueing.dylib
 	-rm -f ./*_m.cc ./*_m.h
-	-rm -f Deterministic.NICHT/*_m.cc Deterministic.NICHT/*_m.h
 	-rm -f OMNeTWorkshop/*_m.cc OMNeTWorkshop/*_m.h
 	-rm -f OMNeTWorkshop/bin/*_m.cc OMNeTWorkshop/bin/*_m.h
+	-rm -f OMNeTWorkshop/plots/*_m.cc OMNeTWorkshop/plots/*_m.h
+	-rm -f OMNeTWorkshop/topologies/*_m.cc OMNeTWorkshop/topologies/*_m.h
 	-rm -f adversaries/*_m.cc adversaries/*_m.h
 	-rm -f builder/*_m.cc builder/*_m.h
 	-rm -f documentation/*_m.cc documentation/*_m.h
@@ -175,22 +173,18 @@ clean:
 	-rm -f icdcs2013/plots/*_m.cc icdcs2013/plots/*_m.h
 	-rm -f icdcs2013/plots/sources/*_m.cc icdcs2013/plots/sources/*_m.h
 	-rm -f icdcs2013/topologies/*_m.cc icdcs2013/topologies/*_m.h
+	-rm -f icdcs2013/topologies/bin/*_m.cc icdcs2013/topologies/bin/*_m.h
 	-rm -f messages/*_m.cc messages/*_m.h
 	-rm -f networks/*_m.cc networks/*_m.h
 	-rm -f node/*_m.cc node/*_m.h
-	-rm -f result.1.stoch/*_m.cc result.1.stoch/*_m.h
 	-rm -f resultAnalysis/*_m.cc resultAnalysis/*_m.h
 	-rm -f results/*_m.cc results/*_m.h
-	-rm -f results.old/*_m.cc results.old/*_m.h
-	-rm -f stochBB-1/*_m.cc stochBB-1/*_m.h
-	-rm -f stochBB.deadline/*_m.cc stochBB.deadline/*_m.h
-	-rm -f stochCE3.deadline/*_m.cc stochCE3.deadline/*_m.h
 
 cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc Deterministic.NICHT/*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/Jens-Photos/*.cc icdcs2013/Jens-Photos13.11/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc messages/*.cc networks/*.cc node/*.cc result.1.stoch/*.cc resultAnalysis/*.cc results/*.cc results.old/*.cc stochBB-1/*.cc stochBB.deadline/*.cc stochCE3.deadline/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/Jens-Photos/*.cc icdcs2013/Jens-Photos13.11/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/AdvancedAdversary.o: adversaries/AdvancedAdversary.cc \

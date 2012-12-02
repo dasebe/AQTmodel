@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#pragma once
+
 #ifndef OMNETPP_H
 #define OMNETPP_H
  #include <omnetpp.h>
@@ -11,7 +13,7 @@
 
 #ifndef ADVSCHEDMESS_H
 #define ADVSCHEDMESS_H
-#include "../messages/AdvSchedMess.h"
+ #include "../messages/AdvSchedMess.h"
 #endif
 
 #include "../messages/AdversarialInjectionMessage_m.h"
@@ -64,7 +66,6 @@ protected:
     long bufferSize;
     double injectionRate;
     SimTime timeSync;
-    int noInjs;
     long injectionCount;
     char curPhaseName;
     short int  curPhaseCounter;
@@ -80,9 +81,12 @@ protected:
 
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
+    virtual void requestQueueLength(const char* atNode, int outAddress);
 
     virtual void injectInitialPackets(){};
     virtual void injectPhasePackets(){};
+
+
 };
 
 Define_Module(AdvancedAdversary);

@@ -4,7 +4,10 @@
 #  pragma warning(disable:4065)
 #endif
 
-#include "AdvancedAdversary.h"
+#ifndef ADVANCEDADVERSARY_H
+#define ADVANCEDADVERSARY_H
+ #include "AdvancedAdversary.h"
+#endif
 
 /**
  * Framework for definitions of adversaries
@@ -20,7 +23,7 @@ AdvancedAdversary::AdvancedAdversary(){}
 AdvancedAdversary::~AdvancedAdversary()
 {
     //delete all the queue listeners
-    for(unsigned int i=0; i<this->qlarray.size();i++)
+    for(unsigned int i=0; i < this->qlarray.size();i++)
         delete(this->qlarray[i]);
     //delete(&(this->qlarray));
 }
@@ -35,9 +38,6 @@ void AdvancedAdversary::initialize()
     maxPhaseCounter=0;
     WATCH(injectionCount);
 
-    //define adversarial injections
-    noInjs = 0;
-    //injections = (Inj*) malloc(noInjs*sizeof(Inj)); must be overwritten later
 
     injectInitialPackets();
     /**
@@ -59,9 +59,27 @@ void AdvancedAdversary::initialize()
 }
 
 
+/*
+ * Helper function to simplify setting a queue listener for links in the network.
+ * As a queue is specific for some particular link, a queue listener is set by giving
+ * a target node and the address of another adjacent node, so that the routing table
+ * can be used to lookup the corresponding port.
+ */
+void AdvancedAdversary::requestQueueLength(const char* atNode, int outAddress)
+{
+    cModule *targetModule = getParentModule()->getSubmodule(atNode)->getSubmodule("routing");
+    QueueLengthRequest *queueLenMsg = new QueueLengthRequest("getGate");
+    queueLenMsg->setModuleName(atNode);
+    queueLenMsg->setOutAddress(outAddress);
+    queueLenMsg->setKind(103);
+    sendDirect(queueLenMsg, targetModule, "adversaryControl");
+}
+
+
 
 void AdvancedAdversary::handleMessage(cMessage *msg)
 {
+    //set up a queue listener
     if (msg->getKind()==103)
     {
         QueueLengthRequest *pk = check_and_cast<QueueLengthRequest *>(msg);
@@ -82,6 +100,7 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
         return;
     }
 
+    //a new phase start
     if (msg->getKind()==102)
     {
         //now that this Phase has started the adversary can take measurements and do injections
@@ -91,9 +110,7 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
     }
 
 
-
-
-
+    //internal scheduling message
     if(msg->isSelfMessage()) //scheduling of injections is all done by selfMessaging
     {
         //don't catch exception - assume it's fine
