@@ -21,6 +21,9 @@ protected:
     bool isNewPhase;
     void injectInitialPackets();
     void injectPhasePackets();
+
+    // signals for statistics (e.g.)
+    simsignal_t measuredSetSizeSignal;
 };
 
 Define_Module(APlusMinor);
@@ -32,6 +35,7 @@ void APlusMinor::injectInitialPackets()
 
     //define adversarial injections
     int initialSetSize=par("initialSetSize"); //in time steps (not simulationTime!!)
+    measuredSetSizeSignal = registerSignal("measuredSetSize");
     AdvSchedMess * tmp;
 
     //learn queue length
@@ -70,6 +74,7 @@ void APlusMinor::injectPhasePackets()
     {
         //we assume we are indeed subscribed to the right queue! - no further consistency check!
         long basicIntervalTime=qlarray[0]->queuelength + 1; //because one transmitted currently
+        emit(measuredSetSizeSignal, basicIntervalTime);
         ev << "QL: "<< basicIntervalTime << endl;
 
         //interval 1
