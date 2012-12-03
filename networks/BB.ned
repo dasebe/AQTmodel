@@ -26,35 +26,35 @@ network BB
             @display("p=135,77");
         }
         n1: SourceRoutingNode {
-            @display("p=240,40");
+            @display("p=240,40;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 11;
         }
         n2: SourceRoutingNode {
-            @display("p=66,40");
+            @display("p=66,40;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 12;
         }
         n3: SourceRoutingNode {
-            @display("p=29,213");
+            @display("p=29,213;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 13;
         }
         n4: SourceRoutingNode {
-            @display("p=108,213");
+            @display("p=108,213;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 14;
         }
         m1: SourceRoutingNode {
-            @display("p=66,363");
+            @display("p=66,363;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 21;
         }
         m2: SourceRoutingNode {
-            @display("p=240,363");
+            @display("p=240,363;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 22;
         }
         m4: SourceRoutingNode {
-            @display("p=177,213");
+            @display("p=177,213;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 24;
         }
         m3: SourceRoutingNode {
-            @display("p=285,213");
+            @display("p=285,213;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 23;
         }
         randomization: Randomization {
