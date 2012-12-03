@@ -21,9 +21,6 @@ protected:
     bool isNewPhase;
     void injectInitialPackets();
     void injectPhasePackets();
-
-    // signals for statistics (e.g.)
-    simsignal_t measuredSetSizeSignal;
 };
 
 Define_Module(APlusMinor);
@@ -35,7 +32,6 @@ void APlusMinor::injectInitialPackets()
 
     //define adversarial injections
     int initialSetSize=par("initialSetSize"); //in time steps (not simulationTime!!)
-    measuredSetSizeSignal = registerSignal("measuredSetSize");
     AdvSchedMess * tmp;
 
     //learn queue length

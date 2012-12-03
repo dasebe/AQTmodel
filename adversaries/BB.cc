@@ -73,6 +73,7 @@ void BB::injectPhasePackets()
     AdvSchedMess * tmp;
     //we assume we are indeed subscribed to the right queue! - no further consistency check!
     long basicIntervalTime=qlarray[curPhaseCounter/10-1]->queuelength + 1; //because one transmitted currently
+    emit(measuredSetSizeSignal, basicIntervalTime);
     ev << "QL: "<< basicIntervalTime << endl;
 
     //interval 1

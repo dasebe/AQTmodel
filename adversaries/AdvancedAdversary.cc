@@ -38,6 +38,8 @@ void AdvancedAdversary::initialize()
     maxPhaseCounter=0;
     WATCH(injectionCount);
 
+    injectedPackets = registerSignal("injectedPackets");
+    measuredSetSizeSignal = registerSignal("measuredSetSize");
 
     injectInitialPackets();
     /**
@@ -53,9 +55,6 @@ void AdvancedAdversary::initialize()
     selfNote->addPar("phaseCtrl");
     //when to start this phase
     scheduleAt(simTime(), selfNote);
-
-
-    injectedPackets = registerSignal("injectedPackets");
 }
 
 

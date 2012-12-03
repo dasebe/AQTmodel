@@ -28,8 +28,6 @@ INCLUDE_PATH = \
     -Idocumentation/plots \
     -Iicdcs2013 \
     -Iicdcs2013/IEEEtranBST \
-    -Iicdcs2013/Jens-Photos \
-    -Iicdcs2013/Jens-Photos13.11 \
     -Iicdcs2013/bin \
     -Iicdcs2013/cited \
     -Iicdcs2013/maxima \
@@ -166,8 +164,6 @@ clean:
 	-rm -f documentation/plots/*_m.cc documentation/plots/*_m.h
 	-rm -f icdcs2013/*_m.cc icdcs2013/*_m.h
 	-rm -f icdcs2013/IEEEtranBST/*_m.cc icdcs2013/IEEEtranBST/*_m.h
-	-rm -f icdcs2013/Jens-Photos/*_m.cc icdcs2013/Jens-Photos/*_m.h
-	-rm -f icdcs2013/Jens-Photos13.11/*_m.cc icdcs2013/Jens-Photos13.11/*_m.h
 	-rm -f icdcs2013/bin/*_m.cc icdcs2013/bin/*_m.h
 	-rm -f icdcs2013/cited/*_m.cc icdcs2013/cited/*_m.h
 	-rm -f icdcs2013/maxima/*_m.cc icdcs2013/maxima/*_m.h
@@ -185,7 +181,7 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/Jens-Photos/*.cc icdcs2013/Jens-Photos13.11/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/APlusMinor.o: adversaries/APlusMinor.cc \

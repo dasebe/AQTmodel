@@ -78,6 +78,7 @@ protected:
 
     // signals for statistics (e.g.)
     simsignal_t injectedPackets;
+    simsignal_t measuredSetSizeSignal;
 
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
