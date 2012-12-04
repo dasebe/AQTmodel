@@ -39,7 +39,8 @@ void BB::injectInitialPackets()
     requestQueueLength("n1", 12);
     requestQueueLength("m1", 22);
 
-    //  set where to start (left site of gadget)
+    //use strings as node names, and integers for addresses
+    // set where to start (left site of gadget)
     curPhaseName='n';
     curPhaseCounter=10;
     nextPhaseName='m';
@@ -72,9 +73,9 @@ void BB::injectPhasePackets()
 {
     AdvSchedMess * tmp;
     //we assume we are indeed subscribed to the right queue! - no further consistency check!
-    long basicIntervalTime=qlarray[curPhaseCounter/10-1]->queuelength + 1; //because one transmitted currently
-    emit(measuredSetSizeSignal, basicIntervalTime);
-    ev << "QL: "<< basicIntervalTime << endl;
+    long intervalLength=qlarray[curPhaseCounter/10-1]->queuelength + 1; //because one transmitted currently
+    emit(measuredSetSizeSignal, intervalLength);
+    ev << "QL: "<< intervalLength << endl;
 
     //interval 1
     timeSync = simTime(); //offset for first interval = 0
@@ -83,7 +84,7 @@ void BB::injectPhasePackets()
     // (set X)
     tmp = new AdvSchedMess;
     tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-    tmp->packetCount=floor(basicIntervalTime*injectionRate);
+    tmp->packetCount=floor(intervalLength*injectionRate);
     tmp->message =  new AdversarialInjectionMessage("set X");
     tmp->atNode=new char[2];
     strcpy (tmp->atNode,"x1");
@@ -101,15 +102,15 @@ void BB::injectPhasePackets()
 
 
     //interval 2
-    timeSync += basicIntervalTime*(timeSlots->doubleValue());
-    basicIntervalTime = basicIntervalTime*injectionRate;
+    timeSync += intervalLength*(timeSlots->doubleValue());
+    intervalLength = intervalLength*injectionRate;
 
     // (set confinement)
     tmp = new AdvSchedMess;
     tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
     //this should be of size B*r/(1+r)
     //also ceil here as it's going to make it more efficient and still valid
-    tmp->packetCount=ceil((basicIntervalTime*injectionRate)/(1+injectionRate));
+    tmp->packetCount=ceil((intervalLength*injectionRate)/(1+injectionRate));
     tmp->message =  new AdversarialInjectionMessage("confinement");
     tmp->atNode=new char[2];
     strcpy (tmp->atNode,"x2");
@@ -124,7 +125,7 @@ void BB::injectPhasePackets()
     // (set Y)
     tmp = new AdvSchedMess;
     tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-    tmp->packetCount=floor(basicIntervalTime*injectionRate);
+    tmp->packetCount=floor(intervalLength*injectionRate);
     tmp->message =  new AdversarialInjectionMessage("set Y");
     tmp->atNode=new char[2];
     strcpy (tmp->atNode,"x1");
@@ -140,13 +141,13 @@ void BB::injectPhasePackets()
     scheduleAt(timeSync,tmp);
 
     //interval 3
-    timeSync += basicIntervalTime*(timeSlots->doubleValue());
-    basicIntervalTime = basicIntervalTime*injectionRate;
+    timeSync += intervalLength*(timeSlots->doubleValue());
+    intervalLength = intervalLength*injectionRate;
 
     // (set A3) direct inject
     tmp = new AdvSchedMess;
     tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-    tmp->packetCount=floor(basicIntervalTime*injectionRate);
+    tmp->packetCount=floor(intervalLength*injectionRate);
     tmp->message =  new AdversarialInjectionMessage("set Z");
     tmp->atNode=new char[2];
     strcpy (tmp->atNode,"x1");
@@ -158,7 +159,7 @@ void BB::injectPhasePackets()
     //schedule this at timesync as selfmessage
     scheduleAt(timeSync,tmp);
 
-    timeSync += basicIntervalTime*(timeSlots->doubleValue());
+    timeSync += intervalLength*(timeSlots->doubleValue());
 
     //inverse Phase follows
     char n=curPhaseName;

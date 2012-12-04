@@ -20,6 +20,7 @@ INCLUDE_PATH = \
     -IOMNeTWorkshop/bin \
     -IOMNeTWorkshop/plots \
     -IOMNeTWorkshop/topologies \
+    -ITraditionalSourceSink \
     -Iadversaries \
     -Ibuilder \
     -Idocumentation \
@@ -54,6 +55,8 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
 OBJS = \
+    $O/TraditionalSourceSink/Source.o \
+    $O/TraditionalSourceSink/Sink.o \
     $O/adversaries/AdvancedAdversary.o \
     $O/adversaries/CE71.o \
     $O/adversaries/CE7half.o \
@@ -156,6 +159,7 @@ clean:
 	-rm -f OMNeTWorkshop/bin/*_m.cc OMNeTWorkshop/bin/*_m.h
 	-rm -f OMNeTWorkshop/plots/*_m.cc OMNeTWorkshop/plots/*_m.h
 	-rm -f OMNeTWorkshop/topologies/*_m.cc OMNeTWorkshop/topologies/*_m.h
+	-rm -f TraditionalSourceSink/*_m.cc TraditionalSourceSink/*_m.h
 	-rm -f adversaries/*_m.cc adversaries/*_m.h
 	-rm -f builder/*_m.cc builder/*_m.h
 	-rm -f documentation/*_m.cc documentation/*_m.h
@@ -181,9 +185,11 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
+$O/TraditionalSourceSink/Sink.o: TraditionalSourceSink/Sink.cc
+$O/TraditionalSourceSink/Source.o: TraditionalSourceSink/Source.cc
 $O/adversaries/APlusMinor.o: adversaries/APlusMinor.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
