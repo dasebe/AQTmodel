@@ -103,7 +103,7 @@ void BB::injectPhasePackets()
 
     //interval 2
     timeSync += intervalLength*(timeSlots->doubleValue());
-    intervalLength = intervalLength*injectionRate;
+    intervalLength = ceil(intervalLength*injectionRate);
 
     // (set confinement)
     tmp = new AdvSchedMess;
@@ -142,7 +142,7 @@ void BB::injectPhasePackets()
 
     //interval 3
     timeSync += intervalLength*(timeSlots->doubleValue());
-    intervalLength = intervalLength*injectionRate;
+    intervalLength = ceil(intervalLength*injectionRate);
 
     // (set A3) direct inject
     tmp = new AdvSchedMess;

@@ -40,7 +40,8 @@ INCLUDE_PATH = \
     -Inetworks \
     -Inode \
     -IresultAnalysis \
-    -Iresults
+    -Iresults \
+    -Iresults/offsets_Baseball1
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -180,12 +181,13 @@ clean:
 	-rm -f node/*_m.cc node/*_m.h
 	-rm -f resultAnalysis/*_m.cc resultAnalysis/*_m.h
 	-rm -f results/*_m.cc results/*_m.h
+	-rm -f results/offsets_Baseball1/*_m.cc results/offsets_Baseball1/*_m.h
 
 cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc results/offsets_Baseball1/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/TraditionalSourceSink/Sink.o: TraditionalSourceSink/Sink.cc
