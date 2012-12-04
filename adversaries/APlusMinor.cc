@@ -32,7 +32,7 @@ void APlusMinor::injectInitialPackets()
 
     //define adversarial injections
     int initialSetSize=par("initialSetSize"); //in time steps (not simulationTime!!)
-    AdvSchedMess * tmp;
+    AdvSchedMess * newInjection;
 
     //learn queue length
     //before the queue length later on can be queried -> need to create the listener objects
@@ -43,17 +43,17 @@ void APlusMinor::injectInitialPackets()
 
     //interval 0
     // (initial packets)
-    tmp = new AdvSchedMess;
-    tmp->interInjectionTime=0;
-    tmp->packetCount=initialSetSize;
-    tmp->message=new AdversarialInjectionMessage("init");
-    tmp->atNode="C";
-    tmp->message->setPathArraySize(1);
-    tmp->message->setPath(0,1);
-    tmp->message->setKind(101);
-    tmp->setSchedulingPriority(1);
+    newInjection = new AdvSchedMess;
+    newInjection->interInjectionTime=0;
+    newInjection->packetCount=initialSetSize;
+    newInjection->message=new AdversarialInjectionMessage("init");
+    newInjection->atNode="C";
+    newInjection->message->setPathArraySize(1);
+    newInjection->message->setPath(0,1);
+    newInjection->message->setKind(101);
+    newInjection->setSchedulingPriority(1);
     //schedule this at timesync as selfmessage
-    scheduleAt(timeSync,tmp);
+    scheduleAt(timeSync,newInjection);
 }
 
 
@@ -64,83 +64,83 @@ void APlusMinor::injectInitialPackets()
 
 void APlusMinor::injectPhasePackets()
 {
-    AdvSchedMess * tmp;
+    AdvSchedMess * newInjection;
 
     if(isNewPhase)
     {
         //we assume we are indeed subscribed to the right queue! - no further consistency check!
-        long basicIntervalTime=qlarray[0]->queuelength + 1; //because one transmitted currently
-        emit(measuredSetSizeSignal, basicIntervalTime);
-        ev << "QL: "<< basicIntervalTime << endl;
+        long intervalLength=qlarray[0]->queuelength + 1; //because one transmitted currently
+        emit(measuredSetSizeSignal, intervalLength);
+        ev << "QL: "<< intervalLength << endl;
 
-        //interval 1
-        timeSync = simTime(); //offset for first interval = 0
-        tmp = new AdvSchedMess;
-        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        tmp->packetCount=floor(basicIntervalTime*injectionRate);
-        tmp->message =  new AdversarialInjectionMessage("set S1");
-        tmp->atNode="C";
-        tmp->message->setPathArraySize(4);
-        tmp->message->setPath(0,4);
-        tmp->message->setPath(1,3);
-        tmp->message->setPath(2,21);
-        tmp->message->setPath(3,1);//first hop
-        tmp->message->setKind(101);
-        tmp->setSchedulingPriority(2);
+        //interval [t0,t1]
+        timeSync = simTime(); //offset = 0
+        newInjection = new AdvSchedMess;
+        newInjection->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        newInjection->packetCount=floor(intervalLength*injectionRate);
+        newInjection->message =  new AdversarialInjectionMessage("set S1");
+        newInjection->atNode="C";
+        newInjection->message->setPathArraySize(4);
+        newInjection->message->setPath(0,4);
+        newInjection->message->setPath(1,3);
+        newInjection->message->setPath(2,21);
+        newInjection->message->setPath(3,1);//first hop
+        newInjection->message->setKind(101);
+        newInjection->setSchedulingPriority(2);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(timeSync,newInjection);
 
         //interval 2
-        timeSync += basicIntervalTime*(timeSlots->doubleValue());
-        basicIntervalTime = basicIntervalTime*injectionRate;
+        timeSync += intervalLength*(timeSlots->doubleValue());
+        intervalLength = ceil(intervalLength*injectionRate);
 
-        tmp = new AdvSchedMess;
-        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        newInjection = new AdvSchedMess;
+        newInjection->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         //this should be of size B*r/(1+r)
         //also ceil here as it's going to make it more efficient and still valid
-        tmp->packetCount=ceil((basicIntervalTime*injectionRate)/(1+injectionRate));
-        tmp->message =  new AdversarialInjectionMessage("confinement");
-        tmp->atNode="D";
-        tmp->message->setPathArraySize(1);
-        tmp->message->setPath(0,3);
-        tmp->message->setKind(101);
-        tmp->setSchedulingPriority(2);
+        newInjection->packetCount=ceil((intervalLength*injectionRate)/(1+injectionRate));
+        newInjection->message =  new AdversarialInjectionMessage("confinement");
+        newInjection->atNode="D";
+        newInjection->message->setPathArraySize(1);
+        newInjection->message->setPath(0,3);
+        newInjection->message->setKind(101);
+        newInjection->setSchedulingPriority(2);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(timeSync,newInjection);
 
-        tmp = new AdvSchedMess;
-        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        tmp->packetCount=floor(basicIntervalTime*injectionRate);
-        tmp->message =  new AdversarialInjectionMessage("set S2");
-        tmp->atNode="C";
-        tmp->message->setPathArraySize(4);
-        tmp->message->setPath(0,4);
-        tmp->message->setPath(1,3);
-        tmp->message->setPath(2,22);
-        tmp->message->setPath(3,1);//first hop
-        tmp->message->setKind(101);
-        tmp->setSchedulingPriority(2);
+        newInjection = new AdvSchedMess;
+        newInjection->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        newInjection->packetCount=floor(intervalLength*injectionRate);
+        newInjection->message =  new AdversarialInjectionMessage("set S2");
+        newInjection->atNode="C";
+        newInjection->message->setPathArraySize(4);
+        newInjection->message->setPath(0,4);
+        newInjection->message->setPath(1,3);
+        newInjection->message->setPath(2,22);
+        newInjection->message->setPath(3,1);//first hop
+        newInjection->message->setKind(101);
+        newInjection->setSchedulingPriority(2);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(timeSync,newInjection);
 
         //interval 3
-        timeSync += basicIntervalTime*(timeSlots->doubleValue());
-        basicIntervalTime = basicIntervalTime*injectionRate;
+        timeSync += intervalLength*(timeSlots->doubleValue());
+        intervalLength = ceil(intervalLength*injectionRate);
 
-        tmp = new AdvSchedMess;
-        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        tmp->packetCount=floor(basicIntervalTime*injectionRate);
-        tmp->message =  new AdversarialInjectionMessage("set S3");
-        tmp->atNode="B";
-        tmp->message->setPathArraySize(1);
-        tmp->message->setPath(0,4); //last hop
-        tmp->message->setKind(101);
-        tmp->setSchedulingPriority(2);
+        newInjection = new AdvSchedMess;
+        newInjection->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        newInjection->packetCount=floor(intervalLength*injectionRate);
+        newInjection->message =  new AdversarialInjectionMessage("set S3");
+        newInjection->atNode="B";
+        newInjection->message->setPathArraySize(1);
+        newInjection->message->setPath(0,4); //last hop
+        newInjection->message->setKind(101);
+        newInjection->setSchedulingPriority(2);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(timeSync,newInjection);
 
         // + 3 time steps because set S2 is two hops away
-        timeSync += (basicIntervalTime+3)*(timeSlots->doubleValue());
+        timeSync += (intervalLength+3)*(timeSlots->doubleValue());
     }
     else
     {
@@ -148,36 +148,36 @@ void APlusMinor::injectPhasePackets()
         //Loss Transport [Weinard06] depends on the actual set size -> query for it
         long basicIntervalTime=qlarray[1]->queuelength + 1;
 
-        tmp = new AdvSchedMess;
-        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        tmp->packetCount=floor(basicIntervalTime*injectionRate);
-        tmp->message =  new AdversarialInjectionMessage("set S4");
-        tmp->atNode="B";
-        tmp->message->setPathArraySize(3);
-        tmp->message->setPath(0,1);
-        tmp->message->setPath(1,5);
-        tmp->message->setPath(2,4);//first hop
-        tmp->message->setKind(101);
-        tmp->setSchedulingPriority(2);
+        newInjection = new AdvSchedMess;
+        newInjection->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        newInjection->packetCount=floor(basicIntervalTime*injectionRate);
+        newInjection->message =  new AdversarialInjectionMessage("set S4");
+        newInjection->atNode="B";
+        newInjection->message->setPathArraySize(3);
+        newInjection->message->setPath(0,1);
+        newInjection->message->setPath(1,5);
+        newInjection->message->setPath(2,4);//first hop
+        newInjection->message->setKind(101);
+        newInjection->setSchedulingPriority(2);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(timeSync,newInjection);
 
         //interval 5
         // + 1 time step because the distance is one time step
         timeSync += (basicIntervalTime+1)*(timeSlots->doubleValue());
-        basicIntervalTime = basicIntervalTime*injectionRate;
+        basicIntervalTime = ceil(basicIntervalTime*injectionRate);
 
-        tmp = new AdvSchedMess;
-        tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
-        tmp->packetCount=floor(basicIntervalTime*injectionRate);
-        tmp->message =  new AdversarialInjectionMessage("set S5");
-        tmp->atNode="C";
-        tmp->message->setPathArraySize(1);
-        tmp->message->setPath(0,1);
-        tmp->message->setKind(101);
-        tmp->setSchedulingPriority(2);
+        newInjection = new AdvSchedMess;
+        newInjection->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
+        newInjection->packetCount=floor(basicIntervalTime*injectionRate);
+        newInjection->message =  new AdversarialInjectionMessage("set S5");
+        newInjection->atNode="C";
+        newInjection->message->setPathArraySize(1);
+        newInjection->message->setPath(0,1);
+        newInjection->message->setKind(101);
+        newInjection->setSchedulingPriority(2);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(timeSync,newInjection);
 
         timeSync += basicIntervalTime*(timeSlots->doubleValue());
     }
@@ -188,7 +188,7 @@ void APlusMinor::injectPhasePackets()
     //schedule next Phase
     cMessage *selfNote = new cMessage("Start of Phase");
     selfNote->setKind(102); //this means that the first entry of the injection struct shall be started by this message
-    tmp->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
+    selfNote->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
     //the interval number 5 of this phase is the first interval of the next phase
     scheduleAt(timeSync, selfNote);
 }

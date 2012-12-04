@@ -592,7 +592,7 @@ void CE75::injectInitialPackets()
 
             cMessage *selfNote = new cMessage("Start of Phase");
             selfNote->setKind(102); //this means that the first entry of the injection struct shall be started by this message
-            tmp->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
+            selfNote->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
             selfNote->addPar("phaseCtrl");
             //the round number 5 of this phase is the first round of the next phase
             scheduleAt(timeSyncR5, selfNote);
