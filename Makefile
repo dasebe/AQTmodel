@@ -58,7 +58,6 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
 OBJS = \
-    $O/OMNeTWorkshop/includes/injections1.o \
     $O/TraditionalSourceSink/Source.o \
     $O/TraditionalSourceSink/Sink.o \
     $O/adversaries/AdvancedAdversary.o \
@@ -197,7 +196,6 @@ depend:
 	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc analysis/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc results/finiteBuffer_r1/*.cc results/offsets_Baseball1/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
-$O/OMNeTWorkshop/includes/injections1.o: OMNeTWorkshop/includes/injections1.cc
 $O/TraditionalSourceSink/Sink.o: TraditionalSourceSink/Sink.cc
 $O/TraditionalSourceSink/Source.o: TraditionalSourceSink/Source.cc
 $O/adversaries/APlusMinor.o: adversaries/APlusMinor.cc \
