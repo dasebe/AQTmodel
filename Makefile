@@ -38,12 +38,14 @@ INCLUDE_PATH = \
     -Iicdcs2013/plots/sources \
     -Iicdcs2013/topologies \
     -Iicdcs2013/topologies/bin \
+    -IinitialSetSize \
     -Imessages \
     -Inetworks \
     -Inode \
     -Iresults \
-    -Iresults/finiteBuffer_r1 \
-    -Iresults/offsets_Baseball1
+    -Itmp \
+    -Itmp/finiteBuffer_r1 \
+    -Itmp/offsets_Baseball1
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -71,10 +73,11 @@ OBJS = \
     $O/adversaries/CE75.o \
     $O/adversaries/APlusMinor.o \
     $O/adversaries/CF3.o \
+    $O/adversaries/LotkerMod.o \
+    $O/adversaries/Lotker.o \
     $O/adversaries/QueueListener.o \
     $O/adversaries/Randomization.o \
     $O/adversaries/RandomizationDelay.o \
-    $O/adversaries/Lotker1.o \
     $O/adversaries/CE3.o \
     $O/adversaries/Diaz.o \
     $O/adversaries/BBhalf.o \
@@ -182,18 +185,20 @@ clean:
 	-rm -f icdcs2013/plots/sources/*_m.cc icdcs2013/plots/sources/*_m.h
 	-rm -f icdcs2013/topologies/*_m.cc icdcs2013/topologies/*_m.h
 	-rm -f icdcs2013/topologies/bin/*_m.cc icdcs2013/topologies/bin/*_m.h
+	-rm -f initialSetSize/*_m.cc initialSetSize/*_m.h
 	-rm -f messages/*_m.cc messages/*_m.h
 	-rm -f networks/*_m.cc networks/*_m.h
 	-rm -f node/*_m.cc node/*_m.h
 	-rm -f results/*_m.cc results/*_m.h
-	-rm -f results/finiteBuffer_r1/*_m.cc results/finiteBuffer_r1/*_m.h
-	-rm -f results/offsets_Baseball1/*_m.cc results/offsets_Baseball1/*_m.h
+	-rm -f tmp/*_m.cc tmp/*_m.h
+	-rm -f tmp/finiteBuffer_r1/*_m.cc tmp/finiteBuffer_r1/*_m.h
+	-rm -f tmp/offsets_Baseball1/*_m.cc tmp/offsets_Baseball1/*_m.h
 
 cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc analysis/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc results/finiteBuffer_r1/*.cc results/offsets_Baseball1/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc analysis/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc initialSetSize/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc tmp/*.cc tmp/finiteBuffer_r1/*.cc tmp/offsets_Baseball1/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/TraditionalSourceSink/Sink.o: TraditionalSourceSink/Sink.cc
@@ -237,7 +242,10 @@ $O/adversaries/Diaz.o: adversaries/Diaz.cc \
 $O/adversaries/Koukopoulos.o: adversaries/Koukopoulos.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
-$O/adversaries/Lotker1.o: adversaries/Lotker1.cc \
+$O/adversaries/Lotker.o: adversaries/Lotker.cc \
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
+$O/adversaries/LotkerMod.o: adversaries/LotkerMod.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
 $O/adversaries/QueueListener.o: adversaries/QueueListener.cc \
