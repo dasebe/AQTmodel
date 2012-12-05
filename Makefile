@@ -41,6 +41,7 @@ INCLUDE_PATH = \
     -Inode \
     -IresultAnalysis \
     -Iresults \
+    -Iresults/finiteBuffer_r1 \
     -Iresults/offsets_Baseball1
 
 # Additional object and library files to link with
@@ -73,6 +74,7 @@ OBJS = \
     $O/adversaries/RandomizationDelay.o \
     $O/adversaries/Lotker1.o \
     $O/adversaries/CE3.o \
+    $O/adversaries/Diaz.o \
     $O/adversaries/BBhalf.o \
     $O/builder/netbuilder.o \
     $O/node/SourceRoutingApp.o \
@@ -181,13 +183,14 @@ clean:
 	-rm -f node/*_m.cc node/*_m.h
 	-rm -f resultAnalysis/*_m.cc resultAnalysis/*_m.h
 	-rm -f results/*_m.cc results/*_m.h
+	-rm -f results/finiteBuffer_r1/*_m.cc results/finiteBuffer_r1/*_m.h
 	-rm -f results/offsets_Baseball1/*_m.cc results/offsets_Baseball1/*_m.h
 
 cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc results/offsets_Baseball1/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc results/finiteBuffer_r1/*.cc results/offsets_Baseball1/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/TraditionalSourceSink/Sink.o: TraditionalSourceSink/Sink.cc
@@ -223,6 +226,9 @@ $O/adversaries/CF3.o: adversaries/CF3.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
 $O/adversaries/CF7.o: adversaries/CF7.cc \
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
+$O/adversaries/Diaz.o: adversaries/Diaz.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
 $O/adversaries/Lotker1.o: adversaries/Lotker1.cc \
