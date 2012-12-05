@@ -24,7 +24,7 @@ network CE7
     submodules:
 
         adversary: <adType> like AdvancedAdversary {
-            @display("p=353,307;b=25,25,rect,grey83");
+            @display("p=353,307;i=block/blackboard,#AA0000;is=s");
         }
 
         n12: SourceRoutingNode {

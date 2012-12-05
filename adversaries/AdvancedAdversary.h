@@ -65,7 +65,7 @@ protected:
     cPar *timeSlots;
     long bufferSize;
     double injectionRate;
-    SimTime timeSync;
+    SimTime intervalStart;
     long injectionCount;
     char curPhaseName;
     short int  curPhaseCounter;

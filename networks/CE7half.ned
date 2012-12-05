@@ -35,7 +35,7 @@ network CE7half
             address = 22;
         }
         adversary: CE7Adversary {
-            @display("p=55,219");
+            @display("p=55,219;i=block/blackboard,#AA0000;is=s");
         }
         a1: SourceRoutingNode {
             @display("p=214,118");

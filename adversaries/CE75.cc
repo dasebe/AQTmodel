@@ -31,7 +31,7 @@ void CE75::injectInitialPackets()
     bufferSize = par("frameCapacity");
     injectionRate = par("injectionRate");
     injectionCount = 0;
-    timeSync = simTime(); // == 0 (as we init!)
+    intervalStart = simTime(); // == 0 (as we init!)
     WATCH(injectionCount);
 
     //define adversarial injections
@@ -75,15 +75,15 @@ void CE75::injectInitialPackets()
     tmp->message->setKind(101);
     tmp->setSchedulingPriority(1);
     //schedule this now as selfmessage
-    scheduleAt(timeSync,tmp);
+    scheduleAt(intervalStart,tmp);
 
 
 //round 1
-    timeSync = simTime(); //offset for first round = 0
+    intervalStart = simTime(); //offset for first round = 0
 
 
 //round 2
-    timeSync += initialSetSize*(timeSlots->doubleValue());
+    intervalStart += initialSetSize*(timeSlots->doubleValue());
 
     // (initial packets B)
     tmp = new AdvSchedMess;
@@ -100,11 +100,11 @@ void CE75::injectInitialPackets()
     tmp->message->setKind(101);
     tmp->setSchedulingPriority(1);
     //schedule this now as selfmessage
-    scheduleAt(timeSync,tmp);
+    scheduleAt(intervalStart,tmp);
 
 
 //round 3
-    timeSync += initialSetSize*(timeSlots->doubleValue());
+    intervalStart += initialSetSize*(timeSlots->doubleValue());
 
     // (initial packets C)
     tmp = new AdvSchedMess;
@@ -123,10 +123,10 @@ void CE75::injectInitialPackets()
     tmp->message->setKind(101);
     tmp->setSchedulingPriority(1);
     //schedule this now as selfmessage
-    scheduleAt(timeSync,tmp);
+    scheduleAt(intervalStart,tmp);
 
 //round 4
-        timeSync += initialSetSize*(timeSlots->doubleValue());
+        intervalStart += initialSetSize*(timeSlots->doubleValue());
 
         // (initial packets D)
         tmp = new AdvSchedMess;
@@ -141,10 +141,10 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
 //round 5
-        timeSync += initialSetSize*(timeSlots->doubleValue());
+        intervalStart += initialSetSize*(timeSlots->doubleValue());
 
         // (initial packets E)
         tmp = new AdvSchedMess;
@@ -159,7 +159,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 }
 
 
@@ -176,7 +176,7 @@ void CE75::injectInitialPackets()
         ev << "QL: "<< roundTime << endl;
 
 //round 1
-        timeSync = simTime(); //offset for first round = 0
+        intervalStart = simTime(); //offset for first round = 0
 
 
         // (set A1)
@@ -197,12 +197,12 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
 
 
 //round 2
-        timeSync += roundTime*(timeSlots->doubleValue());
+        intervalStart += roundTime*(timeSlots->doubleValue());
 
         // (set A2)
         tmp = new AdvSchedMess;
@@ -221,7 +221,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (set B1)
         tmp = new AdvSchedMess;
@@ -243,11 +243,11 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
 
 //round 3
-        timeSync += roundTime*(timeSlots->doubleValue());
+        intervalStart += roundTime*(timeSlots->doubleValue());
 
 
         // (set A3)
@@ -265,7 +265,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (set B2)
         tmp = new AdvSchedMess;
@@ -286,7 +286,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (set C1)
         tmp = new AdvSchedMess;
@@ -310,11 +310,11 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
 
 //round 4
-        timeSync += roundTime*(timeSlots->doubleValue());
+        intervalStart += roundTime*(timeSlots->doubleValue());
 
         // (set A4) direct inject
         tmp = new AdvSchedMess;
@@ -329,7 +329,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (set B3)
         tmp = new AdvSchedMess;
@@ -348,7 +348,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (set C2)
         tmp = new AdvSchedMess;
@@ -371,7 +371,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (set D1)
         tmp = new AdvSchedMess;
@@ -391,11 +391,11 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
 //round 5
-        timeSync += roundTime*(timeSlots->doubleValue());
-        SimTime timeSyncR5=timeSync;
+        intervalStart += roundTime*(timeSlots->doubleValue());
+        SimTime timeSyncR5=intervalStart;
 
         // (set B4) direct inject
         tmp = new AdvSchedMess;
@@ -410,7 +410,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (set C3)
         tmp = new AdvSchedMess;
@@ -431,7 +431,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (set D2)
         tmp = new AdvSchedMess;
@@ -450,7 +450,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (set E1)
         tmp = new AdvSchedMess;
@@ -470,11 +470,11 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
 
 //round 6
-        timeSync += roundTime*(timeSlots->doubleValue());
+        intervalStart += roundTime*(timeSlots->doubleValue());
 
         // (set C4) direct inject
         tmp = new AdvSchedMess;
@@ -489,7 +489,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (set D3)
         tmp = new AdvSchedMess;
@@ -506,7 +506,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (set E2)
         tmp = new AdvSchedMess;
@@ -525,10 +525,10 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
 //round 7
-        timeSync += roundTime*(timeSlots->doubleValue());
+        intervalStart += roundTime*(timeSlots->doubleValue());
 
         // (set D4)
         tmp = new AdvSchedMess;
@@ -543,7 +543,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (set E3)
         tmp = new AdvSchedMess;
@@ -560,10 +560,10 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
 //round 8
-        timeSync += roundTime*(timeSlots->doubleValue());
+        intervalStart += roundTime*(timeSlots->doubleValue());
 
         // (set E4)
         tmp = new AdvSchedMess;
@@ -578,7 +578,7 @@ void CE75::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(2);
         //schedule this now as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
 //inverse Phase follows
         //if (maxPhaseCounter-->0)

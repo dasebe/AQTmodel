@@ -46,7 +46,7 @@ void Lotker1::injectInitialPackets()
     bufferSize = par("frameCapacity");
     injectionRate = par("injectionRate");
     injectionCount = 0;
-    timeSync = simTime(); // == 0 (as we init!)
+    intervalStart = simTime(); // == 0 (as we init!)
     WATCH(injectionCount);
 
     //define adversarial injections
@@ -108,7 +108,7 @@ void Lotker1::injectInitialPackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
     }
     tmp = new AdvSchedMess;
     tmp->interInjectionTime=0;
@@ -120,7 +120,7 @@ void Lotker1::injectInitialPackets()
     tmp->message->setKind(101);
     tmp->setSchedulingPriority(1);
     //schedule this at timesync as selfmessage
-    scheduleAt(timeSync,tmp);
+    scheduleAt(intervalStart,tmp);
 
 
     // (3)
@@ -134,7 +134,7 @@ void Lotker1::injectInitialPackets()
     tmp->message->setKind(101);
     tmp->setSchedulingPriority(1);
     //schedule this at timesync as selfmessage
-    scheduleAt(timeSync,tmp);
+    scheduleAt(intervalStart,tmp);
 }
 
 
@@ -150,7 +150,7 @@ void Lotker1::injectPhasePackets()
     //  10 in qlarray is a00: needed for wrap-around phase
     long roundTime=qlarray[curgadget]->queuelength + 1; //because one transmitted right away
     ev << "QL: "<< roundTime << endl;
-    timeSync = simTime(); //offset for first round = 0
+    intervalStart = simTime(); //offset for first round = 0
 
     // clean up old packets (on confinement path)
     // as this set grows to fast
@@ -164,7 +164,7 @@ void Lotker1::injectPhasePackets()
 
         // (single-edge confinement)
         // not to be called when already in last gadget see Lemmata 3.14/3.16
-        singleEdgeConfinement(curgadget+1,roundTime, timeSync);
+        singleEdgeConfinement(curgadget+1,roundTime, intervalStart);
 
 
         //actual new injections:    new (3)
@@ -178,12 +178,12 @@ void Lotker1::injectPhasePackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
 
 
 
-        timeSync += (timeSlots->doubleValue())*(roundTime+lengthn+1);
+        intervalStart += (timeSlots->doubleValue())*(roundTime+lengthn+1);
 
         //actual new injections: X   new (4)
         double Rn = (1-injectionRate)/(1-pow(injectionRate,lengthn));
@@ -198,12 +198,12 @@ void Lotker1::injectPhasePackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
 
         //each phase's duration: 2S+n
         //already (roundTime+lengthn+1)
-        timeSync += (timeSlots->doubleValue()*roundTime);
+        intervalStart += (timeSlots->doubleValue()*roundTime);
         curgadget++;
 
     }
@@ -221,9 +221,9 @@ void Lotker1::injectPhasePackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
-        timeSync += (timeSlots->doubleValue())*(roundTime+lengthn+1);
+        intervalStart += (timeSlots->doubleValue())*(roundTime+lengthn+1);
 
         //actual new injections: X   new (4)
         double Rn = (1-injectionRate)/(1-pow(injectionRate,lengthn));
@@ -239,10 +239,10 @@ void Lotker1::injectPhasePackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         //no confinement, else: wait
-        timeSync += (timeSlots->doubleValue()*roundTime);
+        intervalStart += (timeSlots->doubleValue()*roundTime);
         curgadget = 0;
     }
     else
@@ -261,10 +261,10 @@ void Lotker1::injectPhasePackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         //wrap around step (2) called a2 in paper here: a02
-        timeSync += (timeSlots->doubleValue()*roundTime);
+        intervalStart += (timeSlots->doubleValue()*roundTime);
         tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount= floor(roundTime*injectionRate*injectionRate);
@@ -276,10 +276,10 @@ void Lotker1::injectPhasePackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         //wrap around step (3) called a2 in paper here: a02
-        timeSync += (timeSlots->doubleValue()*roundTime*injectionRate);
+        intervalStart += (timeSlots->doubleValue()*roundTime*injectionRate);
         tmp = new AdvSchedMess;
         tmp->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         tmp->packetCount= floor(roundTime*injectionRate*injectionRate*injectionRate);
@@ -290,14 +290,14 @@ void Lotker1::injectPhasePackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
 
         //Lemma 3.15
 
-        timeSync += (timeSlots->doubleValue()*roundTime*injectionRate*injectionRate);
+        intervalStart += (timeSlots->doubleValue()*roundTime*injectionRate*injectionRate);
         //single-edge confinement in gadget number 1
-        singleEdgeConfinement(1,roundTime,timeSync);
+        singleEdgeConfinement(1,roundTime,intervalStart);
 
         // (3) n packets of length 1
         tmp = new AdvSchedMess;
@@ -311,10 +311,10 @@ void Lotker1::injectPhasePackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
         // (3) S'=2S(1-Rn) packets full path
-        timeSync += (timeSlots->doubleValue()*lengthn);
+        intervalStart += (timeSlots->doubleValue()*lengthn);
         double Rn = (1-injectionRate)/(1-pow(injectionRate,lengthn));
         tmp = new AdvSchedMess;
         tmp->interInjectionTime=0;
@@ -326,9 +326,9 @@ void Lotker1::injectPhasePackets()
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync,tmp);
+        scheduleAt(intervalStart,tmp);
 
-        timeSync += (timeSlots->doubleValue()*floor(2*roundTime*(1-Rn))/injectionRate);
+        intervalStart += (timeSlots->doubleValue()*floor(2*roundTime*(1-Rn))/injectionRate);
         curgadget++;
     }
 
@@ -340,7 +340,7 @@ void Lotker1::injectPhasePackets()
     selfNote->setKind(102); //this means that the first entry of the injection struct shall be started by this message
     tmp->setSchedulingPriority(7); //higher means lower priority, normal packets get 4 (initial injection 1, other injection 2)
     //the round number 5 of this phase is the first round of the next phase
-    scheduleAt(timeSync, selfNote);
+    scheduleAt(intervalStart, selfNote);
 
 }
 
@@ -413,7 +413,7 @@ void Lotker1::singleEdgeConfinement(int targetGadget, double roundTime, SimTime 
         tmp->message->setKind(101);
         tmp->setSchedulingPriority(1);
         //schedule this at timesync as selfmessage
-        scheduleAt(timeSync+(timeSlots->doubleValue())*i,tmp);
+        scheduleAt(intervalStart+(timeSlots->doubleValue())*i,tmp);
     }
 }
 

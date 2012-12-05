@@ -42,7 +42,7 @@ network CE3half
             address = 21;
         }
         adversary: CE3Adversary {
-            @display("p=56,212");
+            @display("p=56,212;i=block/blackboard,#AA0000;is=s");
         }
         a0: SourceRoutingNode {
             @display("p=216,21");

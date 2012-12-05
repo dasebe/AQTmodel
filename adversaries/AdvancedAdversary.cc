@@ -34,7 +34,7 @@ void AdvancedAdversary::initialize()
     bufferSize = par("frameCapacity");
     injectionRate = par("injectionRate");
     injectionCount = 0;
-    timeSync = simTime(); // == 0 (as we init!)
+    intervalStart = simTime(); // == 0 (as we init!)
     maxPhaseCounter=0;
     WATCH(injectionCount);
 

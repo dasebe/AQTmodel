@@ -23,7 +23,7 @@ network BB
         }
     submodules:
         adversary: <adType> like AdvancedAdversary {
-            @display("p=135,77");
+            @display("p=135,77;i=block/blackboard,#AA0000;is=s");
         }
         n1: SourceRoutingNode {
             @display("p=240,40;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");

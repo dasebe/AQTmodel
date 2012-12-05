@@ -24,7 +24,7 @@ network Lotker1
     submodules:
 
         adversary: <adType> like AdvancedAdversary {
-            @display("p=986,10;b=25,25,rect,grey83");
+            @display("p=986,10;i=block/blackboard,#AA0000;is=s");
         }
 
         a00: SourceRoutingNode {
