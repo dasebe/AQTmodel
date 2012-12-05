@@ -18,10 +18,12 @@ INCLUDE_PATH = \
     -I. \
     -IOMNeTWorkshop \
     -IOMNeTWorkshop/bin \
+    -IOMNeTWorkshop/includes \
     -IOMNeTWorkshop/plots \
     -IOMNeTWorkshop/topologies \
     -ITraditionalSourceSink \
     -Iadversaries \
+    -Ianalysis \
     -Ibuilder \
     -Idocumentation \
     -Idocumentation/IEEEtranBST \
@@ -39,7 +41,6 @@ INCLUDE_PATH = \
     -Imessages \
     -Inetworks \
     -Inode \
-    -IresultAnalysis \
     -Iresults \
     -Iresults/finiteBuffer_r1 \
     -Iresults/offsets_Baseball1
@@ -57,11 +58,13 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
 OBJS = \
+    $O/OMNeTWorkshop/includes/injections1.o \
     $O/TraditionalSourceSink/Source.o \
     $O/TraditionalSourceSink/Sink.o \
     $O/adversaries/AdvancedAdversary.o \
     $O/adversaries/CE71.o \
     $O/adversaries/CE7half.o \
+    $O/adversaries/Koukopoulos.o \
     $O/adversaries/CE7.o \
     $O/adversaries/CF7.o \
     $O/adversaries/BB.o \
@@ -160,10 +163,12 @@ clean:
 	-rm -f ./*_m.cc ./*_m.h
 	-rm -f OMNeTWorkshop/*_m.cc OMNeTWorkshop/*_m.h
 	-rm -f OMNeTWorkshop/bin/*_m.cc OMNeTWorkshop/bin/*_m.h
+	-rm -f OMNeTWorkshop/includes/*_m.cc OMNeTWorkshop/includes/*_m.h
 	-rm -f OMNeTWorkshop/plots/*_m.cc OMNeTWorkshop/plots/*_m.h
 	-rm -f OMNeTWorkshop/topologies/*_m.cc OMNeTWorkshop/topologies/*_m.h
 	-rm -f TraditionalSourceSink/*_m.cc TraditionalSourceSink/*_m.h
 	-rm -f adversaries/*_m.cc adversaries/*_m.h
+	-rm -f analysis/*_m.cc analysis/*_m.h
 	-rm -f builder/*_m.cc builder/*_m.h
 	-rm -f documentation/*_m.cc documentation/*_m.h
 	-rm -f documentation/IEEEtranBST/*_m.cc documentation/IEEEtranBST/*_m.h
@@ -181,7 +186,6 @@ clean:
 	-rm -f messages/*_m.cc messages/*_m.h
 	-rm -f networks/*_m.cc networks/*_m.h
 	-rm -f node/*_m.cc node/*_m.h
-	-rm -f resultAnalysis/*_m.cc resultAnalysis/*_m.h
 	-rm -f results/*_m.cc results/*_m.h
 	-rm -f results/finiteBuffer_r1/*_m.cc results/finiteBuffer_r1/*_m.h
 	-rm -f results/offsets_Baseball1/*_m.cc results/offsets_Baseball1/*_m.h
@@ -190,9 +194,10 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc resultAnalysis/*.cc results/*.cc results/finiteBuffer_r1/*.cc results/offsets_Baseball1/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc analysis/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc results/finiteBuffer_r1/*.cc results/offsets_Baseball1/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
+$O/OMNeTWorkshop/includes/injections1.o: OMNeTWorkshop/includes/injections1.cc
 $O/TraditionalSourceSink/Sink.o: TraditionalSourceSink/Sink.cc
 $O/TraditionalSourceSink/Source.o: TraditionalSourceSink/Source.cc
 $O/adversaries/APlusMinor.o: adversaries/APlusMinor.cc \
@@ -229,6 +234,9 @@ $O/adversaries/CF7.o: adversaries/CF7.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
 $O/adversaries/Diaz.o: adversaries/Diaz.cc \
+	adversaries/AdvancedAdversary.h \
+	adversaries/QueueListener.h
+$O/adversaries/Koukopoulos.o: adversaries/Koukopoulos.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
 $O/adversaries/Lotker1.o: adversaries/Lotker1.cc \
