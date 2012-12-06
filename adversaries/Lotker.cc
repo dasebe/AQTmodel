@@ -32,8 +32,8 @@ protected:
     int curgadget;
 
     //lotker parameter
-    const static int lengthn = 8;
-    const static int lengthM = 10;
+    const static int lengthn = 9; //actually n -1 as we count nodes and not edges here
+    const static int lengthM = 20;
 };
 
 Define_Module(Lotker);

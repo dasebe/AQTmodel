@@ -462,75 +462,75 @@ network Lotker
             @display("p=1974,296;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 602;
         }
-        p021: SourceRoutingNode {
+        f21: SourceRoutingNode {
             @display("p=1940,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 621;
         }
-        p011: SourceRoutingNode {
+        f11: SourceRoutingNode {
             @display("p=1940,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 611;
         }
-        p012: SourceRoutingNode {
+        f12: SourceRoutingNode {
             @display("p=1905,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 612;
         }
-        p022: SourceRoutingNode {
+        f22: SourceRoutingNode {
             @display("p=1905,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 622;
         }
-        p013: SourceRoutingNode {
+        f13: SourceRoutingNode {
             @display("p=1871,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 613;
         }
-        p023: SourceRoutingNode {
+        f23: SourceRoutingNode {
             @display("p=1871,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 623;
         }
-        p014: SourceRoutingNode {
+        f14: SourceRoutingNode {
             @display("p=1834,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 614;
         }
-        p024: SourceRoutingNode {
+        f24: SourceRoutingNode {
             @display("p=1834,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 624;
         }
-        p015: SourceRoutingNode {
+        f15: SourceRoutingNode {
             @display("p=1799,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 615;
         }
-        p025: SourceRoutingNode {
+        f25: SourceRoutingNode {
             @display("p=1799,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 625;
         }
-        p016: SourceRoutingNode {
+        f16: SourceRoutingNode {
             @display("p=1760,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 616;
         }
-        p026: SourceRoutingNode {
+        f26: SourceRoutingNode {
             @display("p=1760,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 626;
         }
-        p017: SourceRoutingNode {
+        f17: SourceRoutingNode {
             @display("p=1722,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 617;
         }
-        p027: SourceRoutingNode {
+        f27: SourceRoutingNode {
             @display("p=1722,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 627;
         }
-        p018: SourceRoutingNode {
+        f18: SourceRoutingNode {
             @display("p=1683,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 618;
         }
-        p028: SourceRoutingNode {
+        f28: SourceRoutingNode {
             @display("p=1683,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 628;
         }
-        p019: SourceRoutingNode {
+        f19: SourceRoutingNode {
             @display("p=1645,336;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 619;
         }
-        p029: SourceRoutingNode {
+        f29: SourceRoutingNode {
             @display("p=1645,255;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 629;
         }
@@ -1806,27 +1806,27 @@ network Lotker
         e19.port++ <--> C <--> f01.port++;
         e29.port++ <--> C <--> f01.port++;
         f01.port++ <--> C <--> f02.port++;
-        f02.port++ <--> C <--> p021.port++;
-        f02.port++ <--> C <--> p011.port++;
-        p021.port++ <--> C <--> p022.port++;
-        p011.port++ <--> C <--> p012.port++;
-        p022.port++ <--> C <--> p023.port++;
-        p012.port++ <--> C <--> p013.port++;
-        p023.port++ <--> C <--> p024.port++;
-        p013.port++ <--> C <--> p014.port++;
-        p024.port++ <--> C <--> p025.port++;
-        p014.port++ <--> C <--> p015.port++;
-        p025.port++ <--> C <--> p026.port++;
-        p015.port++ <--> C <--> p016.port++;
-        p026.port++ <--> C <--> p027.port++;
-        p016.port++ <--> C <--> p017.port++;
-        p027.port++ <--> C <--> p028.port++;
-        p017.port++ <--> C <--> p018.port++;
-        p028.port++ <--> C <--> p029.port++;
-        p018.port++ <--> C <--> p019.port++;
+        f02.port++ <--> C <--> f21.port++;
+        f02.port++ <--> C <--> f11.port++;
+        f21.port++ <--> C <--> f22.port++;
+        f11.port++ <--> C <--> f12.port++;
+        f22.port++ <--> C <--> f23.port++;
+        f12.port++ <--> C <--> f13.port++;
+        f23.port++ <--> C <--> f24.port++;
+        f13.port++ <--> C <--> f14.port++;
+        f24.port++ <--> C <--> f25.port++;
+        f14.port++ <--> C <--> f15.port++;
+        f25.port++ <--> C <--> f26.port++;
+        f15.port++ <--> C <--> f16.port++;
+        f26.port++ <--> C <--> f27.port++;
+        f16.port++ <--> C <--> f17.port++;
+        f27.port++ <--> C <--> f28.port++;
+        f17.port++ <--> C <--> f18.port++;
+        f28.port++ <--> C <--> f29.port++;
+        f18.port++ <--> C <--> f19.port++;
 
-        p029.port++ <--> C <--> g01.port++;
-        p019.port++ <--> C <--> g01.port++;
+        f29.port++ <--> C <--> g01.port++;
+        f19.port++ <--> C <--> g01.port++;
         g01.port++ <--> C <--> g02.port++;
         g02.port++ <--> C <--> g21.port++;
         g02.port++ <--> C <--> g11.port++;
