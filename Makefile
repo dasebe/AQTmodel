@@ -38,15 +38,16 @@ INCLUDE_PATH = \
     -Iicdcs2013/plots/sources \
     -Iicdcs2013/topologies \
     -Iicdcs2013/topologies/bin \
-    -IinitialSetSize \
-    -IinitialSetSize2 \
     -Imessages \
     -Inetworks \
     -Inode \
     -Iresults \
-    -Itmp \
-    -Itmp/finiteBuffer_r1 \
-    -Itmp/offsets_Baseball1
+    -IresultsOMNeT \
+    -IresultsOMNeT/ValidationGraphs \
+    -IresultsOMNeT/finiteBuffer_r1 \
+    -IresultsOMNeT/initialSetSize \
+    -IresultsOMNeT/initialSetSize2 \
+    -IresultsOMNeT/offsets_Baseball1
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -186,21 +187,22 @@ clean:
 	-rm -f icdcs2013/plots/sources/*_m.cc icdcs2013/plots/sources/*_m.h
 	-rm -f icdcs2013/topologies/*_m.cc icdcs2013/topologies/*_m.h
 	-rm -f icdcs2013/topologies/bin/*_m.cc icdcs2013/topologies/bin/*_m.h
-	-rm -f initialSetSize/*_m.cc initialSetSize/*_m.h
-	-rm -f initialSetSize2/*_m.cc initialSetSize2/*_m.h
 	-rm -f messages/*_m.cc messages/*_m.h
 	-rm -f networks/*_m.cc networks/*_m.h
 	-rm -f node/*_m.cc node/*_m.h
 	-rm -f results/*_m.cc results/*_m.h
-	-rm -f tmp/*_m.cc tmp/*_m.h
-	-rm -f tmp/finiteBuffer_r1/*_m.cc tmp/finiteBuffer_r1/*_m.h
-	-rm -f tmp/offsets_Baseball1/*_m.cc tmp/offsets_Baseball1/*_m.h
+	-rm -f resultsOMNeT/*_m.cc resultsOMNeT/*_m.h
+	-rm -f resultsOMNeT/ValidationGraphs/*_m.cc resultsOMNeT/ValidationGraphs/*_m.h
+	-rm -f resultsOMNeT/finiteBuffer_r1/*_m.cc resultsOMNeT/finiteBuffer_r1/*_m.h
+	-rm -f resultsOMNeT/initialSetSize/*_m.cc resultsOMNeT/initialSetSize/*_m.h
+	-rm -f resultsOMNeT/initialSetSize2/*_m.cc resultsOMNeT/initialSetSize2/*_m.h
+	-rm -f resultsOMNeT/offsets_Baseball1/*_m.cc resultsOMNeT/offsets_Baseball1/*_m.h
 
 cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc analysis/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc initialSetSize/*.cc initialSetSize2/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc tmp/*.cc tmp/finiteBuffer_r1/*.cc tmp/offsets_Baseball1/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc analysis/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc resultsOMNeT/*.cc resultsOMNeT/ValidationGraphs/*.cc resultsOMNeT/finiteBuffer_r1/*.cc resultsOMNeT/initialSetSize/*.cc resultsOMNeT/initialSetSize2/*.cc resultsOMNeT/offsets_Baseball1/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/TraditionalSourceSink/Sink.o: TraditionalSourceSink/Sink.cc
