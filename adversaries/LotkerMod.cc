@@ -130,6 +130,7 @@ void LotkerMod::injectPhasePackets()
     //we assume we are indeed subscribed to the right queue! - no further consistency check!
     //  10 in qlarray is a00: needed for wrap-around phase
     long roundTime=qlarray[curgadget]->queuelength + 1; //because one transmitted right away
+    emit(measuredSetSizeSignal, roundTime);
     ev << "QL: "<< roundTime << endl;
     intervalStart = simTime(); //offset for first round = 0
 

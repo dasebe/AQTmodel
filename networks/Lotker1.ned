@@ -10,7 +10,7 @@ import ned.DatarateChannel;
 //
 // This is the basic omnet network description of a circular model for CE7. 
 //
-network Lotker1
+network Lotker
 {
     parameters:
         string adType;

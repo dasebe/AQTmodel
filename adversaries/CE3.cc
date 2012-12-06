@@ -27,17 +27,10 @@ Define_Module(CE3);
 
 void CE3::injectInitialPackets()
 {
-    timeSlots = &par("sendIaTime");
-    bufferSize = par("frameCapacity");
-    injectionRate = par("injectionRate");
-    injectionCount = 0;
-    intervalStart = simTime(); // == 0 (as we init!)
-    WATCH(injectionCount);
 
     //define adversarial injections
     int initialSetSize=par("initialSetSize"); //in time steps (not simulationTime!!)
     AdvSchedMess * tmp;
-    maxPhaseCounter=200;  //currently overall time fixed to simTime<=100s
 
 //learn queue length
     //before the queue length later on can be queried -> need to create the listener objects
@@ -117,6 +110,7 @@ void CE3::injectInitialPackets()
         AdvSchedMess * tmp;
         //we assume we are indeed subscribed to the right queue! - no further consistency check!
         long roundTime=qlarray[curPhaseCounter/100-1]->queuelength + 1; //because one transmitted right away
+        emit(measuredSetSizeSignal, roundTime);
         ev << "QL: "<< roundTime << endl;
 
 //round 1
