@@ -14,7 +14,7 @@ network Lotker
 {
     parameters:
         string adType;
-        @display("bgb=2006,383,white,,0");
+        @display("bgb=2006,869,white,,0;bgl=2");
     types:
         channel C extends DatarateChannel
         {
@@ -865,6 +865,831 @@ network Lotker
             address = 1029;
         }
 
+        k11: SourceRoutingNode {
+            @display("p=61,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1111;
+        }
+        k12: SourceRoutingNode {
+            @display("p=99,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1112;
+        }
+        k13: SourceRoutingNode {
+            @display("p=138,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1113;
+        }
+        k14: SourceRoutingNode {
+            @display("p=176,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1114;
+        }
+        k15: SourceRoutingNode {
+            @display("p=215,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1115;
+        }
+        k16: SourceRoutingNode {
+            @display("p=250,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1116;
+        }
+        k17: SourceRoutingNode {
+            @display("p=287,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1117;
+        }
+        k18: SourceRoutingNode {
+            @display("p=321,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1118;
+        }
+        k19: SourceRoutingNode {
+            @display("p=356,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1119;
+        }
+        k21: SourceRoutingNode {
+            @display("p=61,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1121;
+        }
+        k22: SourceRoutingNode {
+            @display("p=99,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1122;
+        }
+        k23: SourceRoutingNode {
+            @display("p=138,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1123;
+        }
+        k24: SourceRoutingNode {
+            @display("p=176,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1124;
+        }
+        k25: SourceRoutingNode {
+            @display("p=215,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1125;
+        }
+        k26: SourceRoutingNode {
+            @display("p=250,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1126;
+        }
+        k27: SourceRoutingNode {
+            @display("p=287,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1127;
+        }
+        k28: SourceRoutingNode {
+            @display("p=321,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1128;
+        }
+        k29: SourceRoutingNode {
+            @display("p=356,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1129;
+        }
+
+
+
+
+        l01: SourceRoutingNode {
+            @display("p=384,486;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1201;
+        }
+        l02: SourceRoutingNode {
+            @display("p=417,486;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1202;
+        }
+        l11: SourceRoutingNode {
+            @display("p=453,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1211;
+        }
+        l12: SourceRoutingNode {
+            @display("p=491,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1212;
+        }
+        l13: SourceRoutingNode {
+            @display("p=530,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1213;
+        }
+        l14: SourceRoutingNode {
+            @display("p=568,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1214;
+        }
+        l15: SourceRoutingNode {
+            @display("p=607,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1215;
+        }
+        l16: SourceRoutingNode {
+            @display("p=642,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1216;
+        }
+        l17: SourceRoutingNode {
+            @display("p=679,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1217;
+        }
+        l18: SourceRoutingNode {
+            @display("p=713,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1218;
+        }
+        l19: SourceRoutingNode {
+            @display("p=748,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1219;
+        }
+        l21: SourceRoutingNode {
+            @display("p=453,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1221;
+        }
+        l22: SourceRoutingNode {
+            @display("p=491,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1222;
+        }
+        l23: SourceRoutingNode {
+            @display("p=530,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1223;
+        }
+        l24: SourceRoutingNode {
+            @display("p=568,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1224;
+        }
+        l25: SourceRoutingNode {
+            @display("p=607,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1225;
+        }
+        l26: SourceRoutingNode {
+            @display("p=642,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1226;
+        }
+        l27: SourceRoutingNode {
+            @display("p=679,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1227;
+        }
+        l28: SourceRoutingNode {
+            @display("p=713,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1228;
+        }
+        l29: SourceRoutingNode {
+            @display("p=748,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1229;
+        }
+
+
+
+        m01: SourceRoutingNode {
+            @display("p=787,486;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1301;
+        }
+        m02: SourceRoutingNode {
+            @display("p=822,486;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1302;
+        }
+        m11: SourceRoutingNode {
+            @display("p=865,450;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1311;
+        }
+        m12: SourceRoutingNode {
+            @display("p=903,450;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1312;
+        }
+        m13: SourceRoutingNode {
+            @display("p=942,450;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1313;
+        }
+        m14: SourceRoutingNode {
+            @display("p=980,450;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1314;
+        }
+        m15: SourceRoutingNode {
+            @display("p=1019,450;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1315;
+        }
+        m16: SourceRoutingNode {
+            @display("p=1054,450;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1316;
+        }
+        m17: SourceRoutingNode {
+            @display("p=1091,450;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1317;
+        }
+        m18: SourceRoutingNode {
+            @display("p=1125,450;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1318;
+        }
+        m19: SourceRoutingNode {
+            @display("p=1160,450;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1319;
+        }
+        m21: SourceRoutingNode {
+            @display("p=865,536;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1321;
+        }
+        m22: SourceRoutingNode {
+            @display("p=903,536;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1322;
+        }
+        m23: SourceRoutingNode {
+            @display("p=942,536;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1323;
+        }
+        m24: SourceRoutingNode {
+            @display("p=980,536;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1324;
+        }
+        m25: SourceRoutingNode {
+            @display("p=1019,536;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1325;
+        }
+        m26: SourceRoutingNode {
+            @display("p=1054,536;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1326;
+        }
+        m27: SourceRoutingNode {
+            @display("p=1091,536;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1327;
+        }
+        m28: SourceRoutingNode {
+            @display("p=1125,536;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1328;
+        }
+        m29: SourceRoutingNode {
+            @display("p=1160,536;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1329;
+        }
+
+
+
+        d1: SourceRoutingNode {
+            @display("p=1196,486;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1401;
+        }
+        d2: SourceRoutingNode {
+            @display("p=1228,486;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1402;
+        }
+        d3: SourceRoutingNode {
+            @display("p=1264,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1411;
+        }
+        d4: SourceRoutingNode {
+            @display("p=1302,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1412;
+        }
+        d5: SourceRoutingNode {
+            @display("p=1341,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1413;
+        }
+        d6: SourceRoutingNode {
+            @display("p=1379,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1414;
+        }
+        d7: SourceRoutingNode {
+            @display("p=1418,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1415;
+        }
+        d8: SourceRoutingNode {
+            @display("p=1453,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1416;
+        }
+        d9: SourceRoutingNode {
+            @display("p=1490,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1417;
+        }
+        d10: SourceRoutingNode {
+            @display("p=1524,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1418;
+        }
+        d20: SourceRoutingNode {
+            @display("p=1559,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1419;
+        }
+        d30: SourceRoutingNode {
+            @display("p=1264,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1421;
+        }
+        d31: SourceRoutingNode {
+            @display("p=1302,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1422;
+        }
+        d32: SourceRoutingNode {
+            @display("p=1341,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1423;
+        }
+        d33: SourceRoutingNode {
+            @display("p=1379,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1424;
+        }
+        d34: SourceRoutingNode {
+            @display("p=1418,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1425;
+        }
+        d35: SourceRoutingNode {
+            @display("p=1453,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1426;
+        }
+        d36: SourceRoutingNode {
+            @display("p=1490,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1427;
+        }
+        d37: SourceRoutingNode {
+            @display("p=1524,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1428;
+        }
+        d38: SourceRoutingNode {
+            @display("p=1559,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1429;
+        }
+
+
+
+
+
+        e1: SourceRoutingNode {
+            @display("p=1587,486;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1501;
+        }
+        e2: SourceRoutingNode {
+            @display("p=1621,486;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1502;
+        }
+        e3: SourceRoutingNode {
+            @display("p=1657,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1511;
+        }
+        e4: SourceRoutingNode {
+            @display("p=1695,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1512;
+        }
+        e5: SourceRoutingNode {
+            @display("p=1734,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1513;
+        }
+        e6: SourceRoutingNode {
+            @display("p=1772,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1514;
+        }
+        e7: SourceRoutingNode {
+            @display("p=1811,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1515;
+        }
+        e8: SourceRoutingNode {
+            @display("p=1846,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1516;
+        }
+        e9: SourceRoutingNode {
+            @display("p=1883,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1517;
+        }
+        e10: SourceRoutingNode {
+            @display("p=1917,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1518;
+        }
+        e20: SourceRoutingNode {
+            @display("p=1952,445;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1519;
+        }
+        e30: SourceRoutingNode {
+            @display("p=1657,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1521;
+        }
+        e31: SourceRoutingNode {
+            @display("p=1695,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1522;
+        }
+        e32: SourceRoutingNode {
+            @display("p=1734,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1523;
+        }
+        e33: SourceRoutingNode {
+            @display("p=1772,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1524;
+        }
+        e34: SourceRoutingNode {
+            @display("p=1811,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1525;
+        }
+        e35: SourceRoutingNode {
+            @display("p=1846,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1526;
+        }
+        e36: SourceRoutingNode {
+            @display("p=1883,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1527;
+        }
+        e37: SourceRoutingNode {
+            @display("p=1917,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1528;
+        }
+        e38: SourceRoutingNode {
+            @display("p=1952,531;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1529;
+        }
+
+
+
+
+
+
+
+        f1: SourceRoutingNode {
+            @display("p=1986,486;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1601;
+        }
+        f2: SourceRoutingNode {
+            @display("p=1986,676;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1602;
+        }
+        f3: SourceRoutingNode {
+            @display("p=1952,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1611;
+        }
+        f4: SourceRoutingNode {
+            @display("p=1917,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1612;
+        }
+        f5: SourceRoutingNode {
+            @display("p=1883,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1613;
+        }
+        f6: SourceRoutingNode {
+            @display("p=1846,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1614;
+        }
+        f7: SourceRoutingNode {
+            @display("p=1811,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1615;
+        }
+        f8: SourceRoutingNode {
+            @display("p=1772,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1616;
+        }
+        f9: SourceRoutingNode {
+            @display("p=1734,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1617;
+        }
+        f10: SourceRoutingNode {
+            @display("p=1695,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1618;
+        }
+        f20: SourceRoutingNode {
+            @display("p=1657,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1619;
+        }
+        f30: SourceRoutingNode {
+            @display("p=1952,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1621;
+        }
+        f31: SourceRoutingNode {
+            @display("p=1917,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1622;
+        }
+        f32: SourceRoutingNode {
+            @display("p=1883,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1623;
+        }
+        f33: SourceRoutingNode {
+            @display("p=1846,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1624;
+        }
+        f34: SourceRoutingNode {
+            @display("p=1811,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1625;
+        }
+        f35: SourceRoutingNode {
+            @display("p=1772,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1626;
+        }
+        f36: SourceRoutingNode {
+            @display("p=1734,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1627;
+        }
+        f37: SourceRoutingNode {
+            @display("p=1695,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1628;
+        }
+        f38: SourceRoutingNode {
+            @display("p=1657,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1629;
+        }
+
+
+        g1: SourceRoutingNode {
+            @display("p=1621,676;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1701;
+        }
+        g2: SourceRoutingNode {
+            @display("p=1587,676;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1702;
+        }
+        g3: SourceRoutingNode {
+            @display("p=1559,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1711;
+        }
+        g4: SourceRoutingNode {
+            @display("p=1524,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1712;
+        }
+        g5: SourceRoutingNode {
+            @display("p=1490,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1713;
+        }
+        g6: SourceRoutingNode {
+            @display("p=1453,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1714;
+        }
+        g7: SourceRoutingNode {
+            @display("p=1418,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1715;
+        }
+        g8: SourceRoutingNode {
+            @display("p=1379,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1716;
+        }
+        g9: SourceRoutingNode {
+            @display("p=1341,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1717;
+        }
+        g10: SourceRoutingNode {
+            @display("p=1302,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1718;
+        }
+        g20: SourceRoutingNode {
+            @display("p=1264,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1719;
+        }
+        g30: SourceRoutingNode {
+            @display("p=1559,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1721;
+        }
+        g31: SourceRoutingNode {
+            @display("p=1524,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1722;
+        }
+        g32: SourceRoutingNode {
+            @display("p=1490,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1723;
+        }
+        g33: SourceRoutingNode {
+            @display("p=1453,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1724;
+        }
+        g34: SourceRoutingNode {
+            @display("p=1418,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1725;
+        }
+        g35: SourceRoutingNode {
+            @display("p=1379,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1726;
+        }
+        g36: SourceRoutingNode {
+            @display("p=1341,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1727;
+        }
+        g37: SourceRoutingNode {
+            @display("p=1302,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1728;
+        }
+        g38: SourceRoutingNode {
+            @display("p=1264,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1729;
+        }
+
+
+
+        h1: SourceRoutingNode {
+            @display("p=1224,676;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1801;
+        }
+        h2: SourceRoutingNode {
+            @display("p=1187,676;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1802;
+        }
+        h3: SourceRoutingNode {
+            @display("p=1159,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1811;
+        }
+        h4: SourceRoutingNode {
+            @display("p=1124,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1812;
+        }
+        h5: SourceRoutingNode {
+            @display("p=1090,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1813;
+        }
+        h6: SourceRoutingNode {
+            @display("p=1053,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1814;
+        }
+        h7: SourceRoutingNode {
+            @display("p=1018,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1815;
+        }
+        h8: SourceRoutingNode {
+            @display("p=979,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1816;
+        }
+        h9: SourceRoutingNode {
+            @display("p=941,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1817;
+        }
+        h10: SourceRoutingNode {
+            @display("p=902,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1818;
+        }
+        h20: SourceRoutingNode {
+            @display("p=864,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1819;
+        }
+        h30: SourceRoutingNode {
+            @display("p=1159,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1821;
+        }
+        h31: SourceRoutingNode {
+            @display("p=1124,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1822;
+        }
+        h32: SourceRoutingNode {
+            @display("p=1090,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1823;
+        }
+        h33: SourceRoutingNode {
+            @display("p=1053,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1824;
+        }
+        h34: SourceRoutingNode {
+            @display("p=1018,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1825;
+        }
+        h35: SourceRoutingNode {
+            @display("p=979,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1826;
+        }
+        h36: SourceRoutingNode {
+            @display("p=941,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1827;
+        }
+        h37: SourceRoutingNode {
+            @display("p=902,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1828;
+        }
+        h38: SourceRoutingNode {
+            @display("p=864,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1829;
+        }
+
+
+        i1: SourceRoutingNode {
+            @display("p=824,676;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1901;
+        }
+        i2: SourceRoutingNode {
+            @display("p=792,676;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1902;
+        }
+        i3: SourceRoutingNode {
+            @display("p=764,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1911;
+        }
+        i4: SourceRoutingNode {
+            @display("p=729,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1912;
+        }
+        i5: SourceRoutingNode {
+            @display("p=695,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1913;
+        }
+        i6: SourceRoutingNode {
+            @display("p=658,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1914;
+        }
+        i7: SourceRoutingNode {
+            @display("p=623,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1915;
+        }
+        i8: SourceRoutingNode {
+            @display("p=584,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1916;
+        }
+        i9: SourceRoutingNode {
+            @display("p=546,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1917;
+        }
+        i10: SourceRoutingNode {
+            @display("p=507,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1918;
+        }
+        i20: SourceRoutingNode {
+            @display("p=469,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1919;
+        }
+        i30: SourceRoutingNode {
+            @display("p=764,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1921;
+        }
+        i31: SourceRoutingNode {
+            @display("p=729,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1922;
+        }
+        i32: SourceRoutingNode {
+            @display("p=695,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1923;
+        }
+        i33: SourceRoutingNode {
+            @display("p=658,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1924;
+        }
+        i34: SourceRoutingNode {
+            @display("p=623,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1925;
+        }
+        i35: SourceRoutingNode {
+            @display("p=584,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1926;
+        }
+        i36: SourceRoutingNode {
+            @display("p=546,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1927;
+        }
+        i37: SourceRoutingNode {
+            @display("p=507,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1928;
+        }
+        i38: SourceRoutingNode {
+            @display("p=469,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 1929;
+        }
+
+
+
+        j1: SourceRoutingNode {
+            @display("p=429,676;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2001;
+        }
+        j2: SourceRoutingNode {
+            @display("p=396,676;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2002;
+        }
+        j3: SourceRoutingNode {
+            @display("p=368,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2011;
+        }
+        j4: SourceRoutingNode {
+            @display("p=333,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2012;
+        }
+        j5: SourceRoutingNode {
+            @display("p=299,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2013;
+        }
+        j6: SourceRoutingNode {
+            @display("p=262,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2014;
+        }
+        j7: SourceRoutingNode {
+            @display("p=227,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2015;
+        }
+        j8: SourceRoutingNode {
+            @display("p=188,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2016;
+        }
+        j9: SourceRoutingNode {
+            @display("p=150,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2017;
+        }
+        j10: SourceRoutingNode {
+            @display("p=111,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2018;
+        }
+        j20: SourceRoutingNode {
+            @display("p=73,716;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2019;
+        }
+        j30: SourceRoutingNode {
+            @display("p=368,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2021;
+        }
+        j31: SourceRoutingNode {
+            @display("p=333,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2022;
+        }
+        j32: SourceRoutingNode {
+            @display("p=299,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2023;
+        }
+        j33: SourceRoutingNode {
+            @display("p=262,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2024;
+        }
+        j34: SourceRoutingNode {
+            @display("p=227,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2025;
+        }
+        j35: SourceRoutingNode {
+            @display("p=188,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2026;
+        }
+        j36: SourceRoutingNode {
+            @display("p=150,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2027;
+        }
+        j37: SourceRoutingNode {
+            @display("p=111,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2028;
+        }
+        j38: SourceRoutingNode {
+            @display("p=73,635;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            address = 2029;
+        }
+
     connections:
 
 
@@ -1083,5 +1908,216 @@ network Lotker
         j29.port++ <--> C <--> a00.port++;
         j19.port++ <--> C <--> a00.port++;
         a00.port++ <--> C <--> a01.port++;
+        l02.port++ <--> C <--> l11.port++;
+        l02.port++ <--> C <--> l21.port++;
+        h36.port++ <--> C <--> h37.port++;
+        g34.port++ <--> C <--> g35.port++;
+        i34.port++ <--> C <--> i35.port++;
+        e20.port++ <--> C <--> f1.port++;
+        j8.port++ <--> C <--> j9.port++;
+        m14.port++ <--> C <--> m15.port++;
+        d36.port++ <--> C <--> d37.port++;
+        m11.port++ <--> C <--> m12.port++;
+        f10.port++ <--> C <--> f20.port++;
+
+
+
+        i20.port++ <--> C <--> j1.port++;
+        k12.port++ <--> C <--> k13.port++;
+        l21.port++ <--> C <--> l22.port++;
+        d8.port++ <--> C <--> d9.port++;
+        i7.port++ <--> C <--> i8.port++;
+        f2.port++ <--> C <--> f30.port++;
+        f2.port++ <--> C <--> f3.port++;
+        f37.port++ <--> C <--> f38.port++;
+        m25.port++ <--> C <--> m26.port++;
+        d32.port++ <--> C <--> d33.port++;
+        l19.port++ <--> C <--> m01.port++;
+        k29.port++ <--> C <--> l01.port++;
+        g10.port++ <--> C <--> g20.port++;
+
+        e32.port++ <--> C <--> e33.port++;
+        g37.port++ <--> C <--> g38.port++;
+        j3.port++ <--> C <--> j4.port++;
+        h9.port++ <--> C <--> h10.port++;
+        m12.port++ <--> C <--> m13.port++;
+        e2.port++ <--> C <--> e3.port++;
+        e2.port++ <--> C <--> e30.port++;
+        m16.port++ <--> C <--> m17.port++;
+        f7.port++ <--> C <--> f8.port++;
+        h33.port++ <--> C <--> h34.port++;
+        j32.port++ <--> C <--> j33.port++;
+        e30.port++ <--> C <--> e31.port++;
+        l27.port++ <--> C <--> l28.port++;
+        l16.port++ <--> C <--> l17.port++;
+        l11.port++ <--> C <--> l12.port++;
+        l23.port++ <--> C <--> l24.port++;
+        g2.port++ <--> C <--> g30.port++;
+        g2.port++ <--> C <--> g3.port++;
+        k25.port++ <--> C <--> k26.port++;
+        d33.port++ <--> C <--> d34.port++;
+        e5.port++ <--> C <--> e6.port++;
+        m26.port++ <--> C <--> m27.port++;
+        f3.port++ <--> C <--> f4.port++;
+        j35.port++ <--> C <--> j36.port++;
+        e37.port++ <--> C <--> e38.port++;
+        j4.port++ <--> C <--> j5.port++;
+        g5.port++ <--> C <--> g6.port++;
+        g3.port++ <--> C <--> g4.port++;
+        g4.port++ <--> C <--> g5.port++;
+        e3.port++ <--> C <--> e4.port++;
+        d37.port++ <--> C <--> d38.port++;
+        i31.port++ <--> C <--> i32.port++;
+        h3.port++ <--> C <--> h4.port++;
+        k21.port++ <--> C <--> k22.port++;
+        j2.port++ <--> C <--> j30.port++;
+        j2.port++ <--> C <--> j3.port++;
+        j37.port++ <--> C <--> j38.port++;
+        k18.port++ <--> C <--> k19.port++;
+        j10.port++ <--> C <--> j20.port++;
+        d34.port++ <--> C <--> d35.port++;
+        k15.port++ <--> C <--> k16.port++;
+        i4.port++ <--> C <--> i5.port++;
+        e4.port++ <--> C <--> e5.port++;
+        g1.port++ <--> C <--> g2.port++;
+        i37.port++ <--> C <--> i38.port++;
+        d6.port++ <--> C <--> d7.port++;
+        g38.port++ <--> C <--> h1.port++;
+        i35.port++ <--> C <--> i36.port++;
+        j31.port++ <--> C <--> j32.port++;
+        e9.port++ <--> C <--> e10.port++;
+        h30.port++ <--> C <--> h31.port++;
+        m27.port++ <--> C <--> m28.port++;
+        f30.port++ <--> C <--> f31.port++;
+        m21.port++ <--> C <--> m22.port++;
+        h6.port++ <--> C <--> h7.port++;
+        h31.port++ <--> C <--> h32.port++;
+        l13.port++ <--> C <--> l14.port++;
+        j6.port++ <--> C <--> j7.port++;
+        e7.port++ <--> C <--> e8.port++;
+        g7.port++ <--> C <--> g8.port++;
+        k11.port++ <--> C <--> k12.port++;
+        f4.port++ <--> C <--> f5.port++;
+        k28.port++ <--> C <--> k29.port++;
+        f36.port++ <--> C <--> f37.port++;
+        k27.port++ <--> C <--> k28.port++;
+        m17.port++ <--> C <--> m18.port++;
+        l12.port++ <--> C <--> l13.port++;
+        i6.port++ <--> C <--> i7.port++;
+        m19.port++ <--> C <--> d1.port++;
+        l26.port++ <--> C <--> l27.port++;
+        h32.port++ <--> C <--> h33.port++;
+        e8.port++ <--> C <--> e9.port++;
+        f6.port++ <--> C <--> f7.port++;
+        l22.port++ <--> C <--> l23.port++;
+        g8.port++ <--> C <--> g9.port++;
+        m15.port++ <--> C <--> m16.port++;
+        d31.port++ <--> C <--> d32.port++;
+        j7.port++ <--> C <--> j8.port++;
+        e31.port++ <--> C <--> e32.port++;
+        e36.port++ <--> C <--> e37.port++;
+        f9.port++ <--> C <--> f10.port++;
+        f31.port++ <--> C <--> f32.port++;
+        k24.port++ <--> C <--> k25.port++;
+        f34.port++ <--> C <--> f35.port++;
+        l24.port++ <--> C <--> l25.port++;
+        f8.port++ <--> C <--> f9.port++;
+        h34.port++ <--> C <--> h35.port++;
+        e6.port++ <--> C <--> e7.port++;
+        i8.port++ <--> C <--> i9.port++;
+        d35.port++ <--> C <--> d36.port++;
+        g20.port++ <--> C <--> h1.port++;
+        e10.port++ <--> C <--> e20.port++;
+        i32.port++ <--> C <--> i33.port++;
+        g30.port++ <--> C <--> g31.port++;
+        j5.port++ <--> C <--> j6.port++;
+        i2.port++ <--> C <--> i30.port++;
+        i2.port++ <--> C <--> i3.port++;
+        d2.port++ <--> C <--> d3.port++;
+        d2.port++ <--> C <--> d30.port++;
+        j34.port++ <--> C <--> j35.port++;
+        h35.port++ <--> C <--> h36.port++;
+        d5.port++ <--> C <--> d6.port++;
+        h38.port++ <--> C <--> i1.port++;
+        h20.port++ <--> C <--> i1.port++;
+        j30.port++ <--> C <--> j31.port++;
+        g36.port++ <--> C <--> g37.port++;
+        m29.port++ <--> C <--> d1.port++;
+        l25.port++ <--> C <--> l26.port++;
+        l14.port++ <--> C <--> l15.port++;
+        m18.port++ <--> C <--> m19.port++;
+        l29.port++ <--> C <--> m01.port++;
+        f1.port++ <--> C <--> f2.port++;
+        f5.port++ <--> C <--> f6.port++;
+        i1.port++ <--> C <--> i2.port++;
+        j36.port++ <--> C <--> j37.port++;
+        e38.port++ <--> C <--> f1.port++;
+        k23.port++ <--> C <--> k24.port++;
+        f35.port++ <--> C <--> f36.port++;
+        h8.port++ <--> C <--> h9.port++;
+        i3.port++ <--> C <--> i4.port++;
+        g6.port++ <--> C <--> g7.port++;
+        h5.port++ <--> C <--> h6.port++;
+        m13.port++ <--> C <--> m14.port++;
+        f33.port++ <--> C <--> f34.port++;
+        m22.port++ <--> C <--> m23.port++;
+        g35.port++ <--> C <--> g36.port++;
+        d7.port++ <--> C <--> d8.port++;
+        g9.port++ <--> C <--> g10.port++;
+        l17.port++ <--> C <--> l18.port++;
+        j9.port++ <--> C <--> j10.port++;
+        d38.port++ <--> C <--> e1.port++;
+        h37.port++ <--> C <--> h38.port++;
+        d30.port++ <--> C <--> d31.port++;
+        g31.port++ <--> C <--> g32.port++;
+        e1.port++ <--> C <--> e2.port++;
+        h10.port++ <--> C <--> h20.port++;
+
+        h1.port++ <--> C <--> h2.port++;
+        j33.port++ <--> C <--> j34.port++;
+        k19.port++ <--> C <--> l01.port++;
+        i9.port++ <--> C <--> i10.port++;
+        e34.port++ <--> C <--> e35.port++;
+        m23.port++ <--> C <--> m24.port++;
+        d10.port++ <--> C <--> d20.port++;
+        i36.port++ <--> C <--> i37.port++;
+        l28.port++ <--> C <--> l29.port++;
+        h4.port++ <--> C <--> h5.port++;
+        l18.port++ <--> C <--> l19.port++;
+        j1.port++ <--> C <--> j2.port++;
+        m24.port++ <--> C <--> m25.port++;
+        f38.port++ <--> C <--> g1.port++;
+        i5.port++ <--> C <--> i6.port++;
+        d9.port++ <--> C <--> d10.port++;
+        l15.port++ <--> C <--> l16.port++;
+        k14.port++ <--> C <--> k15.port++;
+        k26.port++ <--> C <--> k27.port++;
+        k22.port++ <--> C <--> k23.port++;
+        f32.port++ <--> C <--> f33.port++;
+        l01.port++ <--> C <--> l02.port++;
+        d4.port++ <--> C <--> d5.port++;
+        d1.port++ <--> C <--> d2.port++;
+        m01.port++ <--> C <--> m02.port++;
+        e33.port++ <--> C <--> e34.port++;
+        i10.port++ <--> C <--> i20.port++;
+
+        k13.port++ <--> C <--> k14.port++;
+        k16.port++ <--> C <--> k17.port++;
+        g32.port++ <--> C <--> g33.port++;
+        d20.port++ <--> C <--> e1.port++;
+        i30.port++ <--> C <--> i31.port++;
+        g33.port++ <--> C <--> g34.port++;
+        h2.port++ <--> C <--> h30.port++;
+        h2.port++ <--> C <--> h3.port++;
+        m28.port++ <--> C <--> m29.port++;
+        e35.port++ <--> C <--> e36.port++;
+        k17.port++ <--> C <--> k18.port++;
+        f20.port++ <--> C <--> g1.port++;
+        i38.port++ <--> C <--> j1.port++;
+        m02.port++ <--> C <--> m11.port++;
+        m02.port++ <--> C <--> m21.port++;
+        i33.port++ <--> C <--> i34.port++;
+        d3.port++ <--> C <--> d4.port++;
+        h7.port++ <--> C <--> h8.port++;
 }
 
