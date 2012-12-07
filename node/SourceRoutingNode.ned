@@ -20,18 +20,18 @@ module SourceRoutingNode
     parameters:
         int address;
         string appType;
-        @display("i=misc/node_vs,gold");
+        @display("i=misc/node_vs,gold;bgb=260,219,white");
     gates:
         inout port[];
     submodules:
-        app: <appType> like IApp {
+        app: SourceRoutingApp {
             parameters:
                 address = address;
-                @display("p=140,60");
+                @display("p=94,27");
         }
         routing: SourceRouting {
             parameters:
-                @display("p=140,130");
+                @display("p=94,97");
             gates:
                 //NEEDS BE CHANGED for DiNodes
                 in[sizeof(port)];
@@ -39,7 +39,7 @@ module SourceRoutingNode
         }
         queue[sizeof(port)]: L2Queue {
             parameters:
-                @display("p=80,200,row");
+                @display("p=34,167,row");
         }
     connections:
         routing.localOut --> app.in;

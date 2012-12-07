@@ -4,7 +4,7 @@ package adversarialqueueing.node;
 //
 // Application layer for network nodes
 //
-simple SourceRoutingApp like IApp
+simple SourceRoutingApp
 {
     parameters:
         int address;  // local node address

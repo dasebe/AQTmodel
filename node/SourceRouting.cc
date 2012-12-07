@@ -87,7 +87,7 @@ void SourceRouting::handleMessage(cMessage *msg)
 
 
 
-    //give adversary right gate index to quere queue lengths
+    //give adversary right gate index to query queue lengths
     if (msg->getKind()==103)
     {
 
