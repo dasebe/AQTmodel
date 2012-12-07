@@ -25,6 +25,7 @@ void VarChannel::initialize()
 {
     ev << "Initializing VarChannel " << getFullPath() << "\n";
     numPackets = 0;
+    nextDelay = truncnormal(channelMeanDelay,0.0001);
     rereadPars();
 }
 
