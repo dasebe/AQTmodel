@@ -37,5 +37,4 @@ void VDrChannel::processMessage(cMessage *msg, simtime_t t, result_t& result)
     cDatarateChannel::processMessage(msg, t, result);
     double nextDatarate = truncnormal(meanDatarate-0.0001,stdDatarate)+0.0001;
     cDatarateChannel::setDatarate(nextDatarate);
-    ev << "DR: " << nextDatarate;
 }
