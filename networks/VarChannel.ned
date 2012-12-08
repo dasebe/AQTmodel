@@ -1,9 +1,11 @@
 package adversarialqueueing.networks;
+import ned.DelayChannel;
+
 
 channel VarChannel
 {
-	parameters:
-		double channelMeanDelay @unit(s) = default(1ms); // time between generating packets
-		double delay @unit(s) = default(1ms); // time between generating packets
+	@class(VarChannel);
+	int deviation @unit("s") = default(0s);
+	double channelMeanDelay @unit("s") = default(1ms); // time between generating packets
 }
 

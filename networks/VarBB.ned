@@ -4,7 +4,7 @@ package adversarialqueueing.networks;
 import adversarialqueueing.adversaries.AdvancedAdversary;
 import adversarialqueueing.node.SourceRouting;
 import adversarialqueueing.node.SourceRoutingNode;
-import adversarialqueueing.networks.VarChannel;
+import adversarialqueueing.networks.VChannel;
 
 //
 // This is the basic omnet network description of a simple Baseball network. 
@@ -15,8 +15,10 @@ network VarBB
         string adType;
         @display("bgb=358,408,white");
     types:
-        channel VarChannel
+        channel C extends VChannel
         {
+            delay=1ms;
+            deviation=0.05ms;
         }
     submodules:
         adversary: <adType> like AdvancedAdversary {
@@ -55,16 +57,15 @@ network VarBB
             address = 23;
         }
     connections:
-
-        n2.port++ <--> VarChannel <--> n3.port++;
-        n3.port++ <--> VarChannel <--> m1.port++;
-        m1.port++ <--> VarChannel <--> m2.port++;
-        m2.port++ <--> VarChannel <--> m3.port++;
-        m2.port++ <--> VarChannel <--> m4.port++;
-        m4.port++ <--> VarChannel <--> n1.port++;
-        m3.port++ <--> VarChannel <--> n1.port++;
-        n1.port++ <--> VarChannel <--> n2.port++;
-        n2.port++ <--> VarChannel <--> n4.port++;
-        n4.port++ <--> VarChannel <--> m1.port++;
+        n2.port++ <--> C <--> n3.port++;
+        n3.port++ <--> C <--> m1.port++;
+        m1.port++ <--> C <--> m2.port++;
+        m2.port++ <--> C <--> m3.port++;
+        m2.port++ <--> C <--> m4.port++;
+        m4.port++ <--> C <--> n1.port++;
+        m3.port++ <--> C <--> n1.port++;
+        n1.port++ <--> C <--> n2.port++;
+        n2.port++ <--> C <--> n4.port++;
+        n4.port++ <--> C <--> m1.port++;
 }
 

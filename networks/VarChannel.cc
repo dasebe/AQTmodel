@@ -1,21 +1,21 @@
 #include <omnetpp.h>
 
-class VarChannel : public cDelayChannel
+class VarChannel : public cDelayChannel//cChannel
 {
   private:
     int numPackets;
-    SimTime nextDelay;
     SimTime channelMeanDelay;
+    SimTime nextDelay;
   protected:
-    virtual void initialize();
-    virtual void rereadPars();
-    virtual bool isTransmissionChannel() const {return false;}
-    virtual simtime_t calculateDuration(cMessage *msg);
-    virtual simtime_t getTransmissionFinishTime();
-    virtual void forceTransmissionFinishTime(simtime_t t);
-    virtual double getNominalDatarate() const {return 0;}; //similar to delaychannel
-    virtual void processMessage(cMessage *msg, simtime_t at, result_t& result);
-    virtual void finish();
+    void initialize();
+    void rereadPars();
+    bool isTransmissionChannel() const {return false;}
+    simtime_t calculateDuration(cMessage *msg);
+    simtime_t getTransmissionFinishTime();
+    void forceTransmissionFinishTime(simtime_t t);
+    double getNominalDatarate() const {return 0;}; //similar to delaychannel
+    void processMessage(cMessage *msg, simtime_t at, result_t& result);
+    void finish();
 };
 
 Define_Channel(VarChannel);
@@ -31,7 +31,7 @@ void VarChannel::initialize()
 
 void VarChannel::rereadPars()
 {
-    channelMeanDelay = par("channelMeanDelay");
+    channelMeanDelay = 0.001;//par("channelMeanDelay");
 }
 
 simtime_t VarChannel::calculateDuration(cMessage *msg)
@@ -39,6 +39,10 @@ simtime_t VarChannel::calculateDuration(cMessage *msg)
     return nextDelay;
 }
 
+simtime_t VarChannel::getTransmissionFinishTime()
+{
+    return nextDelay;
+}
 
 void VarChannel::processMessage(cMessage *msg, simtime_t at, result_t& result)
 {
@@ -55,10 +59,6 @@ void VarChannel::finish()
     ev << "varChannel finishing, msgs: " << numPackets << "\n";
 }
 
-simtime_t VarChannel::getTransmissionFinishTime()
-{
-    return nextDelay;
-}
 
 void VarChannel::forceTransmissionFinishTime(simtime_t t)
 {
