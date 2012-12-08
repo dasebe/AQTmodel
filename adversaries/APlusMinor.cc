@@ -47,7 +47,8 @@ void APlusMinor::injectInitialPackets()
     newInjection->interInjectionTime=0;
     newInjection->packetCount=initialSetSize;
     newInjection->message=new AdversarialInjectionMessage("init");
-    newInjection->atNode="C";
+    newInjection->atNode = new char[1];
+    strcpy(newInjection->atNode, "C" );
     newInjection->message->setPathArraySize(1);
     newInjection->message->setPath(0,1);
     newInjection->message->setKind(101);
@@ -157,7 +158,8 @@ void APlusMinor::injectPhasePackets()
         newInjection->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         newInjection->packetCount = floor(basicIntervalTime*injectionRate);
         newInjection->message =  new AdversarialInjectionMessage("set S4");
-        newInjection->atNode="B";
+        newInjection->atNode = new char[1];
+        strcpy(newInjection->atNode, "B" );
         newInjection->message->setPathArraySize(3);
         newInjection->message->setPath(0,1);
         newInjection->message->setPath(1,5);
