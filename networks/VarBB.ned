@@ -17,9 +17,6 @@ network VarBB
     types:
         channel C extends VDrChannel
         {
-            datarate=10Mbps;
-            meanDatarate=10Mbps;
-            stdDatarate=3Mbps;
         }
     submodules:
         adversary: <adType> like AdvancedAdversary {
