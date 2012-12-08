@@ -2,10 +2,9 @@
 package adversarialqueueing.networks;
 
 import adversarialqueueing.adversaries.AdvancedAdversary;
-import adversarialqueueing.channelvariation.Randomization;
 import adversarialqueueing.node.SourceRouting;
 import adversarialqueueing.node.SourceRoutingNode;
-import ned.DatarateChannel;
+import adversarialqueueing.channelvariation.VDrChannel;
 
 //
 // This is the basic omnet network description of a simple Baseball network. 
@@ -16,10 +15,8 @@ network VarAPlusMinor
         string adType;
         @display("bgb=267,165,white");
     types:
-        channel C extends DatarateChannel
+        channel C extends VDrChannel
         {
-            delay = 0ms;
-            datarate = 10Mbps;
         }
     submodules:
         adversary: <adType> like AdvancedAdversary {
@@ -48,9 +45,6 @@ network VarAPlusMinor
         C: SourceRoutingNode {
             @display("p=50,142;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 5;
-        }
-        randomization: Randomization {
-            @display("p=38,21;i=status/ctrl");
         }
     connections:
 

@@ -2,10 +2,10 @@
 package adversarialqueueing.networks;
 
 import adversarialqueueing.adversaries.AdvancedAdversary;
-import adversarialqueueing.channelvariation.Randomization;
 import adversarialqueueing.node.SourceRouting;
 import adversarialqueueing.node.SourceRoutingNode;
-import ned.DatarateChannel;
+import adversarialqueueing.channelvariation.VDrChannel;
+
 
 //
 // This is the basic omnet network description of a simple Baseball network. 
@@ -16,10 +16,8 @@ network VarDiaz
         string adType;
         @display("bgb=409,414,white");
     types:
-        channel C extends DatarateChannel
+        channel C extends VDrChannel
         {
-            delay = 0ms;
-            datarate = 10Mbps;
         }
     submodules:
         adversary: <adType> like AdvancedAdversary {
@@ -41,7 +39,7 @@ network VarDiaz
             @display("p=122,126;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 14;
         }
-		n5: SourceRoutingNode {
+        n5: SourceRoutingNode {
             @display("p=65,126;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 15;
         }
@@ -73,9 +71,6 @@ network VarDiaz
             @display("p=213,126;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 26;
         }
-		randomization: Randomization {
-            @display("p=312,28;i=status/ctrl");
-        }
     connections:
 
         n2.port++ <--> C <--> n3.port++;
@@ -84,15 +79,15 @@ network VarDiaz
         m2.port++ <--> C <--> m3.port++;
         m3.port++ <--> C <--> n1.port++;
         n1.port++ <--> C <--> n2.port++;
-        n2.port++ <--> C <-->  n5.port++;
-        n2.port++ <--> C <-->  n4.port++;
-        n5.port++ <--> C <-->  n6.port++;
-        n4.port++ <--> C <-->  n6.port++;
-        n6.port++ <--> C <-->  m1.port++;
-        m2.port++ <--> C <-->  m4.port++;
-        m2.port++ <--> C <-->  m5.port++;
-        m4.port++ <--> C <-->  m6.port++;
-        m5.port++ <--> C <-->  m6.port++;
-        m6.port++ <--> C <-->  n1.port++;
+        n2.port++ <--> C <--> n5.port++;
+        n2.port++ <--> C <--> n4.port++;
+        n5.port++ <--> C <--> n6.port++;
+        n4.port++ <--> C <--> n6.port++;
+        n6.port++ <--> C <--> m1.port++;
+        m2.port++ <--> C <--> m4.port++;
+        m2.port++ <--> C <--> m5.port++;
+        m4.port++ <--> C <--> m6.port++;
+        m5.port++ <--> C <--> m6.port++;
+        m6.port++ <--> C <--> n1.port++;
 }
 
