@@ -21,10 +21,9 @@ INCLUDE_PATH = \
     -IOMNeTWorkshop/includes \
     -IOMNeTWorkshop/plots \
     -IOMNeTWorkshop/topologies \
-    -ITraditionalSourceSink \
     -Iadversaries \
     -Ianalysis \
-    -Ibuilder \
+    -Ichannelvariation \
     -Idocumentation \
     -Idocumentation/IEEEtranBST \
     -Idocumentation/bin \
@@ -63,8 +62,6 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
 OBJS = \
-    $O/TraditionalSourceSink/Source.o \
-    $O/TraditionalSourceSink/Sink.o \
     $O/adversaries/AdvancedAdversary.o \
     $O/adversaries/CE71.o \
     $O/adversaries/CE7half.o \
@@ -79,13 +76,11 @@ OBJS = \
     $O/adversaries/LotkerMod.o \
     $O/adversaries/Lotker.o \
     $O/adversaries/QueueListener.o \
-    $O/adversaries/Randomization.o \
-    $O/adversaries/RandomizationDelay.o \
     $O/adversaries/CE3.o \
     $O/adversaries/Diaz.o \
     $O/adversaries/BBhalf.o \
-    $O/builder/netbuilder.o \
-    $O/networks/VarChannel.o \
+    $O/channelvariation/Randomization.o \
+    $O/channelvariation/VDrChannel.o \
     $O/node/SourceRoutingApp.o \
     $O/node/L2Queue.o \
     $O/node/SourceRouting.o \
@@ -172,10 +167,9 @@ clean:
 	-rm -f OMNeTWorkshop/includes/*_m.cc OMNeTWorkshop/includes/*_m.h
 	-rm -f OMNeTWorkshop/plots/*_m.cc OMNeTWorkshop/plots/*_m.h
 	-rm -f OMNeTWorkshop/topologies/*_m.cc OMNeTWorkshop/topologies/*_m.h
-	-rm -f TraditionalSourceSink/*_m.cc TraditionalSourceSink/*_m.h
 	-rm -f adversaries/*_m.cc adversaries/*_m.h
 	-rm -f analysis/*_m.cc analysis/*_m.h
-	-rm -f builder/*_m.cc builder/*_m.h
+	-rm -f channelvariation/*_m.cc channelvariation/*_m.h
 	-rm -f documentation/*_m.cc documentation/*_m.h
 	-rm -f documentation/IEEEtranBST/*_m.cc documentation/IEEEtranBST/*_m.h
 	-rm -f documentation/bin/*_m.cc documentation/bin/*_m.h
@@ -205,11 +199,9 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc TraditionalSourceSink/*.cc adversaries/*.cc analysis/*.cc builder/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc resultsOMNeT/*.cc resultsOMNeT/RandomizationQueueGraphAPlus0530/*.cc resultsOMNeT/ValidationGraphs/*.cc resultsOMNeT/finiteBuffer_r1/*.cc resultsOMNeT/initialSetSize/*.cc resultsOMNeT/initialSetSize2/*.cc resultsOMNeT/offsets_Baseball1/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc analysis/*.cc channelvariation/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc resultsOMNeT/*.cc resultsOMNeT/RandomizationQueueGraphAPlus0530/*.cc resultsOMNeT/ValidationGraphs/*.cc resultsOMNeT/finiteBuffer_r1/*.cc resultsOMNeT/initialSetSize/*.cc resultsOMNeT/initialSetSize2/*.cc resultsOMNeT/offsets_Baseball1/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
-$O/TraditionalSourceSink/Sink.o: TraditionalSourceSink/Sink.cc
-$O/TraditionalSourceSink/Source.o: TraditionalSourceSink/Source.cc
 $O/adversaries/APlusMinor.o: adversaries/APlusMinor.cc \
 	adversaries/AdvancedAdversary.h \
 	adversaries/QueueListener.h
@@ -257,16 +249,14 @@ $O/adversaries/LotkerMod.o: adversaries/LotkerMod.cc \
 	adversaries/QueueListener.h
 $O/adversaries/QueueListener.o: adversaries/QueueListener.cc \
 	adversaries/QueueListener.h
-$O/adversaries/Randomization.o: adversaries/Randomization.cc
-$O/adversaries/RandomizationDelay.o: adversaries/RandomizationDelay.cc
-$O/builder/netbuilder.o: builder/netbuilder.cc
+$O/channelvariation/Randomization.o: channelvariation/Randomization.cc
+$O/channelvariation/VDrChannel.o: channelvariation/VDrChannel.cc
 $O/messages/AdversarialInjectionMessage_m.o: messages/AdversarialInjectionMessage_m.cc \
 	messages/AdversarialInjectionMessage_m.h
 $O/messages/QueueLengthRequest_m.o: messages/QueueLengthRequest_m.cc \
 	messages/QueueLengthRequest_m.h
 $O/messages/SourceRoutingPacket_m.o: messages/SourceRoutingPacket_m.cc \
 	messages/SourceRoutingPacket_m.h
-$O/networks/VarChannel.o: networks/VarChannel.cc
 $O/node/L2Queue.o: node/L2Queue.cc \
 	node/L2Queue.h
 $O/node/SourceRouting.o: node/SourceRouting.cc
