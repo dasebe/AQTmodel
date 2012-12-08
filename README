@@ -1,0 +1,46 @@
+Adversarial Queueing Framework for OMNeT++ 4.2
+=====================================
+
+The AQTmodel is an open-source framework to simulate adversarial queueing scenarios of the theoretical network model Adversarial queueing theory (1996), Allan Borodin , Jon Kleinberg , Prabhakar Raghavan , Madhu Sudan , David P. Williamson, In Proc. 28th ACM STOC.
+
+The focus of this network simulator is the study and development of instability examples.
+Some topologies and adversaries are implemented and available for immediate use.
+ - the baseball graph by Andrews et al., 2001, which is unstable for r>0.85
+ - the smallest example for the graph minor class A+ by Weinard, 2006, which is unstable for r>0.933
+ - the graph introduced by Diaz et al., 2001, which is unstable for r>0.83
+ - the parameterized gadget-chain by Lotker et al., 2004, which is unstable for r>0.5
+
+Adversaries are implemented as C++ classes to allow for maximum flexibility.
+Currently, all examples expect the packet trajectory to be known in advance (Lotker has been adapted to this end), but this can be easily implemented in this framework.
+
+
+IMPORTANT: The AQTmodel is still in an early immature state. Do not hesitate to contact the authors and report unexpected behavior.
+Not all parts and possible configuration have been tested. In case of using this framework for any other purpose than for your self: it is your responsibility to make sure that the model works correctly and produces valid results.
+
+
+GETTING STARTED
+---------------
+Start by downloading and installing OMNeT++ in any version more recent than 4.2.
+(http://www.omnetpp.org/).
+Introduce yourself to the OMNeT world with the samples from the original OMNeT framework. The adversarial scenarios proposed here are not yet easily accessible and need some understanding of the whole framework.
+
+To implement a new scenario, we suggest that you copy-paste from the Baseball graph which has been repeatedly studied in the literature before.
+
+For result analysis we encourage to use the omnetpp R package in at least version 0.2. You may ask for an R skeleton for AQT analysis by email to the authors.
+
+Directory structure
+-------------------
+./omnetpp.ini		main configuration file, store configuration parameters for different runs
+./adversarialQueueing 	symbolic link to main executable (don't forget to add omnet to your path variable!)
+./messages 		messages used for component internal communication and actual network packets
+./node 		       	network nodes are composed of three layers, corresponding classes are here
+./networks 		OMNeT++ ned representation of available networks
+./adversaries 		super class AdvancedAversary and subclasses which are examples of adversary implementations
+./channelvariation	you may use OMNeT DelayChannel or DatarateChannel for deterministic AQT simulations (make sure that the time step length is matched by link traversal time; this folder gives the additional possibility to model a channel's capacity variation over time
+
+
+AUTHOR
+  Daniel Berger
+  berger@cs.uni-kl.de
+  University of Kaiserslautern
+
