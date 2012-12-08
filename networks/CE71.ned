@@ -3,7 +3,7 @@ package adversarialqueueing.networks;
 
 import adversarialqueueing.adversaries.AdvancedAdversary;
 import adversarialqueueing.node.SourceRouting;
-import adversarialqueueing.adversaries.Randomization;
+import adversarialqueueing.channelvariation.Randomization;
 import adversarialqueueing.node.SourceRoutingNode;
 import ned.DatarateChannel;
 
