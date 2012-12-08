@@ -27,4 +27,6 @@ package adversarialqueueing.networks;
 channel ThruputMeteringChannel extends ned.DatarateChannel
 {
     @class(ThruputMeteringChannel);
+	int meanDatarate @unit("bps") = default(10Mbps);
+	int stdDatarate @unit("bps") = default(0bps); //standard deviation of delay
 }
