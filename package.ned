@@ -19,6 +19,6 @@ package adversarialqueueing;
 
 //
 // Author: Daniel Berger
-// based on omnet routing example
+// based on OMNeT routing example
 // Contact: berger@cs.uni-kl.de
 //
