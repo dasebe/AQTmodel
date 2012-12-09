@@ -20,14 +20,11 @@ INCLUDE_PATH = \
     -IOMNeTWorkshop/bin \
     -IOMNeTWorkshop/includes \
     -IOMNeTWorkshop/plots \
+    -IOMNeTWorkshop/plots/sources \
     -IOMNeTWorkshop/topologies \
     -Iadversaries \
     -Ianalysis \
     -Ichannelvariation \
-    -Idocumentation \
-    -Idocumentation/IEEEtranBST \
-    -Idocumentation/bin \
-    -Idocumentation/plots \
     -Iicdcs2013 \
     -Iicdcs2013/IEEEtranBST \
     -Iicdcs2013/bin \
@@ -40,15 +37,7 @@ INCLUDE_PATH = \
     -Imessages \
     -Inetworks \
     -Inode \
-    -Iresults \
-    -IresultsOMNeT \
-    -IresultsOMNeT/LotkerBound \
-    -IresultsOMNeT/RandomizationQueueGraphAPlus0530 \
-    -IresultsOMNeT/ValidationGraphs \
-    -IresultsOMNeT/finiteBuffer_r1 \
-    -IresultsOMNeT/initialSetSize \
-    -IresultsOMNeT/initialSetSize2 \
-    -IresultsOMNeT/offsets_Baseball1
+    -Iresults
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -167,14 +156,11 @@ clean:
 	-rm -f OMNeTWorkshop/bin/*_m.cc OMNeTWorkshop/bin/*_m.h
 	-rm -f OMNeTWorkshop/includes/*_m.cc OMNeTWorkshop/includes/*_m.h
 	-rm -f OMNeTWorkshop/plots/*_m.cc OMNeTWorkshop/plots/*_m.h
+	-rm -f OMNeTWorkshop/plots/sources/*_m.cc OMNeTWorkshop/plots/sources/*_m.h
 	-rm -f OMNeTWorkshop/topologies/*_m.cc OMNeTWorkshop/topologies/*_m.h
 	-rm -f adversaries/*_m.cc adversaries/*_m.h
 	-rm -f analysis/*_m.cc analysis/*_m.h
 	-rm -f channelvariation/*_m.cc channelvariation/*_m.h
-	-rm -f documentation/*_m.cc documentation/*_m.h
-	-rm -f documentation/IEEEtranBST/*_m.cc documentation/IEEEtranBST/*_m.h
-	-rm -f documentation/bin/*_m.cc documentation/bin/*_m.h
-	-rm -f documentation/plots/*_m.cc documentation/plots/*_m.h
 	-rm -f icdcs2013/*_m.cc icdcs2013/*_m.h
 	-rm -f icdcs2013/IEEEtranBST/*_m.cc icdcs2013/IEEEtranBST/*_m.h
 	-rm -f icdcs2013/bin/*_m.cc icdcs2013/bin/*_m.h
@@ -188,20 +174,12 @@ clean:
 	-rm -f networks/*_m.cc networks/*_m.h
 	-rm -f node/*_m.cc node/*_m.h
 	-rm -f results/*_m.cc results/*_m.h
-	-rm -f resultsOMNeT/*_m.cc resultsOMNeT/*_m.h
-	-rm -f resultsOMNeT/LotkerBound/*_m.cc resultsOMNeT/LotkerBound/*_m.h
-	-rm -f resultsOMNeT/RandomizationQueueGraphAPlus0530/*_m.cc resultsOMNeT/RandomizationQueueGraphAPlus0530/*_m.h
-	-rm -f resultsOMNeT/ValidationGraphs/*_m.cc resultsOMNeT/ValidationGraphs/*_m.h
-	-rm -f resultsOMNeT/finiteBuffer_r1/*_m.cc resultsOMNeT/finiteBuffer_r1/*_m.h
-	-rm -f resultsOMNeT/initialSetSize/*_m.cc resultsOMNeT/initialSetSize/*_m.h
-	-rm -f resultsOMNeT/initialSetSize2/*_m.cc resultsOMNeT/initialSetSize2/*_m.h
-	-rm -f resultsOMNeT/offsets_Baseball1/*_m.cc resultsOMNeT/offsets_Baseball1/*_m.h
 
 cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc analysis/*.cc channelvariation/*.cc documentation/*.cc documentation/IEEEtranBST/*.cc documentation/bin/*.cc documentation/plots/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc resultsOMNeT/*.cc resultsOMNeT/LotkerBound/*.cc resultsOMNeT/RandomizationQueueGraphAPlus0530/*.cc resultsOMNeT/ValidationGraphs/*.cc resultsOMNeT/finiteBuffer_r1/*.cc resultsOMNeT/initialSetSize/*.cc resultsOMNeT/initialSetSize2/*.cc resultsOMNeT/offsets_Baseball1/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/plots/sources/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc analysis/*.cc channelvariation/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/APlusMinor.o: adversaries/APlusMinor.cc \

@@ -77,7 +77,7 @@ CE7half::~CE7half()
 
 void CE7half::initialize()
 {
-    timeSlots = &par("sendIaTime");
+    timeSlots = &par("timeSlotLength");
     bufferSize = par("frameCapacity");
     injectionRate = par("injectionRate");
     injectionCount = 0;

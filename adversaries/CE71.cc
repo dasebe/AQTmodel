@@ -27,7 +27,7 @@ Define_Module(CE71);
 
 void CE71::injectInitialPackets()
 {
-    timeSlots = &par("sendIaTime");
+    timeSlots = &par("timeSlotLength");
     bufferSize = par("frameCapacity");
     injectionRate = par("injectionRate");
     int initialSetSize= par("initialSetSize"); //in time steps (not simulationTime!!)

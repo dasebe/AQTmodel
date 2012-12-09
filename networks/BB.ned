@@ -2,6 +2,7 @@
 package adversarialqueueing.networks;
 
 import adversarialqueueing.adversaries.AdvancedAdversary;
+import adversarialqueueing.channelvariation.Randomization;
 import adversarialqueueing.node.SourceRouting;
 import adversarialqueueing.node.SourceRoutingNode;
 import ned.DatarateChannel;
@@ -55,6 +56,9 @@ network BB
         m3: SourceRoutingNode {
             @display("p=285,213;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 23;
+        }
+        randomization: Randomization {
+            @display("p=327,25;i=status/ctrl");
         }
     connections:
 

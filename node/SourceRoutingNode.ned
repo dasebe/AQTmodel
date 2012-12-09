@@ -9,7 +9,6 @@ module SourceRoutingNode
 {
     parameters:
         int address;
-        string appType;
         @display("i=misc/node_vs,gold;bgb=260,219,white");
     gates:
         inout port[];

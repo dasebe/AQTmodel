@@ -30,7 +30,7 @@ AdvancedAdversary::~AdvancedAdversary()
 
 void AdvancedAdversary::initialize()
 {
-    timeSlots = &par("sendIaTime");
+    timeSlots = &par("timeSlotLength");
     bufferSize = par("frameCapacity");
     injectionRate = par("injectionRate");
     injectionCount = 0;

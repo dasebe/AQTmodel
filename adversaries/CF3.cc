@@ -27,7 +27,7 @@ Define_Module(CF3);
 
 void CF3::injectInitialPackets()
 {
-    timeSlots = &par("sendIaTime");
+    timeSlots = &par("timeSlotLength");
     bufferSize = par("frameCapacity");
     injectionRate = par("injectionRate");
     injectionCount = 0;

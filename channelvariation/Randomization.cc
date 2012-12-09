@@ -25,7 +25,7 @@ Define_Module(Randomization);
 void Randomization::initialize()
 {
 
-    timeslot = par("sendIaTime");
+    timeslot = par("timeSlotLength");
 
     cPar *mdt = &par("meanrate");
     meanrate = mdt->doubleValue();

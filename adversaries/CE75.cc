@@ -27,7 +27,7 @@ Define_Module(CE75);
 
 void CE75::injectInitialPackets()
 {
-    timeSlots = &par("sendIaTime");
+    timeSlots = &par("timeSlotLength");
     bufferSize = par("frameCapacity");
     injectionRate = par("injectionRate");
     injectionCount = 0;

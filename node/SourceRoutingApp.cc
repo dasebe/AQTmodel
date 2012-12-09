@@ -48,7 +48,6 @@ SourceRoutingApp::SourceRoutingApp()
 
 SourceRoutingApp::~SourceRoutingApp()
 {
-    cancelAndDelete(generatePacket);
 }
 
 void SourceRoutingApp::initialize()
