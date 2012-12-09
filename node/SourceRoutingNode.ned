@@ -1,17 +1,7 @@
-//
-// This file is part of an OMNeT++/OMNEST simulation example.
-//
-// Copyright (C) 1992-2008 Andras Varga
-//
-// This file is distributed WITHOUT ANY WARRANTY. See the file
-// `license' for details on this and other legal matters.
-//
-
-
 package adversarialqueueing.node;
 
 //
-// This is the aggregate packet (omnet compound module) to create a network node.
+// This is the aggregate packet (OMNeT compound module) to create a network node.
 // A network node consists of a Routing Module, an L2queue, and an App which represents the
 // aggregate traffic of the subnets connected to that router.
 //

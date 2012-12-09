@@ -80,17 +80,14 @@ void SourceRouting::initialize()
 
 void SourceRouting::handleMessage(cMessage *msg)
 {
-    /*two principal possibilities for messages:
+    /*two message types:
      *  1. QueueLength Packets which wants to obtain the current queue length
      *  2. SourceRoutingPacket need be forwarded,absorbed,...
      */
 
-
-
     //give adversary right gate index to query queue lengths
     if (msg->getKind()==103)
     {
-
         //the task of source routing is to find the right gate of the queue
         QueueLengthRequest *pk = check_and_cast<QueueLengthRequest *>(msg);
         //lookup in RoutingTable
@@ -104,8 +101,6 @@ void SourceRouting::handleMessage(cMessage *msg)
         cModule *adversary = msg->getSenderModule();
         sendDirect(pk, adversary, "adversaryControl$i");
     }
-
-
 
 
 
