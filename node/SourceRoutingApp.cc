@@ -20,11 +20,9 @@ class SourceRoutingApp : public cSimpleModule
   private:
     // configuration
     int myAddress;
-    cPar *sendIATime;
     cPar *packetLengthBytes;
 
     // state
-    cMessage *generatePacket;
     long pkCounter;
 
     // signals
@@ -46,7 +44,6 @@ Define_Module(SourceRoutingApp);
 
 SourceRoutingApp::SourceRoutingApp()
 {
-    generatePacket = NULL;
 }
 
 SourceRoutingApp::~SourceRoutingApp()
@@ -58,15 +55,10 @@ void SourceRoutingApp::initialize()
 {
     myAddress = par("address");
     packetLengthBytes = &par("packetLength");
-    sendIATime = &par("sendIaTime");  // volatile parameter
     pkCounter = 0;
 
     WATCH(pkCounter);
     WATCH(myAddress);
-
-
-//    generatePacket = new cMessage("nextPacket");
-//    scheduleAt(sendIATime->doubleValue(), generatePacket);
 
     endToEndDelaySignal = registerSignal("endToEndDelay");
     hopCountSignal =  registerSignal("hopCount");
@@ -75,8 +67,6 @@ void SourceRoutingApp::initialize()
 
 void SourceRoutingApp::handleMessage(cMessage *msg)
 {
-    //const char *  x = msg->getArrivalGate()->getFullName();
-
     //if this is send by the Adversary and named sendPacket
     //const char * msgtype = msg->getClassName();
 
@@ -85,8 +75,7 @@ void SourceRoutingApp::handleMessage(cMessage *msg)
         //getting information about injection
         AdversarialInjectionMessage *pk = check_and_cast<AdversarialInjectionMessage *>(msg);
 
-
-        // construct package name
+        // packet name
         char pkname[40];
         sprintf(pkname,"%s:    no %ld from node %d", pk->getName(), pkCounter++, myAddress);
         //EV << "node "  << myAddress << ": received injection command" << endl;

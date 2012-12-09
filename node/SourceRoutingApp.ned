@@ -8,8 +8,6 @@ simple SourceRoutingApp
 {
     parameters:
         int address;  // local node address
-        //string destAddresses;  // destination addresses
-        volatile double sendIaTime @unit(s) = default(1ms); // time between generating packets
         volatile int packetLength @unit(byte) = default(1250 bytes);  // length of one message (fixed! no "volatile" modifier)
         @display("i=block/browser");
         @signal[endToEndDelay](type="simtime_t");
