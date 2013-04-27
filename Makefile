@@ -17,16 +17,17 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
 INCLUDE_PATH = \
     -I. \
     -IOMNeTWorkshop \
-    -IOMNeTWorkshop/bin \
     -IOMNeTWorkshop/includes \
     -IOMNeTWorkshop/plots \
     -IOMNeTWorkshop/plots/sources \
+    -IOMNeTWorkshop/presentation \
+    -IOMNeTWorkshop/presentation/disco \
+    -IOMNeTWorkshop/presentation/topologies \
     -IOMNeTWorkshop/topologies \
     -Iadversaries \
     -Ianalysis \
     -Ichannelvariation \
     -Iicdcs2013 \
-    -Iicdcs2013/IEEEtranBST \
     -Iicdcs2013/bin \
     -Iicdcs2013/cited \
     -Iicdcs2013/maxima \
@@ -52,37 +53,37 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
 OBJS = \
-    $O/adversaries/AdvancedAdversary.o \
     $O/adversaries/CE71.o \
+    $O/adversaries/BB.o \
+    $O/adversaries/AdvancedAdversary.o \
+    $O/adversaries/LotkerMod.o \
+    $O/adversaries/CE75.o \
     $O/adversaries/CE7half.o \
     $O/adversaries/Koukopoulos.o \
     $O/adversaries/CE7.o \
-    $O/adversaries/CF7.o \
-    $O/adversaries/BB.o \
-    $O/adversaries/CE3half.o \
-    $O/adversaries/CE75.o \
-    $O/adversaries/APlusMinor.o \
-    $O/adversaries/CF3.o \
-    $O/adversaries/LotkerMod.o \
     $O/adversaries/Lotker.o \
-    $O/adversaries/QueueListener.o \
-    $O/adversaries/CE3.o \
+    $O/adversaries/CF3.o \
+    $O/adversaries/CE3half.o \
     $O/adversaries/Diaz.o \
+    $O/adversaries/QueueListener.o \
+    $O/adversaries/APlusMinor.o \
+    $O/adversaries/CE3.o \
+    $O/adversaries/CF7.o \
     $O/adversaries/BBhalf.o \
     $O/channelvariation/Randomization.o \
     $O/channelvariation/VDrChannel.o \
-    $O/node/SourceRoutingApp.o \
-    $O/node/L2Queue.o \
     $O/node/SourceRouting.o \
+    $O/node/L2Queue.o \
+    $O/node/SourceRoutingApp.o \
+    $O/messages/SourceRoutingPacket_m.o \
     $O/messages/AdversarialInjectionMessage_m.o \
-    $O/messages/QueueLengthRequest_m.o \
-    $O/messages/SourceRoutingPacket_m.o
+    $O/messages/QueueLengthRequest_m.o
 
 # Message files
 MSGFILES = \
+    messages/SourceRoutingPacket.msg \
     messages/AdversarialInjectionMessage.msg \
-    messages/QueueLengthRequest.msg \
-    messages/SourceRoutingPacket.msg
+    messages/QueueLengthRequest.msg
 
 #------------------------------------------------------------------------------
 
@@ -129,11 +130,12 @@ endif
 
 # Main target
 all: $O/$(TARGET)
-	$(LN) $O/$(TARGET) .
+	$(Q)$(LN) $O/$(TARGET) .
 
 $O/$(TARGET): $(OBJS)  $(wildcard $(EXTRA_OBJS)) Makefile
 	@$(MKPATH) $O
-	$(CXX) $(LDFLAGS) -o $O/$(TARGET)  $(OBJS) $(EXTRA_OBJS) $(AS_NEEDED_OFF) $(WHOLE_ARCHIVE_ON) $(LIBS) $(WHOLE_ARCHIVE_OFF) $(OMNETPP_LIBS)
+	@echo Creating executable: $@
+	$(Q)$(CXX) $(LDFLAGS) -o $O/$(TARGET)  $(OBJS) $(EXTRA_OBJS) $(AS_NEEDED_OFF) $(WHOLE_ARCHIVE_ON) $(LIBS) $(WHOLE_ARCHIVE_OFF) $(OMNETPP_LIBS)
 
 .PHONY: all clean cleanall depend msgheaders
 
@@ -141,92 +143,138 @@ $O/$(TARGET): $(OBJS)  $(wildcard $(EXTRA_OBJS)) Makefile
 
 $O/%.o: %.cc $(COPTS_FILE)
 	@$(MKPATH) $(dir $@)
-	$(CXX) -c $(COPTS) -o $@ $<
+	$(qecho) "$<"
+	$(Q)$(CXX) -c $(COPTS) -o $@ $<
 
 %_m.cc %_m.h: %.msg
-	$(MSGC) -s _m.cc $(MSGCOPTS) $?
+	$(qecho) MSGC: $<
+	$(Q)$(MSGC) -s _m.cc $(MSGCOPTS) $?
 
 msgheaders: $(MSGFILES:.msg=_m.h)
 
 clean:
-	-rm -rf $O
-	-rm -f adversarialQueueing adversarialQueueing.exe libadversarialQueueing.so libadversarialQueueing.a libadversarialQueueing.dll libadversarialQueueing.dylib
-	-rm -f ./*_m.cc ./*_m.h
-	-rm -f OMNeTWorkshop/*_m.cc OMNeTWorkshop/*_m.h
-	-rm -f OMNeTWorkshop/bin/*_m.cc OMNeTWorkshop/bin/*_m.h
-	-rm -f OMNeTWorkshop/includes/*_m.cc OMNeTWorkshop/includes/*_m.h
-	-rm -f OMNeTWorkshop/plots/*_m.cc OMNeTWorkshop/plots/*_m.h
-	-rm -f OMNeTWorkshop/plots/sources/*_m.cc OMNeTWorkshop/plots/sources/*_m.h
-	-rm -f OMNeTWorkshop/topologies/*_m.cc OMNeTWorkshop/topologies/*_m.h
-	-rm -f adversaries/*_m.cc adversaries/*_m.h
-	-rm -f analysis/*_m.cc analysis/*_m.h
-	-rm -f channelvariation/*_m.cc channelvariation/*_m.h
-	-rm -f icdcs2013/*_m.cc icdcs2013/*_m.h
-	-rm -f icdcs2013/IEEEtranBST/*_m.cc icdcs2013/IEEEtranBST/*_m.h
-	-rm -f icdcs2013/bin/*_m.cc icdcs2013/bin/*_m.h
-	-rm -f icdcs2013/cited/*_m.cc icdcs2013/cited/*_m.h
-	-rm -f icdcs2013/maxima/*_m.cc icdcs2013/maxima/*_m.h
-	-rm -f icdcs2013/plots/*_m.cc icdcs2013/plots/*_m.h
-	-rm -f icdcs2013/plots/sources/*_m.cc icdcs2013/plots/sources/*_m.h
-	-rm -f icdcs2013/topologies/*_m.cc icdcs2013/topologies/*_m.h
-	-rm -f icdcs2013/topologies/bin/*_m.cc icdcs2013/topologies/bin/*_m.h
-	-rm -f messages/*_m.cc messages/*_m.h
-	-rm -f networks/*_m.cc networks/*_m.h
-	-rm -f node/*_m.cc node/*_m.h
-	-rm -f results/*_m.cc results/*_m.h
+	$(qecho) Cleaning...
+	$(Q)-rm -rf $O
+	$(Q)-rm -f adversarialQueueing adversarialQueueing.exe libadversarialQueueing.so libadversarialQueueing.a libadversarialQueueing.dll libadversarialQueueing.dylib
+	$(Q)-rm -f ./*_m.cc ./*_m.h
+	$(Q)-rm -f OMNeTWorkshop/*_m.cc OMNeTWorkshop/*_m.h
+	$(Q)-rm -f OMNeTWorkshop/includes/*_m.cc OMNeTWorkshop/includes/*_m.h
+	$(Q)-rm -f OMNeTWorkshop/plots/*_m.cc OMNeTWorkshop/plots/*_m.h
+	$(Q)-rm -f OMNeTWorkshop/plots/sources/*_m.cc OMNeTWorkshop/plots/sources/*_m.h
+	$(Q)-rm -f OMNeTWorkshop/presentation/*_m.cc OMNeTWorkshop/presentation/*_m.h
+	$(Q)-rm -f OMNeTWorkshop/presentation/disco/*_m.cc OMNeTWorkshop/presentation/disco/*_m.h
+	$(Q)-rm -f OMNeTWorkshop/presentation/topologies/*_m.cc OMNeTWorkshop/presentation/topologies/*_m.h
+	$(Q)-rm -f OMNeTWorkshop/topologies/*_m.cc OMNeTWorkshop/topologies/*_m.h
+	$(Q)-rm -f adversaries/*_m.cc adversaries/*_m.h
+	$(Q)-rm -f analysis/*_m.cc analysis/*_m.h
+	$(Q)-rm -f channelvariation/*_m.cc channelvariation/*_m.h
+	$(Q)-rm -f icdcs2013/*_m.cc icdcs2013/*_m.h
+	$(Q)-rm -f icdcs2013/bin/*_m.cc icdcs2013/bin/*_m.h
+	$(Q)-rm -f icdcs2013/cited/*_m.cc icdcs2013/cited/*_m.h
+	$(Q)-rm -f icdcs2013/maxima/*_m.cc icdcs2013/maxima/*_m.h
+	$(Q)-rm -f icdcs2013/plots/*_m.cc icdcs2013/plots/*_m.h
+	$(Q)-rm -f icdcs2013/plots/sources/*_m.cc icdcs2013/plots/sources/*_m.h
+	$(Q)-rm -f icdcs2013/topologies/*_m.cc icdcs2013/topologies/*_m.h
+	$(Q)-rm -f icdcs2013/topologies/bin/*_m.cc icdcs2013/topologies/bin/*_m.h
+	$(Q)-rm -f messages/*_m.cc messages/*_m.h
+	$(Q)-rm -f networks/*_m.cc networks/*_m.h
+	$(Q)-rm -f node/*_m.cc node/*_m.h
+	$(Q)-rm -f results/*_m.cc results/*_m.h
 
 cleanall: clean
-	-rm -rf $(PROJECT_OUTPUT_DIR)
+	$(Q)-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/bin/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/plots/sources/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc analysis/*.cc channelvariation/*.cc icdcs2013/*.cc icdcs2013/IEEEtranBST/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc
+	$(qecho) Creating dependencies...
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/plots/sources/*.cc OMNeTWorkshop/presentation/*.cc OMNeTWorkshop/presentation/disco/*.cc OMNeTWorkshop/presentation/topologies/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc analysis/*.cc channelvariation/*.cc icdcs2013/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/APlusMinor.o: adversaries/APlusMinor.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h
 $O/adversaries/AdvancedAdversary.o: adversaries/AdvancedAdversary.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h
 $O/adversaries/BB.o: adversaries/BB.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h
 $O/adversaries/BBhalf.o: adversaries/BBhalf.cc \
 	messages/AdversarialInjectionMessage_m.h
 $O/adversaries/CE3.o: adversaries/CE3.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h
 $O/adversaries/CE3half.o: adversaries/CE3half.cc \
 	messages/AdversarialInjectionMessage_m.h
 $O/adversaries/CE7.o: adversaries/CE7.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h
 $O/adversaries/CE71.o: adversaries/CE71.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h
 $O/adversaries/CE75.o: adversaries/CE75.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h
 $O/adversaries/CE7half.o: adversaries/CE7half.cc \
 	messages/AdversarialInjectionMessage_m.h
 $O/adversaries/CF3.o: adversaries/CF3.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h
 $O/adversaries/CF7.o: adversaries/CF7.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h
 $O/adversaries/Diaz.o: adversaries/Diaz.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h
 $O/adversaries/Koukopoulos.o: adversaries/Koukopoulos.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h
 $O/adversaries/Lotker.o: adversaries/Lotker.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h \
+	node/L2Queue.h
 $O/adversaries/LotkerMod.o: adversaries/LotkerMod.cc \
 	adversaries/AdvancedAdversary.h \
-	adversaries/QueueListener.h
+	adversaries/QueueListener.h \
+	messages/AdvSchedMess.h \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/QueueLengthRequest_m.h \
+	node/L2Queue.h
 $O/adversaries/QueueListener.o: adversaries/QueueListener.cc \
 	adversaries/QueueListener.h
 $O/channelvariation/Randomization.o: channelvariation/Randomization.cc
@@ -239,6 +287,10 @@ $O/messages/SourceRoutingPacket_m.o: messages/SourceRoutingPacket_m.cc \
 	messages/SourceRoutingPacket_m.h
 $O/node/L2Queue.o: node/L2Queue.cc \
 	node/L2Queue.h
-$O/node/SourceRouting.o: node/SourceRouting.cc
-$O/node/SourceRoutingApp.o: node/SourceRoutingApp.cc
+$O/node/SourceRouting.o: node/SourceRouting.cc \
+	messages/QueueLengthRequest_m.h \
+	messages/SourceRoutingPacket_m.h
+$O/node/SourceRoutingApp.o: node/SourceRoutingApp.cc \
+	messages/AdversarialInjectionMessage_m.h \
+	messages/SourceRoutingPacket_m.h
 
