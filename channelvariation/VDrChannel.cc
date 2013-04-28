@@ -35,6 +35,8 @@ void VDrChannel::initialize()
 void VDrChannel::processMessage(cMessage *msg, simtime_t t, result_t& result)
 {
     cDatarateChannel::processMessage(msg, t, result);
-    double nextDatarate = truncnormal(meanDatarate-0.0001,stdDatarate)+0.0001;
-    cDatarateChannel::setDatarate(nextDatarate);
+    if(stdDatarate != 0) {
+        double nextDatarate = truncnormal(meanDatarate-0.0001,stdDatarate)+0.0001; //in expectancy this will result in meanDr = mean, however, no 0 values will occur
+        cDatarateChannel::setDatarate(nextDatarate);
+    }
 }

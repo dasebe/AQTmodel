@@ -1,3 +1,6 @@
+#include <distrib.h>
+
+
 // Disable warnings about unused variables, empty switch stmts, etc:
 #ifdef _MSC_VER
 #  pragma warning(disable:4101)
@@ -33,6 +36,7 @@ void AdvancedAdversary::initialize()
     timeSlots = &par("timeSlotLength");
     bufferSize = par("frameCapacity");
     injectionRate = par("injectionRate");
+    injectionRandSTDTime = par("injectionRandSTDTime");
     injectionCount = 0;
     intervalStart = simTime(); // == 0 (as we init!)
     maxPhaseCounter=0;
@@ -133,7 +137,20 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
 
             EV << "INJECT:     at " << aSMess->atNode << "  set " << msg->getName() << "  remain " << aSMess->packetCount << endl;
 
-            scheduleAt(simTime() + aSMess->interInjectionTime, aSMess);
+            SimTime schednext = simTime() + aSMess->interInjectionTime;
+            //randomization of injection. But if
+            if (injectionRandSTDTime == 0)
+            {
+                scheduleAt(schednext, aSMess);
+            }
+            else
+            {
+
+            }
+
+
+
+            //double nextDatarate = truncnormal(meanDatarate-0.0001,stdDatarate)+0.0001;
         }
         else
         {
