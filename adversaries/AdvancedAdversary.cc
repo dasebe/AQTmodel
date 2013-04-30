@@ -146,13 +146,10 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
             }
             else
             {
-                schednext = simTime() + truncnormal(aSMess->interInjectionTime,(aSMess->interInjectionTime)*injectionRandSTDTime);
+                schednext = simTime() + truncnormal(aSMess->interInjectionTime,
+                        (aSMess->interInjectionTime)*injectionRandSTDTime);
                 scheduleAt(schednext, aSMess);
             }
-
-
-
-            //double nextDatarate = truncnormal(meanDatarate-0.0001,stdDatarate)+0.0001;
         }
         else
         {
