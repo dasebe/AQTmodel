@@ -75,9 +75,6 @@ network CE3
             @display("p=491,338;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 291;
         }
-		randomization: Randomization {
-            @display("p=312,28;i=status/ctrl");
-        }
     connections:
 
         n22.port++ <--> C <--> n91.port++;

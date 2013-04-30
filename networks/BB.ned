@@ -57,9 +57,6 @@ network BB
             @display("p=285,213;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 23;
         }
-        randomization: Randomization {
-            @display("p=327,25;i=status/ctrl");
-        }
     connections:
 
         n2.port++ <--> C <--> n3.port++;
