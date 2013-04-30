@@ -30,8 +30,9 @@ void VDrChannel::initialize()
     scale = par("scale");
     shape = par("shape");
     datarate = par("datarate");
-    cDatarateChannel::setDatarate(
-            truncnormal(scale-0.0001,shape)+0.0001);
+    if(shape != 0) {
+        cDatarateChannel::setDatarate(weibull(scale,shape)*datarate);
+    }
 }
 
 void VDrChannel::processMessage(cMessage *msg, simtime_t t, result_t& result)
