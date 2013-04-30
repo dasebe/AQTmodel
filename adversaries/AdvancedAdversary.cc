@@ -137,15 +137,17 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
 
             EV << "INJECT:     at " << aSMess->atNode << "  set " << msg->getName() << "  remain " << aSMess->packetCount << endl;
 
-            SimTime schednext = simTime() + aSMess->interInjectionTime;
+            SimTime schednext;
             //randomization of injection. But if
             if (injectionRandSTDTime == 0)
             {
+                schednext = simTime() + aSMess->interInjectionTime;
                 scheduleAt(schednext, aSMess);
             }
             else
             {
-
+                schednext = simTime() + truncnormal(aSMess->interInjectionTime,(aSMess->interInjectionTime)*injectionRandSTDTime);
+                scheduleAt(schednext, aSMess);
             }
 
 
