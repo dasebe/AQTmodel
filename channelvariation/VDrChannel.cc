@@ -27,8 +27,12 @@ VDrChannel::~VDrChannel()
 void VDrChannel::initialize()
 {
     cDatarateChannel::initialize();
-    scale = par("scale");
-    shape = par("shape");
+    const char *vstr = par("weibull").stringValue(); // e.g. "1.0227 24.95" which means "scale shape"
+    std::vector<double> v = cStringTokenizer(vstr).asDoubleVector();
+    shape = v.back();
+    v.pop_back();
+    scale = v.back();
+    v.pop_back();
     datarate = par("datarate");
     if(shape != 0) {
         cDatarateChannel::setDatarate(weibull(scale,shape)*datarate);

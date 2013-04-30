@@ -54,36 +54,36 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 # Object files for local .cc and .msg files
 OBJS = \
     $O/adversaries/CE71.o \
-    $O/adversaries/Lotker.o \
-    $O/adversaries/CE75.o \
-    $O/adversaries/CE3half.o \
-    $O/adversaries/CE7half.o \
-    $O/adversaries/CE3.o \
-    $O/adversaries/CF3.o \
-    $O/adversaries/BBhalf.o \
-    $O/adversaries/CE7.o \
-    $O/adversaries/CF7.o \
     $O/adversaries/BB.o \
-    $O/adversaries/Koukopoulos.o \
-    $O/adversaries/QueueListener.o \
-    $O/adversaries/LotkerMod.o \
     $O/adversaries/AdvancedAdversary.o \
+    $O/adversaries/LotkerMod.o \
+    $O/adversaries/CE75.o \
+    $O/adversaries/CE7half.o \
+    $O/adversaries/Koukopoulos.o \
+    $O/adversaries/CE7.o \
+    $O/adversaries/Lotker.o \
+    $O/adversaries/CF3.o \
+    $O/adversaries/CE3half.o \
     $O/adversaries/Diaz.o \
+    $O/adversaries/QueueListener.o \
     $O/adversaries/APlusMinor.o \
-    $O/channelvariation/VDrChannel.o \
+    $O/adversaries/CE3.o \
+    $O/adversaries/CF7.o \
+    $O/adversaries/BBhalf.o \
     $O/channelvariation/Randomization.o \
-    $O/node/L2Queue.o \
+    $O/channelvariation/VDrChannel.o \
     $O/node/SourceRouting.o \
+    $O/node/L2Queue.o \
     $O/node/SourceRoutingApp.o \
-    $O/messages/QueueLengthRequest_m.o \
     $O/messages/SourceRoutingPacket_m.o \
-    $O/messages/AdversarialInjectionMessage_m.o
+    $O/messages/AdversarialInjectionMessage_m.o \
+    $O/messages/QueueLengthRequest_m.o
 
 # Message files
 MSGFILES = \
-    messages/QueueLengthRequest.msg \
     messages/SourceRoutingPacket.msg \
-    messages/AdversarialInjectionMessage.msg
+    messages/AdversarialInjectionMessage.msg \
+    messages/QueueLengthRequest.msg
 
 #------------------------------------------------------------------------------
 
