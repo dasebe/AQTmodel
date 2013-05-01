@@ -72,7 +72,7 @@ protected:
     short int  curPhaseCounter;
     char nextPhaseName;
     short int  nextPhaseCounter;
-    long maxPhaseCounter;
+    long phaseCounter;
 
     std::vector<QueueListener*> qlarray;
     long queueLen;

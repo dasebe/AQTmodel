@@ -15,7 +15,7 @@ network CE71
 {
     parameters:
         string adType;
-        @display("bgb=688,735,white,,0");
+        @display("bgb=659,572,white,,0");
     types:
         channel C extends DatarateChannel
         {
@@ -25,111 +25,111 @@ network CE71
     submodules:
 
         adversary: <adType> like AdvancedAdversary {
-            @display("p=352,300;i=block/blackboard,#AA0000;is=s");
+            @display("p=340,270;i=block/blackboard,#AA0000;is=s");
         }
 
         n12: SourceRoutingNode {
-            @display("p=29,50;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=17,20;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 112;
         }
         n91: SourceRoutingNode {
-            @display("p=83,199;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=71,169;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 191;
         }
         n22: SourceRoutingNode {
-            @display("p=145,99;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=133,69;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 122;
         }
         n92: SourceRoutingNode {
-            @display("p=83,268;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=71,238;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 192;
         }
         n11: SourceRoutingNode {
-            @display("p=650,50;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=638,20;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 111;
         }
         n32: SourceRoutingNode {
-            @display("p=264,149;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=252,119;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 132;
         }
         n94: SourceRoutingNode {
-            @display("p=196,268;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=184,238;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 194;
         }
         n95: SourceRoutingNode {
-            @display("p=196,337;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=184,307;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 195;
         }
         n97: SourceRoutingNode {
-            @display("p=196,416;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=184,386;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 197;
         }
         n93: SourceRoutingNode {
-            @display("p=83,337;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=71,307;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 193;
         }
         n96: SourceRoutingNode {
-            @display("p=83,416;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=71,386;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 196;
         }
         m11: SourceRoutingNode {
-            @display("p=29,571;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=17,541;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 211;
         }
         m21: SourceRoutingNode {
-            @display("p=145,520;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=133,490;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 221;
         }
         m31: SourceRoutingNode {
-            @display("p=264,471;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=252,441;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 231;
         }
         n21: SourceRoutingNode {
-            @display("p=541,99;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=529,69;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 121;
         }
         n31: SourceRoutingNode {
-            @display("p=437,149;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=425,119;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 131;
         }
         m32: SourceRoutingNode {
-            @display("p=437,471;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=425,441;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 232;
         }
         m22: SourceRoutingNode {
-            @display("p=547,520;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=535,490;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 222;
         }
         m12: SourceRoutingNode {
-            @display("p=650,571;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=638,541;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 212;
         }
         m91: SourceRoutingNode {
-            @display("p=592,416;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=580,386;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 291;
         }
         m92: SourceRoutingNode {
-            @display("p=592,343;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=580,313;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 292;
         }
         m93: SourceRoutingNode {
-            @display("p=592,268;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=580,238;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 293;
         }
         m95: SourceRoutingNode {
-            @display("p=494,268;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=482,238;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 295;
         }
         m97: SourceRoutingNode {
-            @display("p=494,199;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=482,169;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 297;
         }
         m94: SourceRoutingNode {
-            @display("p=494,343;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=482,313;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 294;
         }
         m96: SourceRoutingNode {
-            @display("p=592,199;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
+            @display("p=580,169;b=15,15,oval,#868686,,1;tt=q;i=misc/node2,#676767,100;is=vs");
             address = 296;
         }
     connections:

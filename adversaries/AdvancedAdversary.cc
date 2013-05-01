@@ -39,7 +39,7 @@ void AdvancedAdversary::initialize()
     injectionRandSTDTime = par("injectionRandSTDTime");
     injectionCount = 0;
     intervalStart = simTime(); // == 0 (as we init!)
-    maxPhaseCounter=0;
+    phaseCounter=0;
     WATCH(injectionCount);
 
     injectedPackets = registerSignal("injectedPackets");

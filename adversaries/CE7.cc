@@ -37,7 +37,7 @@ void CE7::injectInitialPackets()
     //define adversarial injections
     int initialSetSize=par("initialSetSize"); //in time steps (not simulationTime!!)
     AdvSchedMess * tmp;
-    maxPhaseCounter=100; //currently overall time fixed to simTime<=100s
+    phaseCounter=100; //currently overall time fixed to simTime<=100s
 
 //learn queue length
     //before the queue length later on can be queried -> need to create the listener objects

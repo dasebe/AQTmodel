@@ -38,7 +38,7 @@ void CE71::injectInitialPackets()
 
     //define adversarial injections
     AdvSchedMess * tmp;
-    maxPhaseCounter=100; //currently overall time fixed to simTime<=100s
+    phaseCounter=0; //currently overall time fixed to simTime<=100s
 
 //learn queue length
     //before the queue length later on can be queried -> need to create the listener objects
@@ -137,7 +137,16 @@ void CE71::injectInitialPackets()
     {
         AdvSchedMess * tmp;
         //we assume we are indeed subscribed to the right queue! - no further consistency check!
-        long roundTime=qlarray[curPhaseCounter/100-1]->queuelength + 1; //because one transmitted right away
+        long roundTime;
+        if(phaseCounter==0)
+        {
+            roundTime=qlarray[curPhaseCounter/100-1]->queuelength + 1; //because one transmitted right away in first phase
+        }
+        else
+        {
+            roundTime=qlarray[curPhaseCounter/100-1]->queuelength;
+        }
+
         emit(measuredSetSizeSignal, roundTime);
         ev << "QL: "<< roundTime << endl;
 
@@ -431,8 +440,7 @@ void CE71::injectInitialPackets()
         scheduleAt(intervalStart,tmp);
 
 //inverse Phase follows
-        //if (maxPhaseCounter-->0)
-        //{
+            phaseCounter++;
             char n=curPhaseName;
             curPhaseName=nextPhaseName;
             nextPhaseName=n;
@@ -446,5 +454,4 @@ void CE71::injectInitialPackets()
             selfNote->addPar("phaseCtrl");
             //the round number 5 of this phase is the first round of the next phase
             scheduleAt(timeSyncR5, selfNote);
-        //}
     }

@@ -19,26 +19,32 @@ INCLUDE_PATH = \
     -IOMNeTWorkshop \
     -IOMNeTWorkshop/includes \
     -IOMNeTWorkshop/plots \
-    -IOMNeTWorkshop/plots/sources \
     -IOMNeTWorkshop/presentation \
     -IOMNeTWorkshop/presentation/disco \
     -IOMNeTWorkshop/presentation/topologies \
     -IOMNeTWorkshop/topologies \
     -Iadversaries \
     -Ianalysis \
+    -Ianalysis/documentation \
+    -Ianalysis/documentation/2012-11-15-icdcs \
+    -Ianalysis/documentation/2012-12-08-omnetworkshop \
+    -Ianalysis/documentation/2013-05-01-disc \
+    -Ianalysis/documentation/2013-05-01-disc/1 \
     -Ichannelvariation \
     -Iicdcs2013 \
     -Iicdcs2013/bin \
-    -Iicdcs2013/cited \
     -Iicdcs2013/maxima \
     -Iicdcs2013/plots \
-    -Iicdcs2013/plots/sources \
     -Iicdcs2013/topologies \
     -Iicdcs2013/topologies/bin \
     -Imessages \
     -Inetworks \
     -Inode \
-    -Iresults
+    -Iresults \
+    -Iresults.detCE71 \
+    -Iresults.iaBB \
+    -Iresults.iacdBBCE3CE7 \
+    -Iresults.weibullCE71
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -160,33 +166,39 @@ clean:
 	$(Q)-rm -f OMNeTWorkshop/*_m.cc OMNeTWorkshop/*_m.h
 	$(Q)-rm -f OMNeTWorkshop/includes/*_m.cc OMNeTWorkshop/includes/*_m.h
 	$(Q)-rm -f OMNeTWorkshop/plots/*_m.cc OMNeTWorkshop/plots/*_m.h
-	$(Q)-rm -f OMNeTWorkshop/plots/sources/*_m.cc OMNeTWorkshop/plots/sources/*_m.h
 	$(Q)-rm -f OMNeTWorkshop/presentation/*_m.cc OMNeTWorkshop/presentation/*_m.h
 	$(Q)-rm -f OMNeTWorkshop/presentation/disco/*_m.cc OMNeTWorkshop/presentation/disco/*_m.h
 	$(Q)-rm -f OMNeTWorkshop/presentation/topologies/*_m.cc OMNeTWorkshop/presentation/topologies/*_m.h
 	$(Q)-rm -f OMNeTWorkshop/topologies/*_m.cc OMNeTWorkshop/topologies/*_m.h
 	$(Q)-rm -f adversaries/*_m.cc adversaries/*_m.h
 	$(Q)-rm -f analysis/*_m.cc analysis/*_m.h
+	$(Q)-rm -f analysis/documentation/*_m.cc analysis/documentation/*_m.h
+	$(Q)-rm -f analysis/documentation/2012-11-15-icdcs/*_m.cc analysis/documentation/2012-11-15-icdcs/*_m.h
+	$(Q)-rm -f analysis/documentation/2012-12-08-omnetworkshop/*_m.cc analysis/documentation/2012-12-08-omnetworkshop/*_m.h
+	$(Q)-rm -f analysis/documentation/2013-05-01-disc/*_m.cc analysis/documentation/2013-05-01-disc/*_m.h
+	$(Q)-rm -f analysis/documentation/2013-05-01-disc/1/*_m.cc analysis/documentation/2013-05-01-disc/1/*_m.h
 	$(Q)-rm -f channelvariation/*_m.cc channelvariation/*_m.h
 	$(Q)-rm -f icdcs2013/*_m.cc icdcs2013/*_m.h
 	$(Q)-rm -f icdcs2013/bin/*_m.cc icdcs2013/bin/*_m.h
-	$(Q)-rm -f icdcs2013/cited/*_m.cc icdcs2013/cited/*_m.h
 	$(Q)-rm -f icdcs2013/maxima/*_m.cc icdcs2013/maxima/*_m.h
 	$(Q)-rm -f icdcs2013/plots/*_m.cc icdcs2013/plots/*_m.h
-	$(Q)-rm -f icdcs2013/plots/sources/*_m.cc icdcs2013/plots/sources/*_m.h
 	$(Q)-rm -f icdcs2013/topologies/*_m.cc icdcs2013/topologies/*_m.h
 	$(Q)-rm -f icdcs2013/topologies/bin/*_m.cc icdcs2013/topologies/bin/*_m.h
 	$(Q)-rm -f messages/*_m.cc messages/*_m.h
 	$(Q)-rm -f networks/*_m.cc networks/*_m.h
 	$(Q)-rm -f node/*_m.cc node/*_m.h
 	$(Q)-rm -f results/*_m.cc results/*_m.h
+	$(Q)-rm -f results.detCE71/*_m.cc results.detCE71/*_m.h
+	$(Q)-rm -f results.iaBB/*_m.cc results.iaBB/*_m.h
+	$(Q)-rm -f results.iacdBBCE3CE7/*_m.cc results.iacdBBCE3CE7/*_m.h
+	$(Q)-rm -f results.weibullCE71/*_m.cc results.weibullCE71/*_m.h
 
 cleanall: clean
 	$(Q)-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/plots/sources/*.cc OMNeTWorkshop/presentation/*.cc OMNeTWorkshop/presentation/disco/*.cc OMNeTWorkshop/presentation/topologies/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc analysis/*.cc channelvariation/*.cc icdcs2013/*.cc icdcs2013/bin/*.cc icdcs2013/cited/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/plots/sources/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/presentation/*.cc OMNeTWorkshop/presentation/disco/*.cc OMNeTWorkshop/presentation/topologies/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc analysis/*.cc analysis/documentation/*.cc analysis/documentation/2012-11-15-icdcs/*.cc analysis/documentation/2012-12-08-omnetworkshop/*.cc analysis/documentation/2013-05-01-disc/*.cc analysis/documentation/2013-05-01-disc/1/*.cc channelvariation/*.cc icdcs2013/*.cc icdcs2013/bin/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc results.detCE71/*.cc results.iaBB/*.cc results.iacdBBCE3CE7/*.cc results.weibullCE71/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/APlusMinor.o: adversaries/APlusMinor.cc \
