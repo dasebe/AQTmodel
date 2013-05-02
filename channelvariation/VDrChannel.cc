@@ -6,7 +6,9 @@ class VDrChannel : public cDatarateChannel
   protected:
     int scale;
     int shape;
-    int datarate;
+    int packetLength;
+    double timeSlotLength;
+
   public:
     explicit VDrChannel(const char *name = NULL);
     virtual ~VDrChannel();
@@ -27,6 +29,8 @@ VDrChannel::~VDrChannel()
 void VDrChannel::initialize()
 {
     cDatarateChannel::initialize();
+    packetLength = par("packetLength");
+    timeSlotLength = par("timeSlotLength");
     const char *vstr = par("weibull").stringValue(); // e.g. "1.0227 24.95" which means "scale shape"
     std::vector<double> v = cStringTokenizer(vstr).asDoubleVector();
     shape = v.back();
