@@ -22,7 +22,7 @@ simple CE3Adversary
 	double injectionRandSTDTime; // set standard deviation of how much injections may deviate from scheduled time
         @signal[injectedPackets](type="long");
         @statistic[injectedPackets](title="injected Packets"; interpolationmode=none; record=count);
-	@statistic[injectionTime](title="injectionTime";record=vector;interpolationmode=sample-hold);
+	@statistic[injectionTime](title="injectionTime";record=vector?;interpolationmode=sample-hold);
     gates:
         output adversaryControl @loose;
 }
