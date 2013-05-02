@@ -43,6 +43,8 @@ INCLUDE_PATH = \
     -Iresults \
     -Iresults.detCE71 \
     -Iresults.iacdBBCE3CE7 \
+    -Iresults.testCE3.alt \
+    -Iresults.testCE3.neu \
     -Iresults.testCE71.neu \
     -Iresults.testce71.alt \
     -Iresults.weibullCE71
@@ -191,6 +193,8 @@ clean:
 	$(Q)-rm -f results/*_m.cc results/*_m.h
 	$(Q)-rm -f results.detCE71/*_m.cc results.detCE71/*_m.h
 	$(Q)-rm -f results.iacdBBCE3CE7/*_m.cc results.iacdBBCE3CE7/*_m.h
+	$(Q)-rm -f results.testCE3.alt/*_m.cc results.testCE3.alt/*_m.h
+	$(Q)-rm -f results.testCE3.neu/*_m.cc results.testCE3.neu/*_m.h
 	$(Q)-rm -f results.testCE71.neu/*_m.cc results.testCE71.neu/*_m.h
 	$(Q)-rm -f results.testce71.alt/*_m.cc results.testce71.alt/*_m.h
 	$(Q)-rm -f results.weibullCE71/*_m.cc results.weibullCE71/*_m.h
@@ -200,7 +204,7 @@ cleanall: clean
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/presentation/*.cc OMNeTWorkshop/presentation/disco/*.cc OMNeTWorkshop/presentation/topologies/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc analysis/*.cc analysis/documentation/*.cc analysis/documentation/2012-11-15-icdcs/*.cc analysis/documentation/2012-12-08-omnetworkshop/*.cc analysis/documentation/2013-05-01-disc/*.cc analysis/documentation/2013-05-01-disc/1/*.cc channelvariation/*.cc icdcs2013/*.cc icdcs2013/bin/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc results.detCE71/*.cc results.iacdBBCE3CE7/*.cc results.testCE71.neu/*.cc results.testce71.alt/*.cc results.weibullCE71/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/presentation/*.cc OMNeTWorkshop/presentation/disco/*.cc OMNeTWorkshop/presentation/topologies/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc analysis/*.cc analysis/documentation/*.cc analysis/documentation/2012-11-15-icdcs/*.cc analysis/documentation/2012-12-08-omnetworkshop/*.cc analysis/documentation/2013-05-01-disc/*.cc analysis/documentation/2013-05-01-disc/1/*.cc channelvariation/*.cc icdcs2013/*.cc icdcs2013/bin/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc results.detCE71/*.cc results.iacdBBCE3CE7/*.cc results.testCE3.alt/*.cc results.testCE3.neu/*.cc results.testCE71.neu/*.cc results.testce71.alt/*.cc results.weibullCE71/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/APlusMinor.o: adversaries/APlusMinor.cc \
