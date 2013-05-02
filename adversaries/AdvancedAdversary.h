@@ -65,7 +65,8 @@ protected:
     cPar *timeSlots;
     long bufferSize;
     double injectionRate;
-    double injectionRandSTDTime;
+    double gaussianInjTimeMean;
+    double gaussianInjTimeStd;
     SimTime intervalStart;
     long injectionCount;
     char curPhaseName;

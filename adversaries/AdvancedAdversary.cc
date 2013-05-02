@@ -36,7 +36,12 @@ void AdvancedAdversary::initialize()
     timeSlots = &par("timeSlotLength");
     bufferSize = par("frameCapacity");
     injectionRate = par("injectionRate");
-    injectionRandSTDTime = par("injectionRandSTDTime");
+    const char *vstr = par("gaussianInjTime").stringValue();
+       std::vector<double> v = cStringTokenizer(vstr).asDoubleVector();
+       gaussianInjTimeStd = v.back();
+       v.pop_back();
+       gaussianInjTimeMean = v.back();
+       v.pop_back();
     injectionCount = 0;
     intervalStart = simTime(); // == 0 (as we init!)
     phaseCounter=0;
@@ -141,14 +146,14 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
             SimTime schednext;
             //randomization of injection. But if
             double curinterInjectionTime;
-            if (injectionRandSTDTime == 0)
+            if (gaussianInjTimeStd == 0)
             {
                 curinterInjectionTime=aSMess->interInjectionTime;
             }
             else
             {
-                curinterInjectionTime = truncnormal(aSMess->interInjectionTime,
-                        (aSMess->interInjectionTime)*injectionRandSTDTime);
+                curinterInjectionTime = truncnormal(aSMess->interInjectionTime*gaussianInjTimeMean,
+                        (aSMess->interInjectionTime)*gaussianInjTimeStd);
             }
             emit(injectionTime, curinterInjectionTime);
             schednext = simTime() + curinterInjectionTime;
