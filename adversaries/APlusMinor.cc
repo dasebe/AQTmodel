@@ -73,11 +73,11 @@ void APlusMinor::injectPhasePackets()
         long intervalLength;
         if(phaseCounter==0)
         {
-            intervalLength=qlarray[curPhaseCounter/100-1]->queuelength + 1; //because one transmitted right away in first phase
+            intervalLength=qlarray[0]->queuelength + 1; //because one transmitted right away in first phase
         }
         else
         {
-            intervalLength=qlarray[curPhaseCounter/100-1]->queuelength;
+            intervalLength=qlarray[0]->queuelength;
         }
 
         emit(measuredSetSizeSignal, intervalLength);

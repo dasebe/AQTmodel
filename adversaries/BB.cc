@@ -76,11 +76,11 @@ void BB::injectPhasePackets()
     long intervalLength;
     if(phaseCounter==0)
     {
-        intervalLength=qlarray[curPhaseCounter/100-1]->queuelength + 1; //because one transmitted right away in first phase
+        intervalLength=qlarray[curPhaseCounter/10-1]->queuelength + 1; //because one transmitted right away in first phase
     }
     else
     {
-        intervalLength=qlarray[curPhaseCounter/100-1]->queuelength;
+        intervalLength=qlarray[curPhaseCounter/10-1]->queuelength;
     }
 
     emit(measuredSetSizeSignal, intervalLength);
