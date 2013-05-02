@@ -70,9 +70,25 @@ void APlusMinor::injectPhasePackets()
     if(isNewPhase)
     {
         //we assume we are indeed subscribed to the right queue! - no further consistency check!
-        long intervalLength=qlarray[0]->queuelength + 1; //because one transmitted currently
+        long intervalLength;
+        if(phaseCounter==0)
+        {
+            intervalLength=qlarray[curPhaseCounter/100-1]->queuelength + 1; //because one transmitted right away in first phase
+        }
+        else
+        {
+            intervalLength=qlarray[curPhaseCounter/100-1]->queuelength;
+        }
+
         emit(measuredSetSizeSignal, intervalLength);
         ev << "QL: "<< intervalLength << endl;
+
+        //check if we are running empty
+        if(phaseCounter > 0 && intervalLength == 0)
+        {
+            return;
+            ev << "Stopping as QL=0";
+        }
 
         //interval [t0,t1]
         intervalStart = simTime(); //offset = 0

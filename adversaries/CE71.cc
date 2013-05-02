@@ -150,6 +150,14 @@ void CE71::injectInitialPackets()
         emit(measuredSetSizeSignal, roundTime);
         ev << "QL: "<< roundTime << endl;
 
+        //check if we are running empty
+        if(phaseCounter > 0 && roundTime == 0)
+        {
+            return;
+            ev << "Stopping as QL=0";
+        }
+
+
 //round 1
         intervalStart = simTime(); //offset for first round = 0
 
