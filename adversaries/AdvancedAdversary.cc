@@ -44,6 +44,7 @@ void AdvancedAdversary::initialize()
 
     injectedPackets = registerSignal("injectedPackets");
     measuredSetSizeSignal = registerSignal("measuredSetSize");
+    injectionTime = registerSignal("injectionTime");
 
     injectInitialPackets();
     /**
@@ -139,17 +140,19 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
 
             SimTime schednext;
             //randomization of injection. But if
+            double curinterInjectionTime;
             if (injectionRandSTDTime == 0)
             {
-                schednext = simTime() + aSMess->interInjectionTime;
-                scheduleAt(schednext, aSMess);
+                curinterInjectionTime=aSMess->interInjectionTime;
             }
             else
             {
-                schednext = simTime() + truncnormal(aSMess->interInjectionTime,
+                curinterInjectionTime = truncnormal(aSMess->interInjectionTime,
                         (aSMess->interInjectionTime)*injectionRandSTDTime);
-                scheduleAt(schednext, aSMess);
             }
+            emit(injectionTime, curinterInjectionTime);
+            schednext = simTime() + curinterInjectionTime;
+            scheduleAt(schednext, aSMess);
         }
         else
         {

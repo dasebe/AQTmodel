@@ -80,6 +80,7 @@ protected:
     // signals for statistics (e.g.)
     simsignal_t injectedPackets;
     simsignal_t measuredSetSizeSignal;
+    simsignal_t injectionTime;
 
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
