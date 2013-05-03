@@ -1,6 +1,9 @@
-#nice -n 3 ionice -c2 -n7 ./adversarialQueueing -c BB -u Cmdenv -r 0..20
-nice -n 3 ionice -c2 -n7 ./adversarialQueueing -c CE3 -u Cmdenv -r 0..20
-nice -n 3 ionice -c2 -n7  ./adversarialQueueing -c CE7 -u Cmdenv -r 0..20
-#nice -n 3 ionice -c2 -n7  ./adversarialQueueing -c varBB -u Cmdenv -r 0..1890
-nice -n 3 ionice -c2 -n7  ./adversarialQueueing -c varCE71 -u Cmdenv -r 0..1890
-#nice -n 3 ionice -c2 -n7  ./adversarialQueueing -c varCE3 -u Cmdenv -r 0..1890
+nice -n 3 ionice -c2 -n7 ./adversarialQueueing -c cdBB -u Cmdenv -r 0..3149
+nice -n 3 ionice -c2 -n7 ./adversarialQueueing -c cdCE3 -u Cmdenv -r 0..1700
+nice -n 3 ionice -c2 -n7 ./adversarialQueueing -c cdCE3 -u Cmdenv -r 1701..3149
+nice -n 3 ionice -c2 -n7  ./adversarialQueueing -c cdCE71 -u Cmdenv -r 0..900
+nice -n 3 ionice -c2 -n7  ./adversarialQueueing -c cdCE71 -u Cmdenv -r 901..1700
+nice -n 3 ionice -c2 -n7  ./adversarialQueueing -c cdCE71 -u Cmdenv -r 1701..2400
+nice -n 3 ionice -c2 -n7  ./adversarialQueueing -c cdCE71 -u Cmdenv -r 2401..3149
+
+
