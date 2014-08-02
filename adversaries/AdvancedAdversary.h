@@ -11,6 +11,8 @@
  #include <omnetpp.h>
 #endif
 
+
+
 #ifndef ADVSCHEDMESS_H
 #define ADVSCHEDMESS_H
  #include "../messages/AdvSchedMess.h"
@@ -68,6 +70,8 @@ protected:
     double gaussianInjTimeMean;
     double gaussianInjTimeStd;
     SimTime intervalStart;
+    SimTime simTimeLimit;
+    bool existsSimTimeLimit;
     long injectionCount;
     char curPhaseName;
     short int  curPhaseCounter;

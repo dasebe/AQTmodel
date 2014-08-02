@@ -36,6 +36,17 @@ void AdvancedAdversary::initialize()
     timeSlots = &par("timeSlotLength");
     bufferSize = par("frameCapacity");
     injectionRate = par("injectionRate");
+
+    const char *s = ev.getConfig()->getConfigValue("sim-time-limit");
+    //need to check for NULL
+    if(s==NULL)
+        existsSimTimeLimit=false;
+    else
+    {
+        existsSimTimeLimit=true;
+        simTimeLimit = SimTime(ev.getConfig()->parseDouble(s,"s","0",0));
+    }
+
     const char *vstr = par("gaussianInjTime").stringValue();
        std::vector<double> v = cStringTokenizer(vstr).asDoubleVector();
        gaussianInjTimeStd = v.back();
@@ -157,6 +168,7 @@ void AdvancedAdversary::handleMessage(cMessage *msg)
             }
             emit(injectionTime, curinterInjectionTime);
             schednext = simTime() + curinterInjectionTime;
+
             scheduleAt(schednext, aSMess);
         }
         else

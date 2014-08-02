@@ -95,10 +95,8 @@ void SourceRoutingApp::handleMessage(cMessage *msg)
         send(npk,"out");
 
         //delete adversarial command
-        delete(pk);
-        //cancelAndDelete(msg);?
-
-
+        cancelAndDelete(msg);
+        //delete(pk); //is included in above's cmd
     }
     else if (msg->isPacket()) //no type/class check! -> assume only other poss is SourceRoutingPacket
     {
@@ -108,7 +106,10 @@ void SourceRoutingApp::handleMessage(cMessage *msg)
         emit(endToEndDelaySignal, simTime() - pk->getCreationTime());
         emit(hopCountSignal, pk->getHopCount());
         emit(sourceAddressSignal, pk->getSrcAddr());
-        delete pk;
+
+        //delete adversarial command
+        cancelAndDelete(msg);
+        //delete(pk); //is included in above's cmd
 
         if (ev.isGUI())
         {
@@ -117,5 +118,6 @@ void SourceRoutingApp::handleMessage(cMessage *msg)
         }
     }
     //else unknown message
+
 }
 

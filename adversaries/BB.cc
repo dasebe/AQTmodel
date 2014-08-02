@@ -86,6 +86,11 @@ void BB::injectPhasePackets()
     emit(measuredSetSizeSignal, intervalLength);
     ev << "QL: "<< intervalLength << endl;
 
+
+
+    //interval 1
+    intervalStart = simTime(); //offset for first interval = 0
+
     //check if we are running empty
     if(phaseCounter > 0 && intervalLength == 0)
     {
@@ -93,9 +98,13 @@ void BB::injectPhasePackets()
         ev << "Stopping as QL=0";
     }
 
-
-    //interval 1
-    intervalStart = simTime(); //offset for first interval = 0
+    //check if interval would go past the simulation time limit
+    // if so, don't start a new phase
+    if(existsSimTimeLimit && (intervalStart+3* intervalLength*(timeSlots->doubleValue()) > simTimeLimit))
+    {
+        return;
+        ev << "Stopping as next phase after Simulation Time Limit";
+    }
 
 
     // (set X)

@@ -100,6 +100,23 @@ void Diaz::injectPhasePackets()
     //stage 1
     intervalStart = simTime(); //offset for first interval = 0
 
+
+    //check if we are running empty
+    if(phaseCounter > 0 && intervalLength == 0)
+    {
+        return;
+        ev << "Stopping as QL=0";
+    }
+
+    //check if interval would go past the simulation time limit
+    // if so, don't start a new phase
+    if(existsSimTimeLimit && (intervalStart+3* intervalLength*(timeSlots->doubleValue()) > simTimeLimit))
+    {
+        return;
+        ev << "Stopping as next phase after Simulation Time Limit";
+    }
+
+
     //green
     newInjection = new AdvSchedMess;
     newInjection->interInjectionTime = (timeSlots->doubleValue())/injectionRate;

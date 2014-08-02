@@ -92,6 +92,17 @@ void APlusMinor::injectPhasePackets()
 
         //interval [t0,t1]
         intervalStart = simTime(); //offset = 0
+
+        //check if interval would go past the simulation time limit
+        // if so, don't start a new phase
+        if(existsSimTimeLimit && (intervalStart+3* intervalLength*(timeSlots->doubleValue()) > simTimeLimit))
+        {
+            return;
+            ev << "Stopping as next phase after Simulation Time Limit";
+        }
+
+
+
         newInjection = new AdvSchedMess;
         newInjection->interInjectionTime = (timeSlots->doubleValue())/injectionRate;
         newInjection->packetCount = floor(intervalLength*injectionRate);

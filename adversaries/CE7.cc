@@ -143,6 +143,20 @@ void CE7::injectInitialPackets()
 //round 1
         intervalStart = simTime(); //offset for first round = 0
 
+        //check if we are running empty
+        if(phaseCounter > 0 && roundTime == 0)
+        {
+            return;
+            ev << "Stopping as QL=0";
+        }
+
+        //check if interval would go past the simulation time limit
+        // if so, don't start a new phase
+        if(existsSimTimeLimit && (intervalStart+6* roundTime*(timeSlots->doubleValue()) > simTimeLimit))
+        {
+            return;
+            ev << "Stopping as next phase after Simulation Time Limit";
+        }
 
         // (set A1)
         tmp = new AdvSchedMess;
