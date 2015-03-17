@@ -20,6 +20,7 @@ INCLUDE_PATH = \
     -IOMNeTWorkshop/includes \
     -IOMNeTWorkshop/plots \
     -IOMNeTWorkshop/presentation \
+    -IOMNeTWorkshop/presentation/bin \
     -IOMNeTWorkshop/presentation/disco \
     -IOMNeTWorkshop/presentation/topologies \
     -IOMNeTWorkshop/topologies \
@@ -30,24 +31,62 @@ INCLUDE_PATH = \
     -Ianalysis/documentation/2012-12-08-omnetworkshop \
     -Ianalysis/documentation/2013-05-01-disc \
     -Ianalysis/documentation/2013-05-01-disc/1 \
+    -Ianalysis/documentation/2013-05-01-disc/2 \
+    -Ianalysis/documentation/2013-05-01-disc/3 \
+    -Ianalysis/documentation/2013-05-01-disc/4 \
+    -Ianalysis/documentation/2013-05-01-disc/5 \
+    -Ianalysis/documentation/2013-05-01-disc/bothRand1 \
+    -Ianalysis/documentation/2013-05-01-disc/bothRand2 \
+    -Ianalysis/documentation/2013-05-01-disc/testcase \
+    -Ianalysis/documentation/2013-05-01-disc/testcase2 \
+    -Ianalysis/documentation/2014-07-30-queueingsystems \
     -Ichannelvariation \
     -Iicdcs2013 \
     -Iicdcs2013/bin \
-    -Iicdcs2013/maxima \
-    -Iicdcs2013/plots \
     -Iicdcs2013/topologies \
-    -Iicdcs2013/topologies/bin \
+    -Iicdcs2013/website \
     -Imessages \
     -Inetworks \
     -Inode \
-    -Iresults \
-    -Iresults.detCE71 \
-    -Iresults.iacdBBCE3CE7 \
-    -Iresults.testCE3.alt \
-    -Iresults.testCE3.neu \
-    -Iresults.testCE71.neu \
-    -Iresults.testce71.alt \
-    -Iresults.weibullCE71
+    -IoldPaperDrafts \
+    -IoldPaperDrafts/bin \
+    -IoldPaperDrafts/plots \
+    -Iqueueingsystems2015 \
+    -Iqueueingsystems2015/bin \
+    -Iqueueingsystems2015/maxima \
+    -Iqueueingsystems2015/plots \
+    -Iqueueingsystems2015/plots/Randomization \
+    -Iqueueingsystems2015/topologies \
+    -Iqueueingsystems2015/topologies/bin \
+    -Iresultsarchive2014 \
+    -Iresultsarchive2014/results.1.test1failed \
+    -Iresultsarchive2014/results.3.testtoolargemeans \
+    -Iresultsarchive2014/results.5.100pc-steps_0.00001-3000 \
+    -Iresultsarchive2014/results.oldas.1Sep2014 \
+    -Iresultsarchive2014/results_DiazLotker_Diazok_LotkerSmallQueue \
+    -Iresultsarchive2014/results_LotkerMod_broken66percentloss \
+    -Iresultsarchive2014/results_LotkerMod_noloss_queue10000 \
+    -Iresultsarchive2014/results_cdBBCE3CE71_r092_rep20 \
+    -Iresultsarchive2014/results_infcdBBCE3CE71_r092_seeds0-29_iset100 \
+    -Iresultsarchive2014/results_infcdBB_r083_seed0-499_iset100 \
+    -Iresultsarchive2014/results_infcdBB_r084_seed0-499_iset100 \
+    -Iresultsarchive2014/results_infiaBBCE3CE71_r089_seed0-19_iset100 \
+    -Iresultsarchive2014/results_infiaBBCE3_infcdCE71_r086r088r082_s500s500s100_iset100 \
+    -Iresultsarchive2014/results_infiaBBCE3_infcdCE71_r086r088r082_s500s500s100_iset100/results.no-use \
+    -Iresultsarchive2014/results_infiaBBCE3_r087_seed0-19_iset100 \
+    -Iresultsarchive2014/results_infiaBBCE3_r088_seed0-19_iset100 \
+    -Iresultsarchive2014/results_infiaBB_r086_seed0-19_iset100 \
+    -Iresultsarchive2014/results_infiaBB_r092_rep30 \
+    -Iresultsarchive2014/results_infiaBB_r095_rep20 \
+    -Iresultsarchive2014/results_infia_infcd_BBCE3CE71_r092_rep50 \
+    -Iruns \
+    -Isigmetrics2014 \
+    -Isigmetrics2014/bin \
+    -Isigmetrics2014/maxima \
+    -Isigmetrics2014/plots \
+    -Isigmetrics2014/plots/Randomization \
+    -Isigmetrics2014/topologies \
+    -Isigmetrics2014/topologies/bin
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -62,37 +101,37 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
 OBJS = \
-    $O/adversaries/CE71.o \
-    $O/adversaries/BB.o \
-    $O/adversaries/AdvancedAdversary.o \
-    $O/adversaries/LotkerMod.o \
-    $O/adversaries/CE75.o \
     $O/adversaries/CE7half.o \
-    $O/adversaries/Koukopoulos.o \
-    $O/adversaries/CE7.o \
-    $O/adversaries/Lotker.o \
-    $O/adversaries/CF3.o \
-    $O/adversaries/CE3half.o \
-    $O/adversaries/Diaz.o \
     $O/adversaries/QueueListener.o \
     $O/adversaries/APlusMinor.o \
     $O/adversaries/CE3.o \
-    $O/adversaries/CF7.o \
+    $O/adversaries/Diaz.o \
+    $O/adversaries/Koukopoulos.o \
+    $O/adversaries/AdvancedAdversary.o \
     $O/adversaries/BBhalf.o \
+    $O/adversaries/CE75.o \
+    $O/adversaries/CE7.o \
+    $O/adversaries/CE71.o \
+    $O/adversaries/Lotker.o \
+    $O/adversaries/CF3.o \
+    $O/adversaries/CE3half.o \
+    $O/adversaries/CF7.o \
+    $O/adversaries/BB.o \
+    $O/adversaries/LotkerMod.o \
     $O/channelvariation/Randomization.o \
     $O/channelvariation/VDrChannel.o \
-    $O/node/SourceRouting.o \
     $O/node/L2Queue.o \
     $O/node/SourceRoutingApp.o \
-    $O/messages/SourceRoutingPacket_m.o \
+    $O/node/SourceRouting.o \
+    $O/messages/QueueLengthRequest_m.o \
     $O/messages/AdversarialInjectionMessage_m.o \
-    $O/messages/QueueLengthRequest_m.o
+    $O/messages/SourceRoutingPacket_m.o
 
 # Message files
 MSGFILES = \
-    messages/SourceRoutingPacket.msg \
+    messages/QueueLengthRequest.msg \
     messages/AdversarialInjectionMessage.msg \
-    messages/QueueLengthRequest.msg
+    messages/SourceRoutingPacket.msg
 
 #------------------------------------------------------------------------------
 
@@ -153,7 +192,7 @@ $O/$(TARGET): $(OBJS)  $(wildcard $(EXTRA_OBJS)) Makefile
 $O/%.o: %.cc $(COPTS_FILE)
 	@$(MKPATH) $(dir $@)
 	$(qecho) "$<"
-	$(Q)$(CXX) -c $(COPTS) -o $@ $<
+	$(Q)$(CXX) -c $(CXXFLAGS) $(COPTS) -o $@ $<
 
 %_m.cc %_m.h: %.msg
 	$(qecho) MSGC: $<
@@ -170,6 +209,7 @@ clean:
 	$(Q)-rm -f OMNeTWorkshop/includes/*_m.cc OMNeTWorkshop/includes/*_m.h
 	$(Q)-rm -f OMNeTWorkshop/plots/*_m.cc OMNeTWorkshop/plots/*_m.h
 	$(Q)-rm -f OMNeTWorkshop/presentation/*_m.cc OMNeTWorkshop/presentation/*_m.h
+	$(Q)-rm -f OMNeTWorkshop/presentation/bin/*_m.cc OMNeTWorkshop/presentation/bin/*_m.h
 	$(Q)-rm -f OMNeTWorkshop/presentation/disco/*_m.cc OMNeTWorkshop/presentation/disco/*_m.h
 	$(Q)-rm -f OMNeTWorkshop/presentation/topologies/*_m.cc OMNeTWorkshop/presentation/topologies/*_m.h
 	$(Q)-rm -f OMNeTWorkshop/topologies/*_m.cc OMNeTWorkshop/topologies/*_m.h
@@ -180,31 +220,69 @@ clean:
 	$(Q)-rm -f analysis/documentation/2012-12-08-omnetworkshop/*_m.cc analysis/documentation/2012-12-08-omnetworkshop/*_m.h
 	$(Q)-rm -f analysis/documentation/2013-05-01-disc/*_m.cc analysis/documentation/2013-05-01-disc/*_m.h
 	$(Q)-rm -f analysis/documentation/2013-05-01-disc/1/*_m.cc analysis/documentation/2013-05-01-disc/1/*_m.h
+	$(Q)-rm -f analysis/documentation/2013-05-01-disc/2/*_m.cc analysis/documentation/2013-05-01-disc/2/*_m.h
+	$(Q)-rm -f analysis/documentation/2013-05-01-disc/3/*_m.cc analysis/documentation/2013-05-01-disc/3/*_m.h
+	$(Q)-rm -f analysis/documentation/2013-05-01-disc/4/*_m.cc analysis/documentation/2013-05-01-disc/4/*_m.h
+	$(Q)-rm -f analysis/documentation/2013-05-01-disc/5/*_m.cc analysis/documentation/2013-05-01-disc/5/*_m.h
+	$(Q)-rm -f analysis/documentation/2013-05-01-disc/bothRand1/*_m.cc analysis/documentation/2013-05-01-disc/bothRand1/*_m.h
+	$(Q)-rm -f analysis/documentation/2013-05-01-disc/bothRand2/*_m.cc analysis/documentation/2013-05-01-disc/bothRand2/*_m.h
+	$(Q)-rm -f analysis/documentation/2013-05-01-disc/testcase/*_m.cc analysis/documentation/2013-05-01-disc/testcase/*_m.h
+	$(Q)-rm -f analysis/documentation/2013-05-01-disc/testcase2/*_m.cc analysis/documentation/2013-05-01-disc/testcase2/*_m.h
+	$(Q)-rm -f analysis/documentation/2014-07-30-queueingsystems/*_m.cc analysis/documentation/2014-07-30-queueingsystems/*_m.h
 	$(Q)-rm -f channelvariation/*_m.cc channelvariation/*_m.h
 	$(Q)-rm -f icdcs2013/*_m.cc icdcs2013/*_m.h
 	$(Q)-rm -f icdcs2013/bin/*_m.cc icdcs2013/bin/*_m.h
-	$(Q)-rm -f icdcs2013/maxima/*_m.cc icdcs2013/maxima/*_m.h
-	$(Q)-rm -f icdcs2013/plots/*_m.cc icdcs2013/plots/*_m.h
 	$(Q)-rm -f icdcs2013/topologies/*_m.cc icdcs2013/topologies/*_m.h
-	$(Q)-rm -f icdcs2013/topologies/bin/*_m.cc icdcs2013/topologies/bin/*_m.h
+	$(Q)-rm -f icdcs2013/website/*_m.cc icdcs2013/website/*_m.h
 	$(Q)-rm -f messages/*_m.cc messages/*_m.h
 	$(Q)-rm -f networks/*_m.cc networks/*_m.h
 	$(Q)-rm -f node/*_m.cc node/*_m.h
-	$(Q)-rm -f results/*_m.cc results/*_m.h
-	$(Q)-rm -f results.detCE71/*_m.cc results.detCE71/*_m.h
-	$(Q)-rm -f results.iacdBBCE3CE7/*_m.cc results.iacdBBCE3CE7/*_m.h
-	$(Q)-rm -f results.testCE3.alt/*_m.cc results.testCE3.alt/*_m.h
-	$(Q)-rm -f results.testCE3.neu/*_m.cc results.testCE3.neu/*_m.h
-	$(Q)-rm -f results.testCE71.neu/*_m.cc results.testCE71.neu/*_m.h
-	$(Q)-rm -f results.testce71.alt/*_m.cc results.testce71.alt/*_m.h
-	$(Q)-rm -f results.weibullCE71/*_m.cc results.weibullCE71/*_m.h
+	$(Q)-rm -f oldPaperDrafts/*_m.cc oldPaperDrafts/*_m.h
+	$(Q)-rm -f oldPaperDrafts/bin/*_m.cc oldPaperDrafts/bin/*_m.h
+	$(Q)-rm -f oldPaperDrafts/plots/*_m.cc oldPaperDrafts/plots/*_m.h
+	$(Q)-rm -f queueingsystems2015/*_m.cc queueingsystems2015/*_m.h
+	$(Q)-rm -f queueingsystems2015/bin/*_m.cc queueingsystems2015/bin/*_m.h
+	$(Q)-rm -f queueingsystems2015/maxima/*_m.cc queueingsystems2015/maxima/*_m.h
+	$(Q)-rm -f queueingsystems2015/plots/*_m.cc queueingsystems2015/plots/*_m.h
+	$(Q)-rm -f queueingsystems2015/plots/Randomization/*_m.cc queueingsystems2015/plots/Randomization/*_m.h
+	$(Q)-rm -f queueingsystems2015/topologies/*_m.cc queueingsystems2015/topologies/*_m.h
+	$(Q)-rm -f queueingsystems2015/topologies/bin/*_m.cc queueingsystems2015/topologies/bin/*_m.h
+	$(Q)-rm -f resultsarchive2014/*_m.cc resultsarchive2014/*_m.h
+	$(Q)-rm -f resultsarchive2014/results.1.test1failed/*_m.cc resultsarchive2014/results.1.test1failed/*_m.h
+	$(Q)-rm -f resultsarchive2014/results.3.testtoolargemeans/*_m.cc resultsarchive2014/results.3.testtoolargemeans/*_m.h
+	$(Q)-rm -f resultsarchive2014/results.5.100pc-steps_0.00001-3000/*_m.cc resultsarchive2014/results.5.100pc-steps_0.00001-3000/*_m.h
+	$(Q)-rm -f resultsarchive2014/results.oldas.1Sep2014/*_m.cc resultsarchive2014/results.oldas.1Sep2014/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_DiazLotker_Diazok_LotkerSmallQueue/*_m.cc resultsarchive2014/results_DiazLotker_Diazok_LotkerSmallQueue/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_LotkerMod_broken66percentloss/*_m.cc resultsarchive2014/results_LotkerMod_broken66percentloss/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_LotkerMod_noloss_queue10000/*_m.cc resultsarchive2014/results_LotkerMod_noloss_queue10000/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_cdBBCE3CE71_r092_rep20/*_m.cc resultsarchive2014/results_cdBBCE3CE71_r092_rep20/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_infcdBBCE3CE71_r092_seeds0-29_iset100/*_m.cc resultsarchive2014/results_infcdBBCE3CE71_r092_seeds0-29_iset100/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_infcdBB_r083_seed0-499_iset100/*_m.cc resultsarchive2014/results_infcdBB_r083_seed0-499_iset100/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_infcdBB_r084_seed0-499_iset100/*_m.cc resultsarchive2014/results_infcdBB_r084_seed0-499_iset100/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_infiaBBCE3CE71_r089_seed0-19_iset100/*_m.cc resultsarchive2014/results_infiaBBCE3CE71_r089_seed0-19_iset100/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_infiaBBCE3_infcdCE71_r086r088r082_s500s500s100_iset100/*_m.cc resultsarchive2014/results_infiaBBCE3_infcdCE71_r086r088r082_s500s500s100_iset100/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_infiaBBCE3_infcdCE71_r086r088r082_s500s500s100_iset100/results.no-use/*_m.cc resultsarchive2014/results_infiaBBCE3_infcdCE71_r086r088r082_s500s500s100_iset100/results.no-use/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_infiaBBCE3_r087_seed0-19_iset100/*_m.cc resultsarchive2014/results_infiaBBCE3_r087_seed0-19_iset100/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_infiaBBCE3_r088_seed0-19_iset100/*_m.cc resultsarchive2014/results_infiaBBCE3_r088_seed0-19_iset100/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_infiaBB_r086_seed0-19_iset100/*_m.cc resultsarchive2014/results_infiaBB_r086_seed0-19_iset100/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_infiaBB_r092_rep30/*_m.cc resultsarchive2014/results_infiaBB_r092_rep30/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_infiaBB_r095_rep20/*_m.cc resultsarchive2014/results_infiaBB_r095_rep20/*_m.h
+	$(Q)-rm -f resultsarchive2014/results_infia_infcd_BBCE3CE71_r092_rep50/*_m.cc resultsarchive2014/results_infia_infcd_BBCE3CE71_r092_rep50/*_m.h
+	$(Q)-rm -f runs/*_m.cc runs/*_m.h
+	$(Q)-rm -f sigmetrics2014/*_m.cc sigmetrics2014/*_m.h
+	$(Q)-rm -f sigmetrics2014/bin/*_m.cc sigmetrics2014/bin/*_m.h
+	$(Q)-rm -f sigmetrics2014/maxima/*_m.cc sigmetrics2014/maxima/*_m.h
+	$(Q)-rm -f sigmetrics2014/plots/*_m.cc sigmetrics2014/plots/*_m.h
+	$(Q)-rm -f sigmetrics2014/plots/Randomization/*_m.cc sigmetrics2014/plots/Randomization/*_m.h
+	$(Q)-rm -f sigmetrics2014/topologies/*_m.cc sigmetrics2014/topologies/*_m.h
+	$(Q)-rm -f sigmetrics2014/topologies/bin/*_m.cc sigmetrics2014/topologies/bin/*_m.h
 
 cleanall: clean
 	$(Q)-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/presentation/*.cc OMNeTWorkshop/presentation/disco/*.cc OMNeTWorkshop/presentation/topologies/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc analysis/*.cc analysis/documentation/*.cc analysis/documentation/2012-11-15-icdcs/*.cc analysis/documentation/2012-12-08-omnetworkshop/*.cc analysis/documentation/2013-05-01-disc/*.cc analysis/documentation/2013-05-01-disc/1/*.cc channelvariation/*.cc icdcs2013/*.cc icdcs2013/bin/*.cc icdcs2013/maxima/*.cc icdcs2013/plots/*.cc icdcs2013/topologies/*.cc icdcs2013/topologies/bin/*.cc messages/*.cc networks/*.cc node/*.cc results/*.cc results.detCE71/*.cc results.iacdBBCE3CE7/*.cc results.testCE3.alt/*.cc results.testCE3.neu/*.cc results.testCE71.neu/*.cc results.testce71.alt/*.cc results.weibullCE71/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc OMNeTWorkshop/*.cc OMNeTWorkshop/includes/*.cc OMNeTWorkshop/plots/*.cc OMNeTWorkshop/presentation/*.cc OMNeTWorkshop/presentation/bin/*.cc OMNeTWorkshop/presentation/disco/*.cc OMNeTWorkshop/presentation/topologies/*.cc OMNeTWorkshop/topologies/*.cc adversaries/*.cc analysis/*.cc analysis/documentation/*.cc analysis/documentation/2012-11-15-icdcs/*.cc analysis/documentation/2012-12-08-omnetworkshop/*.cc analysis/documentation/2013-05-01-disc/*.cc analysis/documentation/2013-05-01-disc/1/*.cc analysis/documentation/2013-05-01-disc/2/*.cc analysis/documentation/2013-05-01-disc/3/*.cc analysis/documentation/2013-05-01-disc/4/*.cc analysis/documentation/2013-05-01-disc/5/*.cc analysis/documentation/2013-05-01-disc/bothRand1/*.cc analysis/documentation/2013-05-01-disc/bothRand2/*.cc analysis/documentation/2013-05-01-disc/testcase/*.cc analysis/documentation/2013-05-01-disc/testcase2/*.cc analysis/documentation/2014-07-30-queueingsystems/*.cc channelvariation/*.cc icdcs2013/*.cc icdcs2013/bin/*.cc icdcs2013/topologies/*.cc icdcs2013/website/*.cc messages/*.cc networks/*.cc node/*.cc oldPaperDrafts/*.cc oldPaperDrafts/bin/*.cc oldPaperDrafts/plots/*.cc queueingsystems2015/*.cc queueingsystems2015/bin/*.cc queueingsystems2015/maxima/*.cc queueingsystems2015/plots/*.cc queueingsystems2015/plots/Randomization/*.cc queueingsystems2015/topologies/*.cc queueingsystems2015/topologies/bin/*.cc resultsarchive2014/*.cc resultsarchive2014/results.1.test1failed/*.cc resultsarchive2014/results.3.testtoolargemeans/*.cc resultsarchive2014/results.5.100pc-steps_0.00001-3000/*.cc resultsarchive2014/results.oldas.1Sep2014/*.cc resultsarchive2014/results_DiazLotker_Diazok_LotkerSmallQueue/*.cc resultsarchive2014/results_LotkerMod_broken66percentloss/*.cc resultsarchive2014/results_LotkerMod_noloss_queue10000/*.cc resultsarchive2014/results_cdBBCE3CE71_r092_rep20/*.cc resultsarchive2014/results_infcdBBCE3CE71_r092_seeds0-29_iset100/*.cc resultsarchive2014/results_infcdBB_r083_seed0-499_iset100/*.cc resultsarchive2014/results_infcdBB_r084_seed0-499_iset100/*.cc resultsarchive2014/results_infiaBBCE3CE71_r089_seed0-19_iset100/*.cc resultsarchive2014/results_infiaBBCE3_infcdCE71_r086r088r082_s500s500s100_iset100/*.cc resultsarchive2014/results_infiaBBCE3_infcdCE71_r086r088r082_s500s500s100_iset100/results.no-use/*.cc resultsarchive2014/results_infiaBBCE3_r087_seed0-19_iset100/*.cc resultsarchive2014/results_infiaBBCE3_r088_seed0-19_iset100/*.cc resultsarchive2014/results_infiaBB_r086_seed0-19_iset100/*.cc resultsarchive2014/results_infiaBB_r092_rep30/*.cc resultsarchive2014/results_infiaBB_r095_rep20/*.cc resultsarchive2014/results_infia_infcd_BBCE3CE71_r092_rep50/*.cc runs/*.cc sigmetrics2014/*.cc sigmetrics2014/bin/*.cc sigmetrics2014/maxima/*.cc sigmetrics2014/plots/*.cc sigmetrics2014/plots/Randomization/*.cc sigmetrics2014/topologies/*.cc sigmetrics2014/topologies/bin/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/adversaries/APlusMinor.o: adversaries/APlusMinor.cc \
